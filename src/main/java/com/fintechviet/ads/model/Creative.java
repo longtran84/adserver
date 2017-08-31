@@ -1,5 +1,7 @@
 package com.fintechviet.ads.model;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -18,6 +20,7 @@ public class Creative {
     private String imageLink;
     private String videoLink;
     private String status;
+    private MultipartFile imageFile;
 
     @Id
     @Column(name = "id")
@@ -108,6 +111,15 @@ public class Creative {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    @Transient
+    public MultipartFile getImageFile() {
+        return imageFile;
+    }
+
+    public void setImageFile(MultipartFile imageFile) {
+        this.imageFile = imageFile;
     }
 
     @Override

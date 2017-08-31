@@ -11,6 +11,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 @Controller
 public class CreativeController {
@@ -37,22 +43,33 @@ public class CreativeController {
     @RequestMapping(value = "/creativeVideo", method = RequestMethod.POST)
     public String creativeVideo(@ModelAttribute("creativeForm") Creative creativeForm, BindingResult bindingResult) {
         //campaignValidator.validate(campaignForm, bindingResult);
-        creativeForm.setTemplate("video");
         if (bindingResult.hasErrors()) {
             return "creativeVideo";
         }
 
+        creativeForm.setTemplate("video");
         creativeService.save(creativeForm);
 
         return "redirect:/creativeVideo";
     }
 
     @RequestMapping(value = "/creativeImage", method = RequestMethod.POST)
-    public String creativeImage(@ModelAttribute("creativeForm") Creative creativeForm, BindingResult bindingResult) {
+    public String creativeImage(@ModelAttribute("creativeForm") Creative creativeForm, BindingResult bindingResult) throws IOException{
         //campaignValidator.validate(campaignForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
             return "creativeImage";
+        }
+        creativeForm.setTemplate("image");
+        MultipartFile file = creativeForm.getImageFile();
+        if (!file.getOriginalFilename().isEmpty()) {
+            BufferedOutputStream outputStream = new BufferedOutputStream(
+                    new FileOutputStream(
+                            new File("E:/abc", file.getOriginalFilename())));
+            outputStream.write(file.getBytes());
+            outputStream.flush();
+            outputStream.close();
+            creativeForm.setImageLink("/abc/" + file.getOriginalFilename());
         }
 
         creativeService.save(creativeForm);

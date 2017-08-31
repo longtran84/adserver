@@ -26,7 +26,8 @@
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="${contextPath}/resources/dist/css/skins/_all-skins.min.css">
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="${contextPath}/resources/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
   <!-- bootstrap datepicker -->
   <link rel="stylesheet" href="${contextPath}/resources/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
   <link href="${contextPath}/resources/css/common.css" rel="stylesheet">
@@ -82,7 +83,7 @@
                 <!--<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>-->
               </div>
             </div>
-            <form:form id="creativeForm" action="${contextPath}/creativeVideo" modelAttribute="creativeForm" method="post">
+            <form:form id="creativeForm" action="${contextPath}/creativeImage" modelAttribute="creativeForm" method="post" enctype="multipart/form-data">
             <!-- /.box-header -->
             <div class="box-body">
               <div class="row">
@@ -95,8 +96,8 @@
                       <form:input type="hidden" path="advertiser.id" id="advertiserId"/>
                       <form:errors path="advertiser.id"></form:errors>
                       <span class="input-group-btn">
-                      <button type="button" class="btn btn-info btn-flat" data-toggle="modal" data-target="#modal-choose-advertiser">...</button>
-                    </span>
+                        <button type="button" class="btn btn-info btn-flat" data-toggle="modal" data-target="#modal-choose-advertiser">...</button>
+                      </span>
                     </div>
                   </div>
                   <div class="form-group">
@@ -118,9 +119,20 @@
                     <form:errors path="alt"></form:errors>
                   </div>
                   <div class="form-group">
-                    <label for="title">Ảnh</label>
-                    <button id="btn_myFileInput" class="btn btn-info">Choose file...</button>
-                    <input type="file" id="myFileInput" multiple/>
+                    <label for="title">Đường dẫn ảnh</label>
+                    <div class="input-group">
+                      <input type="text" class="form-control" id="imageName" placeholder="Ảnh" autofocus="true" disabled="true">
+                      <span class="input-group-btn">
+                        <button type="button" class="btn btn-info btn-flat" id="imageFileBtn">Chọn ảnh...</button>
+                      </span>
+                      <form:input type="file" id="imageFile" path="imageFile"/>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="body">Xem trước ảnh</label>
+                    <div class="input-group">
+                      <img id="imagePreview" alt="Xem trước ảnh được tải lên" width="250px" height="250px"/>
+                    </div>
                   </div>
                 </div>
                 <!-- /.col -->
@@ -142,7 +154,7 @@
             </div>-->
             <!-- /.box-header -->
             <div class="box-body">
-              <table id="creativesTable" class="table table-bordered">
+              <table id="creativesTable" class="table table-bordered table-striped dataTable" role="grid">
                 <!-- Header Table -->
                 <thead>
                 <tr>
@@ -190,6 +202,73 @@
       </div>
       <!-- /.modal-dialog -->
     </div>
+    <div class="modal modal-danger fade" id="modal-file-error">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Định dạng và kích thước ảnh quảng cáo được hỗ trợ</h4>
+          </div>
+          <div class="modal-body">
+            <table class="table table-bordered">
+              <tr>
+                <td>
+                  Loại ảnh
+                </td>
+                <td>
+                  <ul>
+                    <li>.JPG</li>
+                    <li>.PNG</li>
+                    <li>.GIF</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>Độ lớn ảnh</td>
+                <td>150 KB hoặc nhỏ hơn</td>
+              </tr>
+              <tr>
+                <td>Kích thước ảnh</td>
+                <td>
+                  <ul>
+                    <li><strong>320 x 50</strong>: Mobile leaderboard <img src="//lh5.ggpht.com/r72rVFHFrC311Whh1Kr0E6X_c1khO7i-C_0f3gM4W3w0LrAcXP9dt0bbA1FxIZghOhOTP8Y=w21" height="auto" alt="
+Biểu tượng cho thấy độ phân giải HD hoặc độ phân giải cao cho hình ảnh được sử dụng trong quảng cáo trên điện thoại di động." title="
+Biểu tượng cho thấy độ phân giải HD hoặc độ phân giải cao cho hình ảnh được sử dụng trong quảng cáo trên điện thoại di động."></li>
+                    <li><strong>480 x 32</strong>: Mobile banner (landscape) <img src="//lh5.ggpht.com/r72rVFHFrC311Whh1Kr0E6X_c1khO7i-C_0f3gM4W3w0LrAcXP9dt0bbA1FxIZghOhOTP8Y=w21" height="auto" alt="
+Biểu tượng cho thấy độ phân giải HD hoặc độ phân giải cao cho hình ảnh được sử dụng trong quảng cáo trên điện thoại di động." title="
+Biểu tượng cho thấy độ phân giải HD hoặc độ phân giải cao cho hình ảnh được sử dụng trong quảng cáo trên điện thoại di động."></li>
+                    <li><strong>320 x 100</strong>: Large mobile banner <img src="//lh5.ggpht.com/r72rVFHFrC311Whh1Kr0E6X_c1khO7i-C_0f3gM4W3w0LrAcXP9dt0bbA1FxIZghOhOTP8Y=w21" height="auto" alt="
+Biểu tượng cho thấy độ phân giải HD hoặc độ phân giải cao cho hình ảnh được sử dụng trong quảng cáo trên điện thoại di động." title="
+Biểu tượng cho thấy độ phân giải HD hoặc độ phân giải cao cho hình ảnh được sử dụng trong quảng cáo trên điện thoại di động."></li>
+                    <li><strong>468 x 60</strong>: Banner <img src="//lh5.ggpht.com/r72rVFHFrC311Whh1Kr0E6X_c1khO7i-C_0f3gM4W3w0LrAcXP9dt0bbA1FxIZghOhOTP8Y=w21" height="auto" alt="
+Biểu tượng cho thấy độ phân giải HD hoặc độ phân giải cao cho hình ảnh được sử dụng trong quảng cáo trên điện thoại di động." title="
+Biểu tượng cho thấy độ phân giải HD hoặc độ phân giải cao cho hình ảnh được sử dụng trong quảng cáo trên điện thoại di động."></li>
+                    <li><strong>728 x 90</strong>: Leaderboard <img src="//lh5.ggpht.com/r72rVFHFrC311Whh1Kr0E6X_c1khO7i-C_0f3gM4W3w0LrAcXP9dt0bbA1FxIZghOhOTP8Y=w21" height="auto" alt="
+Biểu tượng cho thấy độ phân giải HD hoặc độ phân giải cao cho hình ảnh được sử dụng trong quảng cáo trên điện thoại di động." title="
+Biểu tượng cho thấy độ phân giải HD hoặc độ phân giải cao cho hình ảnh được sử dụng trong quảng cáo trên điện thoại di động."></li>
+                    <li><strong>300 x 250</strong>: Inline rectangle <img src="//lh5.ggpht.com/r72rVFHFrC311Whh1Kr0E6X_c1khO7i-C_0f3gM4W3w0LrAcXP9dt0bbA1FxIZghOhOTP8Y=w21" height="auto" alt="
+Biểu tượng cho thấy độ phân giải HD hoặc độ phân giải cao cho hình ảnh được sử dụng trong quảng cáo trên điện thoại di động." title="
+Biểu tượng cho thấy độ phân giải HD hoặc độ phân giải cao cho hình ảnh được sử dụng trong quảng cáo trên điện thoại di động."></li>
+                    <li><strong>320 x 480</strong>: Smartphone interstitial (portrait) <img src="//lh5.ggpht.com/r72rVFHFrC311Whh1Kr0E6X_c1khO7i-C_0f3gM4W3w0LrAcXP9dt0bbA1FxIZghOhOTP8Y=w21" height="auto" alt="
+Biểu tượng cho thấy độ phân giải HD hoặc độ phân giải cao cho hình ảnh được sử dụng trong quảng cáo trên điện thoại di động." title="
+Biểu tượng cho thấy độ phân giải HD hoặc độ phân giải cao cho hình ảnh được sử dụng trong quảng cáo trên điện thoại di động."></li>
+                    <li><strong>480 x 320</strong>: Smartphone interstitial (landscape) <img src="//lh5.ggpht.com/r72rVFHFrC311Whh1Kr0E6X_c1khO7i-C_0f3gM4W3w0LrAcXP9dt0bbA1FxIZghOhOTP8Y=w21" height="auto" alt="
+Biểu tượng cho thấy độ phân giải HD hoặc độ phân giải cao cho hình ảnh được sử dụng trong quảng cáo trên điện thoại di động." title="
+Biểu tượng cho thấy độ phân giải HD hoặc độ phân giải cao cho hình ảnh được sử dụng trong quảng cáo trên điện thoại di động."></li>
+                  </ul>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline" data-dismiss="modal">Đóng</button>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
     <%@ include file = "advertiserPopup.jsp" %>
   </div>
   <!-- /.content-wrapper -->
@@ -211,7 +290,9 @@
 <script src="${contextPath}/resources/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 <script src="${contextPath}/resources/bower_components/bootstrap-datepicker/dist/locales/bootstrap-datepicker.vi.min.js"></script>
 <script src="${contextPath}/resources/dist/js/adminlte.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+<!-- DataTables -->
+<script src="${contextPath}/resources/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="${contextPath}/resources/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <script src="${contextPath}/resources/js/advertiserPopup.js"></script>
 <script src="${contextPath}/resources/js/creativeImage.js"></script>
 </body>

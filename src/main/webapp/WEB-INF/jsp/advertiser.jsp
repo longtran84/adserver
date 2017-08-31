@@ -26,7 +26,8 @@
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="${contextPath}/resources/dist/css/skins/_all-skins.min.css">
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="${contextPath}/resources/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
   <link href="${contextPath}/resources/css/common.css" rel="stylesheet">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -135,7 +136,7 @@
             </div>-->
             <!-- /.box-header -->
             <div class="box-body">
-              <table id="advertisersTable" class="table table-bordered">
+              <table id="advertisersTable" class="table table-bordered table-striped dataTable" role="grid">
                 <!-- Header Table -->
                 <thead>
                 <tr>
@@ -204,7 +205,9 @@
 <!-- Slimscroll -->
 <script src="${contextPath}/resources/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <script src="${contextPath}/resources/dist/js/adminlte.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+<!-- DataTables -->
+<script src="${contextPath}/resources/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="${contextPath}/resources/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <script src="${contextPath}/resources/js/advertiser.js"></script>
 </body>
 </html>
