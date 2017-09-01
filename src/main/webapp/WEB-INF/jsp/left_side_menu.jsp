@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
@@ -17,18 +18,20 @@
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">DANH MỤC</li>
+            <sec:authorize access="hasRole('ROLE_ADMIN')">
             <li>
                 <a href="/advertiser">
                     <i class="fa fa-calendar"></i> <span>Nhà quảng cáo</span>
                 </a>
             </li>
+            </sec:authorize>
             <li >
                 <a href="/campaign">
                     <i class="fa fa-edit"></i> <span>Chiến dịch quảng cáo</span>
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="/flight">
                     <i class="fa fa-files-o"></i>
                     <span>Nhóm quảng cáo</span>
                 </a>
@@ -47,7 +50,7 @@
                 </ul>
             </li>
             <li>
-                <a href="#">
+                <a href="/ad">
                     <i class="fa fa-laptop"></i>
                     <span>Quảng cáo</span>
                 </a>

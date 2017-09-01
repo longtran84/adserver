@@ -8,4 +8,5 @@ public interface CreativeService {
     void save(Creative creative);
     void delete(Creative creative);
     List<Creative> getCreativesByTemplate(String template);
+    List<Creative> getAllCreatives();
 }

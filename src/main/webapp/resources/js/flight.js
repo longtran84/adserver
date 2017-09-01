@@ -7,12 +7,12 @@ $(document).ready( function () {
             xhr.setRequestHeader(header, token);
         });
         $('#editBtn').attr("disabled", true);
-        $('#campaignForm #startDate').val(reFormatDate($('#campaignForm #startDate').val()));
+        //$('#flightForm #startDate').val(reFormatDate($('#flightForm #startDate').val()));
     });
 
     var reFormatDate  = function (data) {
         if (data === null || data === '') return "";
-        var date = $('#campaignForm #startDate').datepicker('getDate');
+        var date = $('#flightForm #startDate').datepicker('getDate');
         var month = date.getMonth() + 1;
         var day = date.getDate();
         var year = date.getFullYear();
@@ -27,8 +27,8 @@ $(document).ready( function () {
         return (date.getDate().length > 1 ? date.getDate() : "0" + date.getDate()) + "/" + (month.length > 1 ? month : "0" + month) + "/" + date.getFullYear();
     }
 
-    var table = $('#campaignsTable').DataTable({
-			sAjaxSource: "/campaigns",
+    var table = $('#flightsTable').DataTable({
+			sAjaxSource: "/flights",
 			sAjaxDataProp: "",
             responsive: true,
 			order: [[ 0, "asc" ]],
@@ -46,7 +46,7 @@ $(document).ready( function () {
             },
              columns: [
              { data: "name" },
-             { data: "advertiser.email" },
+             { data: "campaign.name" },
              { data: "startDate",
                  "type": "date",
                  "render": function (data) {
@@ -69,27 +69,26 @@ $(document).ready( function () {
 	 });
 
     // Edit record
-    $('#campaignsTable tbody').on( 'click', 'a.editor_edit', function (e) {
+    $('#flightsTable tbody').on( 'click', 'a.editor_edit', function (e) {
         e.preventDefault();
         $('#editBtn').attr('disabled', false);
         $('#createBtn').attr('disabled', true);
         var data = table.row( $(this).parents('tr') ).data();
-        $('#campaignForm #advertiserId').val(data.advertiser.id);
-        $('#campaignForm #advertiserName').val(data.advertiser.email);
-        $('#campaignForm #name').val(data.name);
-        $('#campaignForm #startDate').val(formatDate(data.startDate));
-        $('#campaignForm #endDate').val(formatDate(data.endDate));
-        $('#campaignForm #isFreCapTmp').prop('checked', data.isFreCap == 1 ? true : false);
-        $('#campaignForm .icheckbox_minimal-blue').removeClass('checked');
-        $('#campaignForm .icheckbox_minimal-blue').addClass(data.isFreCap == 1 ? 'checked' : '');
-        $('#campaignForm #freCap').val(data.freCap);
-        $('#campaignForm #freCapDuration').val(data.freCapDuration);
-        $('#campaignForm #freCapType').val(data.freCapType);
-        $('#campaignForm #description').val(data.description);
+        $('#flightForm #campaignId').val(data.campaign.id);
+        $('#flightForm #campaignName').val(data.campaign.name);
+        $('#flightForm #name').val(data.name);
+        $('#flightForm #startDate').val(formatDate(data.startDate));
+        $('#flightForm #endDate').val(formatDate(data.endDate));
+        $('#flightForm #isFreCapTmp').prop('checked', data.isFreCap == 1 ? true : false);
+        $('#flightForm .icheckbox_minimal-blue').removeClass('checked');
+        $('#flightForm .icheckbox_minimal-blue').addClass(data.isFreCap == 1 ? 'checked' : '');
+        $('#flightForm #freCap').val(data.freCap);
+        $('#flightForm #freCapDuration').val(data.freCapDuration);
+        $('#flightForm #freCapType').val(data.freCapType);
     });
 
     // Delete a record
-    $('#advertisersTable tbody').on( 'click', 'a.editor_remove', function (e) {
+    $('#flightsTable tbody').on( 'click', 'a.editor_remove', function (e) {
         e.preventDefault();
         data = table.row( $(this).parents('tr') ).data();
         $('#modal-delete').modal();

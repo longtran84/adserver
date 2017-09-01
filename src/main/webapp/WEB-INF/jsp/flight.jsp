@@ -2,7 +2,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
@@ -24,11 +23,15 @@
   <link rel="stylesheet" href="${contextPath}/resources/bower_components/Ionicons/css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="${contextPath}/resources/dist/css/AdminLTE.min.css">
+  <!-- iCheck for checkboxes and radio inputs -->
+  <link rel="stylesheet" href="${contextPath}/resources/plugins/iCheck/all.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="${contextPath}/resources/dist/css/skins/_all-skins.min.css">
   <!-- DataTables -->
   <link rel="stylesheet" href="${contextPath}/resources/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+  <!-- bootstrap datepicker -->
+  <link rel="stylesheet" href="${contextPath}/resources/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
   <link href="${contextPath}/resources/css/common.css" rel="stylesheet">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -57,15 +60,15 @@
       <div class="alert alert-info alert-dismissible">
         <button type="button" id="close_info" class="close" aria-hidden="true">&times;</button>
         <h4><i class="icon fa fa-info"></i> Thông báo!</h4>
-        Nhà quảng cáo đã được xóa thành công!
+        Nhóm quảng cáo đã được xóa thành công!
       </div>
       <div class="alert alert-danger alert-dismissible">
         <button type="button" id="close_error" class="close" aria-hidden="true">&times;</button>
         <h4><i class="icon fa fa-ban"></i> Thông báo!</h4>
-        <span>Có lỗi xảy ra khi xóa nhà quảng cáo.</span>
+        <span>Có lỗi xảy ra khi xóa nhóm quảng cáo.</span>
       </div>
       <h1>
-        Nhà quảng cáo
+        Nhóm quảng cáo
       </h1>
     </section>
 
@@ -82,39 +85,98 @@
                 <!--<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>-->
               </div>
             </div>
-            <form:form id="advertiserForm" action="${contextPath}/advertiser" modelAttribute="advertiserForm" method="post">
+            <form:form id="campaignForm" action="${contextPath}/flight" modelAttribute="flightForm" method="post">
             <!-- /.box-header -->
             <div class="box-body">
               <div class="row">
 
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="email">Email</label>
-                    <form:input type="email" class="form-control" path="email" id="email" placeholder="Email" autofocus="true"/>
-                    <form:errors path="email"></form:errors>
+                    <label for="campaignName">Chiến dịch quảng cáo</label>
+                    <div class="input-group">
+                      <input type="text" class="form-control" id="campaignName" placeholder="Chiến dịch quảng cáo" autofocus="true" disabled="true">
+                      <form:input type="hidden" path="campaign.id" id="campaignId"/>
+                      <form:errors path="campaign.id"></form:errors>
+                      <span class="input-group-btn">
+                      <button type="button" class="btn btn-info btn-flat" data-toggle="modal" data-target="#modal-choose-campaign">...</button>
+                    </span>
+                    </div>
                   </div>
                   <div class="form-group">
-                    <label for="fullName">Họ tên</label>
-                    <form:input type="text" class="form-control" path="fullName" id="fullName" placeholder="Họ tên"/>
-                    <form:errors path="fullName"></form:errors>
+                    <label for="name">Tên</label>
+                    <form:input type="text" class="form-control" path="name" id="name" placeholder="Tên"/>
+                    <form:errors path="name"></form:errors>
                   </div>
                   <div class="form-group">
-                    <label for="phone">Điện thoại</label>
-                    <form:input type="text" class="form-control" path="phone" id="phone" placeholder="Điện thoại"/>
-                    <form:errors path="phone"></form:errors>
+                    <label for="rateType">Loại phí</label>
+                    <form:select class="form-control" path="rateType" id="rateType">
+                      <option value="FLAT">FLAT</option>
+                      <option value="CPC">CPC</option>
+                      <option value="CPM">CPM</option>
+                    </form:select>
+                    <form:errors path="rateType"></form:errors>
+                  </div>
+                  <div class="form-group">
+                    <fieldset class="scheduler-border">
+                      <legend class="scheduler-border">Định kỳ</legend>
+                      <div class="control-group">
+                        <label>
+                          <form:checkbox class="minimal" path="isFreCapTmp" id="isFreCapTmp"/>
+                          Chạy định kỳ
+                        </label>
+                      </div>
+                      <div class="form-horizontal">
+                        <label for="name" class="control-label col-sm-5">Hiển thị các quảng cáo từ chiến dịch này</label>
+                        <div class="col-sm-2">
+                          <form:input type="text" class="form-control" path="freCap" id="freCap"/>
+                        </div>
+                        <label for="name" class="control-label col-sm-1">lần</label>
+                        <div class="col-sm-2">
+                          <form:input type="text" class="form-control" path="freCapDuration" id="freCapDuration"/>
+                        </div>
+                        <div class="col-sm-2">
+                          <form:select class="form-control" path="freCapType" id="freCapType">
+                            <option value="HOUR">Giờ</option>
+                            <option value="DAY">Ngày</option>
+                            <option value="WEEK">Tuần</option>
+                          </form:select>
+                        </div>
+                        <form:errors path="freCapDuration"></form:errors>
+                      </div>
+                    </fieldset>
                   </div>
                 </div>
                 <!-- /.col -->
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="companyName">Tên công ty</label>
-                    <form:input type="text" class="form-control" path="companyName" id="companyName" placeholder="Tên công ty"/>
-                    <form:errors path="companyName"></form:errors>
+                    <label for="startDate">Ngày bắt đầu</label>
+                    <div class="input-group date">
+                      <div class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                      </div>
+                      <form:input type="text" class="form-control pull-right" path="startDate" id="startDate" placeholder="Ngày bắt đầu"/>
+                      <form:errors path="startDate"></form:errors>
+                    </div>
                   </div>
                   <div class="form-group">
-                    <label for="charge">Tổng chi phí</label>
-                    <form:input type="text" class="form-control" path="charge" id="charge" placeholder="Tổng chi phí"/>
-                    <form:errors path="charge"></form:errors>
+                    <label for="endDate">Ngày kết thúc</label>
+                    <div class="input-group date">
+                      <div class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                      </div>
+                      <form:input type="text" class="form-control pull-right" path="endDate" id="endDate" placeholder="Ngày kết thúc"/>
+                      <form:errors path="endDate"></form:errors>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="price">Đơn giá</label>
+                    <form:input type="text" class="form-control" path="price" id="price" placeholder="Đơn giá"/>
+                    <form:errors path="price"></form:errors>
+                  </div>
+                  <div class="form-group">
+                    <label for="name">Mô tả</label>
+                    <form:textarea class="form-control" path="description" id="description" rows="4" placeholder="Mô tả"/>
+                    <form:errors path="description"></form:errors>
                   </div>
                   <!-- /.form-group -->
                 </div>
@@ -137,26 +199,26 @@
             </div>-->
             <!-- /.box-header -->
             <div class="box-body">
-              <table id="advertisersTable" class="table table-bordered table-striped dataTable" role="grid">
+              <table id="flightsTable" class="table table-bordered table-striped dataTable" role="grid">
                 <!-- Header Table -->
                 <thead>
                 <tr>
-                  <th>Email</th>
-                  <th>Họ tên</th>
-                  <th>Tên công ty</th>
-                  <th>Điện thoại</th>
-                  <th>Tổng chi phí</th>
+                  <th>Tên</th>
+                  <th>Chiến dịch quảng cáo</th>
+                  <th>Ngày bắt đầu</th>
+                  <th>Ngày kết thúc</th>
+                  <th>Trạng thái</th>
                   <th>Sửa / Xóa</th>
                 </tr>
                 </thead>
                 <!-- Footer Table -->
                 <tfoot>
                 <tr>
-                  <th>Email</th>
-                  <th>Họ tên</th>
-                  <th>Tên công ty</th>
-                  <th>Điện thoại</th>
-                  <th>Tổng chi phí</th>
+                  <th>Tên</th>
+                  <th>Chiến dịch quảng cáo</th>
+                  <th>Ngày bắt đầu</th>
+                  <th>Ngày kết thúc</th>
+                  <th>Trạng thái</th>
                   <th>Sửa / Xóa</th>
                 </tr>
                 </tfoot>
@@ -173,14 +235,14 @@
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Xóa nhà quảng cáo</h4>
+            <h4 class="modal-title">Xóa nhóm quảng cáo</h4>
           </div>
           <div class="modal-body">
-            <p>Bạn có chắc chắn muốn xóa nhà quảng cáo này?</p>
+            <p>Bạn có chắc chắn muốn xóa nhóm quảng cáo này?</p>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
-            <button type="button" id="delete_advertiser" class="btn btn-primary">Xóa</button>
+            <button type="button" id="delete_flight" class="btn btn-primary">Xóa</button>
           </div>
         </div>
         <!-- /.modal-content -->
@@ -189,6 +251,7 @@
     </div>
   </div>
   <!-- /.content-wrapper -->
+  <%@ include file = "campaignPopup.jsp" %>
   <%@ include file = "footer.jsp" %>
 </div>
 <!-- ./wrapper -->
@@ -197,18 +260,29 @@
 <script src="${contextPath}/resources/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="${contextPath}/resources/bower_components/jquery-ui/jquery-ui.min.js"></script>
-<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<!-- iCheck 1.0.1 -->
+<script src="${contextPath}/resources/plugins/iCheck/icheck.min.js"></script>
 <script>
   $.widget.bridge('uibutton', $.ui.button);
+  $(function () {
+      //iCheck for checkbox and radio inputs
+      $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+          checkboxClass: 'icheckbox_minimal-blue',
+          radioClass   : 'iradio_minimal-blue'
+      })
+  })
 </script>
 <!-- Bootstrap 3.3.7 -->
 <script src="${contextPath}/resources/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- Slimscroll -->
 <script src="${contextPath}/resources/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<script src="${contextPath}/resources/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<script src="${contextPath}/resources/bower_components/bootstrap-datepicker/dist/locales/bootstrap-datepicker.vi.min.js"></script>
 <script src="${contextPath}/resources/dist/js/adminlte.min.js"></script>
 <!-- DataTables -->
 <script src="${contextPath}/resources/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="${contextPath}/resources/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-<script src="${contextPath}/resources/js/advertiser.js"></script>
+<script src="${contextPath}/resources/js/campaignPopup.js"></script>
+<script src="${contextPath}/resources/js/flight.js"></script>
 </body>
 </html>

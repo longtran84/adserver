@@ -26,4 +26,9 @@ public class CreativeServiceImpl implements CreativeService {
     public List<Creative> getCreativesByTemplate(String template) {
         return creativeRepository.findByTemplate(template);
     }
+
+    @Override
+    public List<Creative> getAllCreatives() {
+        return creativeRepository.findAll();
+    }
 }

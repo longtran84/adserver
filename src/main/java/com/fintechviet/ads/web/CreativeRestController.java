@@ -29,8 +29,13 @@ public class CreativeRestController {
         return creativeService.getCreativesByTemplate("image");
     }
 
+    @RequestMapping(path = "/creatives", method = RequestMethod.GET)
+    public List<Creative> getCreatives(){
+        return creativeService.getAllCreatives();
+    }
+
     @RequestMapping(value = "/deleteCreative", method = RequestMethod.POST)
-    public ResponseEntity<?> deleteCampaign(@RequestBody Creative creative) {
+    public ResponseEntity<?> deleteCreative(@RequestBody Creative creative) {
         try {
             creativeService.delete(creative);
         } catch (Exception ex) {
