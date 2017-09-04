@@ -10,4 +10,5 @@ public interface AdvertiserService {
     Advertiser findByEmail(String email);
     List<Advertiser> search(Advertiser advertiser);
     List<Advertiser> getAllAdvertisers();
+    void approveAdvertisers(Long id, boolean approved);
 }

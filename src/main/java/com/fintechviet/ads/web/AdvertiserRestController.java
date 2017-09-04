@@ -14,17 +14,17 @@ import java.util.List;
  * Created by tungn on 8/21/2017.
  */
 @RestController
-@RequestMapping(value="/adser")
+@RequestMapping("/adser")
 public class AdvertiserRestController {
     @Autowired
     private AdvertiserService advertiserService;
 
-    @RequestMapping(path = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public List<Advertiser> getAllAdvertisers(){
    	 Authentication auth = SecurityContextHolder.getContext().getAuthentication();
      String name = auth.getName(); //get logged in username
      System.out.println(name);
-        return advertiserService.getAllAdvertisers();
+     return advertiserService.getAllAdvertisers();
     }
 
     @RequestMapping(value = "/deleteAdvertiser", method = RequestMethod.POST)
@@ -42,16 +42,14 @@ public class AdvertiserRestController {
         return advertiserService.search(advertiser);
     }
     
-    @RequestMapping(value = "/{advertiserId}/verify", method = RequestMethod.POST)
-    public ResponseEntity<?> verifyAdvertiser(@RequestParam String advertiserId) {
+    @RequestMapping(value = "/{advertiserId}", method = RequestMethod.POST)
+    public ResponseEntity<String> verifyAdvertiser(@PathVariable("advertiserId") Long advertiserId, @RequestParam("approved") boolean approved) {
         try {
-        	 Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-             String name = auth.getName(); //get logged in username
-             System.out.println(name);
+        	advertiserService.approveAdvertisers(advertiserId, approved);
         } catch (Exception ex) {
             return ResponseEntity.badRequest().body("Error");
         }
-        return ResponseEntity.ok(advertiserId);
+        return ResponseEntity.ok(String.valueOf(advertiserId));
     }    
     
     

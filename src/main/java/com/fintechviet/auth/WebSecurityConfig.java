@@ -1,6 +1,7 @@
 package com.fintechviet.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -14,6 +15,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+	@Value("${devmode}")
+	private boolean devMode;
     @Autowired
     private UserDetailsService userDetailsService;
 
@@ -24,19 +27,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+    	if(devMode) http.csrf().disable();
         http
-                .authorizeRequests()
-                    .antMatchers("/resources/**", "/registration").permitAll()
-                    .antMatchers(HttpMethod.GET,"/advertiser").hasAnyRole("ROLE_ADMIN", "ROLE_ADVERTISER")
-                    .antMatchers(HttpMethod.POST,"/advertiser").hasAnyRole("ROLE_ADMIN", "ROLE_ADVERTISER")
-                    .antMatchers("/adser/**").access("hasRole('ROLE_ADVERTISER') or hasRole('ROLE_ADMIN')")
-                    .anyRequest().authenticated()
-                    .and()
-                    .formLogin().loginPage("/login")
-                    .permitAll()
-                    .and()
-                .logout()
-                    .permitAll();
+        .authorizeRequests()
+        .antMatchers("/resources/**", "/registration").permitAll()
+        .antMatchers(HttpMethod.GET,"/advertiser").hasAnyRole("ROLE_SUPER_ADMIN", "ROLE_ADVERTISER")
+        .antMatchers(HttpMethod.POST,"/advertiser").hasAnyRole("ROLE_SUPER_ADMIN", "ROLE_ADVERTISER")
+        .antMatchers("/adser/**").access("hasRole('ROLE_SUPER_ADMIN')")
+        .anyRequest().authenticated()
+        .and()
+        .formLogin().loginPage("/login")
+        .permitAll()
+        .and()
+    .logout()
+        .permitAll();
     }
 
     @Autowired
