@@ -32,13 +32,16 @@ public class PushAdsHelper {
 
         JSONObject json = new JSONObject();
 
-        json.put("to", "/topics/ads");
-        JSONObject info = new JSONObject();
-        info.put("title", "ads title"); // Notification title
-        info.put("body", "Advertising from Fintechviet"); // Notification
-        // body
-        json.put("notification", info);
+
         try {
+        	
+            json.put("to", "/topics/ads");
+            JSONObject info = new JSONObject();
+            info.put("title", "ads title"); // Notification title
+            info.put("body", "Advertising from Fintechviet"); // Notification
+            // body
+            json.put("notification", info);
+            
             OutputStreamWriter wr = new OutputStreamWriter(
                     conn.getOutputStream());
             wr.write(json.toString());
