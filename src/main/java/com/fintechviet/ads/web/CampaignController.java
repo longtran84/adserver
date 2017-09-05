@@ -3,6 +3,8 @@ package com.fintechviet.ads.web;
 import com.fintechviet.ads.model.Campaign;
 import com.fintechviet.ads.service.CampaignService;
 import com.fintechviet.ads.validator.CampaignValidator;
+import com.fintechviet.utils.DateUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,6 +36,13 @@ public class CampaignController {
             return "campaign";
         }
 
+        campaignForm.setStartDate(DateUtils.convertStringToDate(campaignForm.getStartDateTmp()  + " 00:00:00"));
+        if (!StringUtils.isEmpty(campaignForm.getEndDateTmp())) {
+            campaignForm.setEndDate(DateUtils.convertStringToDate(campaignForm.getEndDateTmp() + " 23:59:59"));
+        }
+
+        campaignForm.setFreCap(Integer.valueOf(campaignForm.getFreCapTmp()));
+        campaignForm.setFreCapDuration(Integer.valueOf(campaignForm.getFreCapDurationTmp()));
         campaignService.save(campaignForm);
 
         return "redirect:/campaign";

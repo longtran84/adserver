@@ -7,24 +7,13 @@ $(document).ready( function () {
             xhr.setRequestHeader(header, token);
         });
         $('#editBtn').attr("disabled", true);
-        $('#campaignForm #startDate').val(reFormatDate($('#campaignForm #startDate').val()));
     });
-
-    var reFormatDate  = function (data) {
-        if (data === null || data === '') return "";
-        var date = $('#campaignForm #startDate').datepicker('getDate');
-        var month = date.getMonth() + 1;
-        var day = date.getDate();
-        var year = date.getFullYear();
-        var formattedDate = month + '/' + day + '/' + year;
-        return formattedDate;
-    }
 
     var formatDate  = function (data) {
         if (data === null || data === '') return "";
         var date = new Date(data);
         var month = date.getMonth() + 1;
-        return (date.getDate().length > 1 ? date.getDate() : "0" + date.getDate()) + "/" + (month.length > 1 ? month : "0" + month) + "/" + date.getFullYear();
+        return (date.getDate().length > 1 ? date.getDate() : "0" + date.getDate()) + "/" + (month > 9 ? month : "0" + month) + "/" + date.getFullYear();
     }
 
     var table = $('#campaignsTable').DataTable({
@@ -79,7 +68,7 @@ $(document).ready( function () {
         $('#campaignForm #name').val(data.name);
         $('#campaignForm #startDate').val(formatDate(data.startDate));
         $('#campaignForm #endDate').val(formatDate(data.endDate));
-        $('#campaignForm #isFreCapTmp').prop('checked', data.isFreCap == 1 ? true : false);
+        $('#campaignForm #isFreCap').prop('checked', data.isFreCap == 1 ? true : false);
         $('#campaignForm .icheckbox_minimal-blue').removeClass('checked');
         $('#campaignForm .icheckbox_minimal-blue').addClass(data.isFreCap == 1 ? 'checked' : '');
         $('#campaignForm #freCap').val(data.freCap);
@@ -93,6 +82,10 @@ $(document).ready( function () {
         e.preventDefault();
         data = table.row( $(this).parents('tr') ).data();
         $('#modal-delete').modal();
+    });
+
+    $("#isFreCapTmp").click( function(){
+        if( $(this).is(':checked') ) alert("checked");
     });
 
     $('#startDate').datepicker({

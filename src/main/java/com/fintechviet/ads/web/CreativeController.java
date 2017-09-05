@@ -1,9 +1,9 @@
 package com.fintechviet.ads.web;
 
-import com.fintechviet.ads.model.Campaign;
 import com.fintechviet.ads.model.Creative;
 import com.fintechviet.ads.service.CreativeService;
-import com.fintechviet.ads.validator.CampaignValidator;
+import com.fintechviet.ads.validator.CreativeImageValidator;
+import com.fintechviet.ads.validator.CreativeVideoValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,7 +24,10 @@ public class CreativeController {
     private CreativeService creativeService;
 
     @Autowired
-    private CampaignValidator campaignValidator;
+    private CreativeImageValidator creativeImageValidator;
+
+    @Autowired
+    private CreativeVideoValidator creativeVideoValidator;
 
     @RequestMapping(value = "/creativeImage", method = RequestMethod.GET)
     public String creativeImage(Model model) {
@@ -42,7 +45,7 @@ public class CreativeController {
 
     @RequestMapping(value = "/creativeVideo", method = RequestMethod.POST)
     public String creativeVideo(@ModelAttribute("creativeForm") Creative creativeForm, BindingResult bindingResult) {
-        //campaignValidator.validate(campaignForm, bindingResult);
+        creativeVideoValidator.validate(creativeForm, bindingResult);
         if (bindingResult.hasErrors()) {
             return "creativeVideo";
         }
@@ -55,7 +58,7 @@ public class CreativeController {
 
     @RequestMapping(value = "/creativeImage", method = RequestMethod.POST)
     public String creativeImage(@ModelAttribute("creativeForm") Creative creativeForm, BindingResult bindingResult) throws IOException{
-        //campaignValidator.validate(campaignForm, bindingResult);
+        creativeImageValidator.validate(creativeForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
             return "creativeImage";

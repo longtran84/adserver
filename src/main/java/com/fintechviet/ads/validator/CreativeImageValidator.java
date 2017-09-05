@@ -1,9 +1,9 @@
 package com.fintechviet.ads.validator;
 
-import com.fintechviet.ads.model.Advertiser;
-import com.fintechviet.ads.model.Campaign;
-import com.fintechviet.ads.service.CampaignService;
+import com.fintechviet.ads.model.Creative;
+import com.fintechviet.ads.service.CreativeService;
 import com.fintechviet.utils.DateUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -11,43 +11,35 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 @Component
-public class CampaignValidator implements Validator {
+public class CreativeImageValidator implements Validator {
     @Autowired
-    private CampaignService campaignService;
+    private CreativeService creativeService;
 
     @Override
     public boolean supports(Class<?> aClass) {
-        return Advertiser.class.equals(aClass);
+        return Creative.class.equals(aClass);
     }
 
     @Override
     public void validate(Object o, Errors errors) {
-        Campaign campaign = (Campaign) o;
-        campaign = (Campaign) o;
+        Creative creative = (Creative) o;
+        creative = (Creative) o;
 
-        if (campaign.getAdvertiser().getId() == null) {
-            errors.rejectValue("advertiser.id", "campaignForm.advertiser.empty");
+        if (creative.getAdvertiser().getId() == null) {
+            errors.rejectValue("advertiser.id", "creativeForm.advertiser.empty");
         }
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "campaignForm.name.empty");
-        if (campaign.getName().length()  > 100) {
-            errors.rejectValue("name", "campaignForm.name.size");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "title", "creativeForm.title.empty");
+        if (creative.getTitle().length()  > 100) {
+            errors.rejectValue("title", "creativeForm.title.size");
         }
 
-        if (campaign.isIsFreCapTmp()) {
-            ValidationUtils.rejectIfEmptyOrWhitespace(errors, "freCap", "campaignForm.freCap.empty");
-            ValidationUtils.rejectIfEmptyOrWhitespace(errors, "freCapDuration", "campaignForm.freCap.empty");
-            ValidationUtils.rejectIfEmptyOrWhitespace(errors, "freCapType", "campaignForm.freCap.empty");
+        if (creative.getAlt().length()  > 255) {
+            errors.rejectValue("alt", "creativeForm.alt.size");
         }
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "startDateTmp", "campaignForm.startDate.empty");
-
-        if (DateUtils.compare(campaign.getStartDateTmp()  + " 00:00:00", campaign.getEndDateTmp() + " 23:59:59") == DateUtils.AFTER) {
-            errors.rejectValue("endDateTmp", "campaignForm.endDate.before");
-        }
-
-        if (campaign.getDescription().length()  > 255) {
-            errors.rejectValue("description", "campaignForm.description.size");
+        if (StringUtils.isEmpty(creative.getImageFile().getOriginalFilename())) {
+            errors.rejectValue("imageFile", "creativeForm.imageFile.empty");
         }
     }
 }

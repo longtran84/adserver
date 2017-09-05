@@ -7,7 +7,6 @@ $(document).ready( function () {
             xhr.setRequestHeader(header, token);
         });
         $('#editBtn').attr("disabled", true);
-        //$('#flightForm #startDate').val(reFormatDate($('#flightForm #startDate').val()));
     });
 
     var reFormatDate  = function (data) {
@@ -79,7 +78,7 @@ $(document).ready( function () {
         $('#flightForm #name').val(data.name);
         $('#flightForm #startDate').val(formatDate(data.startDate));
         $('#flightForm #endDate').val(formatDate(data.endDate));
-        $('#flightForm #isFreCapTmp').prop('checked', data.isFreCap == 1 ? true : false);
+        $('#flightForm #isFreCap').prop('checked', data.isFreCap == 1 ? true : false);
         $('#flightForm .icheckbox_minimal-blue').removeClass('checked');
         $('#flightForm .icheckbox_minimal-blue').addClass(data.isFreCap == 1 ? 'checked' : '');
         $('#flightForm #freCap').val(data.freCap);

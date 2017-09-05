@@ -9,7 +9,7 @@ import java.util.Date;
  */
 @Entity
 public class Flight {
-    private long id;
+    private Long id;
     private String name;
     private Date startDate;
     private Date endDate;
@@ -22,16 +22,20 @@ public class Flight {
     private String description;
     private String status;
     private Campaign campaign;
+    private String startDateTmp;
+    private String endDateTmp;
     private boolean isFreCapTmp;
+    private String freCapTmp;
+    private String freCapDurationTmp;
 
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -162,6 +166,42 @@ public class Flight {
 
     public void setIsFreCapTmp(boolean isFreCapTmp) {
         this.isFreCapTmp = isFreCapTmp;
+    }
+
+    @Transient
+    public String getStartDateTmp() {
+        return startDateTmp;
+    }
+
+    public void setStartDateTmp(String startDateTmp) {
+        this.startDateTmp = startDateTmp;
+    }
+
+    @Transient
+    public String getEndDateTmp() {
+        return endDateTmp;
+    }
+
+    public void setEndDateTmp(String endDateTmp) {
+        this.endDateTmp = endDateTmp;
+    }
+
+    @Transient
+    public String getFreCapTmp() {
+        return freCapTmp;
+    };
+
+    public void setFreCapTmp(String freCapTmp) {
+        this.freCapTmp = freCapTmp;
+    }
+
+    @Transient
+    public String getFreCapDurationTmp() {
+        return freCapDurationTmp;
+    }
+
+    public void setFreCapDurationTmp(String freCapDurationTmp) {
+        this.freCapDurationTmp = freCapDurationTmp;
     }
 
     @Override

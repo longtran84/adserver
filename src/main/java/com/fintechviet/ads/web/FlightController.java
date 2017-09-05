@@ -2,7 +2,7 @@ package com.fintechviet.ads.web;
 
 import com.fintechviet.ads.model.Flight;
 import com.fintechviet.ads.service.FlightService;
-import com.fintechviet.ads.validator.CampaignValidator;
+import com.fintechviet.ads.validator.FlightValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +17,7 @@ public class FlightController {
     private FlightService flightService;
 
     @Autowired
-    private CampaignValidator campaignValidator;
+    private FlightValidator flightValidator;
 
     @RequestMapping(value = "/flight", method = RequestMethod.GET)
     public String flight(Model model) {
@@ -28,12 +28,14 @@ public class FlightController {
 
     @RequestMapping(value = "/flight", method = RequestMethod.POST)
     public String flight(@ModelAttribute("flightForm") Flight flightForm, BindingResult bindingResult) {
-        //campaignValidator.validate(campaignForm, bindingResult);
+        flightValidator.validate(flightForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
             return "flight";
         }
 
+        flightForm.setFreCap(Integer.valueOf(flightForm.getFreCapTmp()));
+        flightForm.setFreCapDuration(Integer.valueOf(flightForm.getFreCapDurationTmp()));
         flightService.save(flightForm);
 
         return "redirect:/flight";

@@ -10,7 +10,7 @@ import java.util.Date;
 @Entity
 @Table(name = "campaign")
 public class Campaign {
-    private long id;
+    private Long id;
     private String name;
     private Date startDate;
     private Date endDate;
@@ -21,16 +21,20 @@ public class Campaign {
     private String description;
     private String status;
     private Advertiser advertiser;
+    private String startDateTmp;
+    private String endDateTmp;
     private boolean isFreCapTmp;
+    private String freCapTmp;
+    private String freCapDurationTmp;
 
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -141,6 +145,42 @@ public class Campaign {
 
     public void setIsFreCapTmp(boolean isFreCapTmp) {
         this.isFreCapTmp = isFreCapTmp;
+    }
+
+    @Transient
+    public String getEndDateTmp() {
+        return endDateTmp;
+    }
+
+    public void setEndDateTmp(String endDateTmp) {
+        this.endDateTmp = endDateTmp;
+    }
+
+    @Transient
+    public String getStartDateTmp() {
+        return startDateTmp;
+    }
+
+    public void setStartDateTmp(String startDateTmp) {
+        this.startDateTmp = startDateTmp;
+    }
+
+    @Transient
+    public String getFreCapTmp() {
+        return freCapTmp;
+    };
+
+    public void setFreCapTmp(String freCapTmp) {
+        this.freCapTmp = freCapTmp;
+    }
+
+    @Transient
+    public String getFreCapDurationTmp() {
+        return freCapDurationTmp;
+    }
+
+    public void setFreCapDurationTmp(String freCapDurationTmp) {
+        this.freCapDurationTmp = freCapDurationTmp;
     }
 
     @Override

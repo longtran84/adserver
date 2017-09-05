@@ -90,20 +90,20 @@
 
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="advertiserName">Nhà quảng cáo</label>
+                    <label for="advertiserName">Nhà quảng cáo *</label>
                     <div class="input-group">
                       <input type="text" class="form-control" id="advertiserName" placeholder="Nhà quảng cáo" autofocus="true" disabled="true">
                       <form:input type="hidden" path="advertiser.id" id="advertiserId"/>
-                      <form:errors path="advertiser.id"></form:errors>
                       <span class="input-group-btn">
                       <button type="button" class="btn btn-info btn-flat" data-toggle="modal" data-target="#modal-choose-advertiser">...</button>
                     </span>
                     </div>
+                    <form:errors path="advertiser.id" cssClass="has-error"></form:errors>
                   </div>
                   <div class="form-group">
-                    <label for="title">Tiêu đề</label>
+                    <label for="title">Tiêu đề *</label>
                     <form:input type="text" class="form-control" path="title" id="title" placeholder="Tiêu đề"/>
-                    <form:errors path="title"></form:errors>
+                    <form:errors path="title" cssClass="has-error"></form:errors>
                   </div>
                   <div class="form-group">
                     <label for="body">Nội dung</label>
@@ -116,12 +116,12 @@
                   <div class="form-group">
                     <label for="title">Alt</label>
                     <form:input type="text" class="form-control" path="alt" id="alt" placeholder="Alt"/>
-                    <form:errors path="alt"></form:errors>
+                    <form:errors path="alt" cssClass="has-error"></form:errors>
                   </div>
                   <div class="form-group">
-                    <label for="title">Đường dẫn Video</label>
+                    <label for="title">Đường dẫn Video *</label>
                     <form:input type="text" class="form-control" path="videoLink" id="videoLink" placeholder="Đường dẫn video"/>
-                    <form:errors path="videoLink"></form:errors>
+                    <form:errors path="videoLink" cssClass="has-error"></form:errors>
                   </div>
                 </div>
                 <!-- /.col -->

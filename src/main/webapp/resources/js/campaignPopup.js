@@ -43,7 +43,7 @@ var formatDate  = function (data) {
     if (data === null || data === '') return "";
     var date = new Date(data);
     var month = date.getMonth() + 1;
-    return (date.getDate().length > 1 ? date.getDate() : "0" + date.getDate()) + "/" + (month.length > 1 ? month : "0" + month) + "/" + date.getFullYear();
+    return (date.getDate().length > 1 ? date.getDate() : "0" + date.getDate()) + "/" + (month > 9 ? month : "0" + month) + "/" + date.getFullYear();
 }
 
 $('#campaignsTable tbody').on( 'click', 'a.editor_choose', function (e) {
@@ -52,6 +52,14 @@ $('#campaignsTable tbody').on( 'click', 'a.editor_choose', function (e) {
     var data = campaignsTable.row( $(this).parents('tr') ).data();
     $('#campaignId').val(data.id);
     $('#campaignName').val(data.name);
+    $('#isFreCapTmp').prop('checked', data.isFreCap == 1 ? true : false);
+    $('.icheckbox_minimal-blue').removeClass('checked');
+    $('.icheckbox_minimal-blue').addClass(data.isFreCap == 1 ? 'checked' : '');
+    if (data.isFreCap == 1) {
+        $('#freCap').val(data.freCap);
+        $('#freCapDuration').val(data.freCapDuration);
+        $('#freCapType').val(data.freCapType);
+    }
 });
 
 $('#modal-choose-campaign').on('shown.bs.modal', function() {

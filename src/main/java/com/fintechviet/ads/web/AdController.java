@@ -2,7 +2,7 @@ package com.fintechviet.ads.web;
 
 import com.fintechviet.ads.model.Ad;
 import com.fintechviet.ads.service.AdService;
-import com.fintechviet.ads.validator.CampaignValidator;
+import com.fintechviet.ads.validator.AdValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +17,7 @@ public class AdController {
     private AdService adService;
 
     @Autowired
-    private CampaignValidator campaignValidator;
+    private AdValidator adValidator;
 
     @RequestMapping(value = "/ad", method = RequestMethod.GET)
     public String campaign(Model model) {
@@ -28,12 +28,20 @@ public class AdController {
 
     @RequestMapping(value = "/ad", method = RequestMethod.POST)
     public String campaign(@ModelAttribute("adForm") Ad adForm, BindingResult bindingResult) {
-        //campaignValidator.validate(campaignForm, bindingResult);
+        adValidator.validate(adForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
             return "ad";
         }
 
+        adForm.setImpressions(Integer.valueOf(adForm.getImpressionsTmp()));
+        if (adForm.isIsFreCapTmp()) {
+            adForm.setIsFreCap(Byte.valueOf("1"));
+        } else {
+            adForm.setIsFreCap(Byte.valueOf("0"));
+        }
+        adForm.setFreCap(Integer.valueOf(adForm.getFreCapTmp()));
+        adForm.setFreCapDuration(Integer.valueOf(adForm.getFreCapDurationTmp()));
         adService.save(adForm);
 
         return "redirect:/ad";

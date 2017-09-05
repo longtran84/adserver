@@ -92,32 +92,32 @@
 
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="name">Tên</label>
+                    <label for="name">Tên *</label>
                     <form:input type="text" class="form-control" path="name" id="name" placeholder="Tên"/>
-                    <form:errors path="name"></form:errors>
+                    <form:errors path="name" cssClass="has-error"></form:errors>
                   </div>
                   <div class="form-group">
-                    <label for="name">Số lần xuất hiện</label>
-                    <form:input type="text" class="form-control" path="impressions" id="impressions" placeholder="Số lần xuất hiện"/>
-                    <form:errors path="impressions"></form:errors>
+                    <label for="impressions">Số lần xuất hiện *</label>
+                    <form:input type="text" class="form-control" path="impressionsTmp" id="impressions" placeholder="Số lần xuất hiện"/>
+                    <form:errors path="impressionsTmp" cssClass="has-error"></form:errors>
                   </div>
                   <div class="form-group">
                     <fieldset class="scheduler-border">
                       <legend class="scheduler-border">Định kỳ</legend>
                       <div class="control-group">
                         <label>
-                          <form:checkbox class="minimal" path="isFreCapTmp" id="isFreCapTmp"/>
+                          <form:checkbox class="minimal" path="isFreCapTmp" id="isFreCap"/>
                           Chạy định kỳ
                         </label>
                       </div>
                       <div class="form-horizontal">
-                        <label for="name" class="control-label col-sm-5">Hiển thị các quảng cáo từ chiến dịch này</label>
+                        <label for="freCap" class="control-label col-sm-5">Hiển thị các quảng cáo từ chiến dịch này</label>
                         <div class="col-sm-2">
-                          <form:input type="text" class="form-control" path="freCap" id="freCap"/>
+                          <form:input type="text" class="form-control" path="freCapTmp" id="freCap"/>
                         </div>
                         <label for="name" class="control-label col-sm-1">lần</label>
                         <div class="col-sm-2">
-                          <form:input type="text" class="form-control" path="freCapDuration" id="freCapDuration"/>
+                          <form:input type="text" class="form-control" path="freCapDurationTmp" id="freCapDuration"/>
                         </div>
                         <div class="col-sm-2">
                           <form:select class="form-control" path="freCapType" id="freCapType">
@@ -126,7 +126,7 @@
                             <option value="WEEK">Tuần</option>
                           </form:select>
                         </div>
-                        <form:errors path="freCapDuration"></form:errors>
+                        <form:errors path="freCapTmp" cssClass="has-error"></form:errors>
                       </div>
                     </fieldset>
                   </div>
@@ -134,31 +134,31 @@
                 <!-- /.col -->
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="flightName">Nhóm quảng cáo</label>
+                    <label for="flightName">Nhóm quảng cáo *</label>
                     <div class="input-group">
                       <input type="text" class="form-control" id="flightName" placeholder="Nhóm quảng cáo" autofocus="true" disabled="true">
                       <form:input type="hidden" path="flight.id" id="flightId"/>
-                      <form:errors path="flight.id"></form:errors>
                       <span class="input-group-btn">
-                      <button type="button" class="btn btn-info btn-flat" data-toggle="modal" data-target="#modal-choose-flight">...</button>
-                    </span>
+                        <button type="button" class="btn btn-info btn-flat" data-toggle="modal" data-target="#modal-choose-flight">...</button>
+                      </span>
                     </div>
+                    <form:errors path="flight.id" cssClass="has-error"></form:errors>
                   </div>
                   <div class="form-group">
-                    <label for="creativeTitle">Định dạng quảng cáo</label>
+                    <label for="creativeTitle">Định dạng quảng cáo *</label>
                     <div class="input-group">
                       <input type="text" class="form-control" id="creativeTitle" placeholder="Định dạng quảng cáo" autofocus="true" disabled="true">
                       <form:input type="hidden" path="creative.id" id="creativeId"/>
-                      <form:errors path="creative.id"></form:errors>
                       <span class="input-group-btn">
-                      <button type="button" class="btn btn-info btn-flat" data-toggle="modal" data-target="#modal-choose-creative">...</button>
-                    </span>
+                        <button type="button" class="btn btn-info btn-flat" data-toggle="modal" data-target="#modal-choose-creative">...</button>
+                      </span>
                     </div>
+                    <form:errors path="creative.id" cssClass="has-error"></form:errors>
                   </div>
                   <div class="form-group">
                     <label for="name">Mô tả</label>
                     <form:textarea class="form-control" path="description" id="description" rows="4" placeholder="Mô tả"/>
-                    <form:errors path="description"></form:errors>
+                    <form:errors path="description" cssClass="has-error"></form:errors>
                   </div>
                   <!-- /.form-group -->
                 </div>

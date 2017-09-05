@@ -13,7 +13,7 @@ $(document).ready( function () {
         if (data === null || data === '') return "";
         var date = new Date(data);
         var month = date.getMonth() + 1;
-        return (date.getDate().length > 1 ? date.getDate() : "0" + date.getDate()) + "/" + (month.length > 1 ? month : "0" + month) + "/" + date.getFullYear();
+        return (date.getDate().length > 1 ? date.getDate() : "0" + date.getDate()) + "/" + (month > 9 ? month : "0" + month) + "/" + date.getFullYear();
     }
 
     var table = $('#creativesTable').DataTable({

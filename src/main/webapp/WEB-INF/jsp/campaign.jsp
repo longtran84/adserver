@@ -92,38 +92,38 @@
 
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="advertiserName">Nhà quảng cáo</label>
+                    <label for="advertiserName">Nhà quảng cáo *</label>
                     <div class="input-group">
                       <input type="text" class="form-control" id="advertiserName" placeholder="Nhà quảng cáo" autofocus="true" disabled="true">
                       <form:input type="hidden" path="advertiser.id" id="advertiserId"/>
-                      <form:errors path="advertiser.id"></form:errors>
                       <span class="input-group-btn">
                       <button type="button" class="btn btn-info btn-flat" data-toggle="modal" data-target="#modal-choose-advertiser">...</button>
                     </span>
                     </div>
+                    <form:errors path="advertiser.id" cssClass="has-error"></form:errors>
                   </div>
                   <div class="form-group">
-                    <label for="name">Tên</label>
+                    <label for="name">Tên *</label>
                     <form:input type="text" class="form-control" path="name" id="name" placeholder="Tên"/>
-                    <form:errors path="name"></form:errors>
+                    <form:errors path="name" cssClass="has-error"></form:errors>
                   </div>
                   <div class="form-group">
                     <fieldset class="scheduler-border">
                       <legend class="scheduler-border">Định kỳ</legend>
                       <div class="control-group">
                         <label>
-                          <form:checkbox class="minimal" path="isFreCapTmp" id="isFreCapTmp"/>
+                          <form:checkbox class="minimal" path="isFreCapTmp" id="isFreCap"/>
                           Chạy định kỳ
                         </label>
                       </div>
                       <div class="form-horizontal">
-                        <label for="name" class="control-label col-sm-5">Hiển thị các quảng cáo từ chiến dịch này</label>
+                        <label for="freCap" class="control-label col-sm-5">Hiển thị các quảng cáo từ chiến dịch này</label>
                         <div class="col-sm-2">
-                          <form:input type="text" class="form-control" path="freCap" id="freCap"/>
+                          <form:input type="text" class="form-control" path="freCapTmp" id="freCap"/>
                         </div>
                         <label for="name" class="control-label col-sm-1">lần</label>
                         <div class="col-sm-2">
-                          <form:input type="text" class="form-control" path="freCapDuration" id="freCapDuration"/>
+                          <form:input type="text" class="form-control" path="freCapDurationTmp" id="freCapDuration"/>
                         </div>
                         <div class="col-sm-2">
                           <form:select class="form-control" path="freCapType" id="freCapType">
@@ -132,7 +132,7 @@
                             <option value="WEEK">Tuần</option>
                           </form:select>
                         </div>
-                        <form:errors path="freCapDuration"></form:errors>
+                        <form:errors path="freCapTmp" cssClass="has-error"></form:errors>
                       </div>
                     </fieldset>
                   </div>
@@ -140,14 +140,14 @@
                 <!-- /.col -->
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="startDate">Ngày bắt đầu</label>
+                    <label for="startDate">Ngày bắt đầu *</label>
                     <div class="input-group date">
                       <div class="input-group-addon">
                         <i class="fa fa-calendar"></i>
                       </div>
-                      <form:input type="text" class="form-control pull-right" path="startDate" id="startDate" placeholder="Ngày bắt đầu"/>
-                      <form:errors path="startDate"></form:errors>
+                      <form:input type="text" class="form-control pull-right" path="startDateTmp" id="startDate" placeholder="Ngày bắt đầu"/>
                     </div>
+                    <form:errors path="startDateTmp" cssClass="has-error"></form:errors>
                   </div>
                   <div class="form-group">
                     <label for="endDate">Ngày kết thúc</label>
@@ -155,14 +155,14 @@
                       <div class="input-group-addon">
                         <i class="fa fa-calendar"></i>
                       </div>
-                      <form:input type="text" class="form-control pull-right" path="endDate" id="endDate" placeholder="Ngày kết thúc"/>
-                      <form:errors path="endDate"></form:errors>
+                      <form:input type="text" class="form-control pull-right" path="endDateTmp" id="endDate" placeholder="Ngày kết thúc"/>
                     </div>
+                    <form:errors path="endDateTmp" cssClass="has-error"></form:errors>
                   </div>
                   <div class="form-group">
                     <label for="name">Mô tả</label>
                     <form:textarea class="form-control" path="description" id="description" rows="4" placeholder="Mô tả"/>
-                    <form:errors path="description"></form:errors>
+                    <form:errors path="description" cssClass="has-error"></form:errors>
                   </div>
                   <!-- /.form-group -->
                 </div>

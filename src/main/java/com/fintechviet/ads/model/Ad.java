@@ -19,7 +19,9 @@ public class Ad {
     private Flight flight;
     private Creative creative;
     private boolean isFreCapTmp;
-
+    private String impressionsTmp;
+    private String freCapTmp;
+    private String freCapDurationTmp;
 
     @Id
     @Column(name = "id")
@@ -139,6 +141,33 @@ public class Ad {
 
     public void setIsFreCapTmp(boolean isFreCapTmp) {
         this.isFreCapTmp = isFreCapTmp;
+    }
+
+    @Transient
+    public String getImpressionsTmp() {
+        return impressionsTmp;
+    }
+
+    public void setImpressionsTmp(String impressionsTmp) {
+        this.impressionsTmp = impressionsTmp;
+    }
+
+    @Transient
+    public String getFreCapTmp() {
+        return freCapTmp;
+    };
+
+    public void setFreCapTmp(String freCapTmp) {
+        this.freCapTmp = freCapTmp;
+    }
+
+    @Transient
+    public String getFreCapDurationTmp() {
+        return freCapDurationTmp;
+    }
+
+    public void setFreCapDurationTmp(String freCapDurationTmp) {
+        this.freCapDurationTmp = freCapDurationTmp;
     }
 
     @Override

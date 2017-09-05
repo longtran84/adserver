@@ -70,7 +70,7 @@ $(document).ready( function () {
         $('#adForm #creativeTitle').val(data.creative.title);
         $('#adForm #name').val(data.name);
         $('#adForm #impressions').val(data.impressions);
-        $('#adForm #isFreCapTmp').prop('checked', data.isFreCap == 1 ? true : false);
+        $('#adForm #isFreCap').prop('checked', data.isFreCap == 1 ? true : false);
         $('#adForm .icheckbox_minimal-blue').removeClass('checked');
         $('#adForm .icheckbox_minimal-blue').addClass(data.isFreCap == 1 ? 'checked' : '');
         $('#adForm #freCap').val(data.freCap);

@@ -2,7 +2,6 @@ package com.fintechviet.ads.validator;
 
 import com.fintechviet.ads.model.Creative;
 import com.fintechviet.ads.service.CreativeService;
-import com.fintechviet.utils.DateUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -11,7 +10,7 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 @Component
-public class CreativeImageValidator implements Validator {
+public class CreativeVideoValidator implements Validator {
     @Autowired
     private CreativeService creativeService;
 
@@ -38,8 +37,9 @@ public class CreativeImageValidator implements Validator {
             errors.rejectValue("alt", "creativeForm.alt.size");
         }
 
-        if (StringUtils.isEmpty(creative.getImageFile().getOriginalFilename())) {
-            errors.rejectValue("imageFile", "creativeForm.imageFile.empty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "videoLink", "creativeForm.videoLink.empty");
+        if (creative.getVideoLink().length()  > 255) {
+            errors.rejectValue("title", "creativeForm.videoLink.size");
         }
     }
 }

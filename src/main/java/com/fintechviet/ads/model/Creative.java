@@ -11,7 +11,7 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "creative")
 public class Creative {
-    private long id;
+    private Long id;
     private Advertiser advertiser;
     private String title;
     private String body;
@@ -25,11 +25,11 @@ public class Creative {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

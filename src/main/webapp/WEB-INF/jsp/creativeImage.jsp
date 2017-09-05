@@ -90,25 +90,25 @@
 
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="advertiserName">Nhà quảng cáo</label>
+                    <label for="advertiserName">Nhà quảng cáo *</label>
                     <div class="input-group">
                       <input type="text" class="form-control" id="advertiserName" placeholder="Nhà quảng cáo" autofocus="true" disabled="true">
                       <form:input type="hidden" path="advertiser.id" id="advertiserId"/>
-                      <form:errors path="advertiser.id"></form:errors>
                       <span class="input-group-btn">
                         <button type="button" class="btn btn-info btn-flat" data-toggle="modal" data-target="#modal-choose-advertiser">...</button>
                       </span>
                     </div>
+                    <form:errors path="advertiser.id" cssClass="has-error"></form:errors>
                   </div>
                   <div class="form-group">
-                    <label for="title">Tiêu đề</label>
+                    <label for="title">Tiêu đề *</label>
                     <form:input type="text" class="form-control" path="title" id="title" placeholder="Tiêu đề"/>
-                    <form:errors path="title"></form:errors>
+                    <form:errors path="title" cssClass="has-error"></form:errors>
                   </div>
                   <div class="form-group">
                     <label for="body">Nội dung</label>
                     <form:textarea class="form-control" path="body" id="body" rows="5" placeholder="Nội dung"/>
-                    <form:errors path="body"></form:errors>
+                    <form:errors path="body" cssClass="has-error"></form:errors>
                   </div>
                 </div>
                 <!-- /.col -->
@@ -116,10 +116,10 @@
                   <div class="form-group">
                     <label for="title">Alt</label>
                     <form:input type="text" class="form-control" path="alt" id="alt" placeholder="Alt"/>
-                    <form:errors path="alt"></form:errors>
+                    <form:errors path="alt" cssClass="has-error"></form:errors>
                   </div>
                   <div class="form-group">
-                    <label for="title">Đường dẫn ảnh</label>
+                    <label for="title">Ảnh *</label>
                     <div class="input-group">
                       <input type="text" class="form-control" id="imageName" placeholder="Ảnh" autofocus="true" disabled="true">
                       <span class="input-group-btn">
@@ -127,6 +127,7 @@
                       </span>
                       <form:input type="file" id="imageFile" path="imageFile"/>
                     </div>
+                    <form:errors path="imageFile" cssClass="has-error"></form:errors>
                   </div>
                   <div class="form-group">
                     <label for="body">Xem trước ảnh</label>
