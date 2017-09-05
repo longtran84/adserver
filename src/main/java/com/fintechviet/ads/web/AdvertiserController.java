@@ -19,7 +19,7 @@ public class AdvertiserController {
     @Autowired
     private AdvertiserValidator advertiserValidator;
 
-    @RequestMapping(value = {"/", "/advertiser"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/advertiser"}, method = RequestMethod.GET)
     public String advertiser(Model model) {
         model.addAttribute("advertiserForm", new Advertiser());
 
