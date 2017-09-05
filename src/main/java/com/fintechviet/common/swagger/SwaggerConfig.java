@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.RequestMethod;
 import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.builders.ResponseMessageBuilder;
 import springfox.documentation.schema.ModelRef;
 import springfox.documentation.service.ApiInfo;
@@ -45,7 +46,8 @@ class SwaggerConfig {
                 .apiInfo(utils)
                 .select()
                 .paths(regex(".*/"+UT+".*"))
-                .build();
+                .build().useDefaultResponseMessages(false)
+                .globalResponseMessage(RequestMethod.GET, buildGlobalResponses());
     }
     
     @Bean
@@ -54,16 +56,11 @@ class SwaggerConfig {
         List<ResponseMessage> resp = buildGlobalResponses();
 
         return new Docket(DocumentationType.SWAGGER_2)
-                .useDefaultResponseMessages(true)
-                .globalResponseMessage(RequestMethod.GET, resp)
-                .globalResponseMessage(RequestMethod.POST, resp)
-                .globalResponseMessage(RequestMethod.PUT, resp)
-                .globalResponseMessage(RequestMethod.DELETE, resp)
-                .groupName(ads)
-                .apiInfo(adsInfo)
                 .select()
+                .apis(RequestHandlerSelectors.basePackage("com.fintechviet.ads.web"))
                 .paths(regex(".*/"+ads+".*"))
-                .build();
+                .build()
+                .apiInfo(adsInfo);
     }    
 
 
@@ -72,7 +69,11 @@ class SwaggerConfig {
                 .code(500)
                 .message("Unexpected error during execution")
                 .responseModel(new ModelRef("Error"))
-                .build());
+                .build(),
+        		new ResponseMessageBuilder() 
+        	      .code(403)
+        	      .message("Forbidden!")
+        	      .build());
     }
 
     private ApiInfo buildApiInfo(String version) {

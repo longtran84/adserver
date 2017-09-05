@@ -44,4 +44,13 @@ public class AdvertiserServiceImpl implements AdvertiserService {
 
         return advertiserRepository.findAll(Specifications.where(spec1).and(spec2));
     }
+
+	@Override
+	public void approveAdvertisers(Long id, boolean approved) {
+		String status = approved ? "ACTIVE": "INACTIVE";
+		advertiserRepository.approveAdvertiser(status, id);
+		
+	}
+    
+    
 }
