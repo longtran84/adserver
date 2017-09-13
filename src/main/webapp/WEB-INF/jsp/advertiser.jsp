@@ -137,7 +137,7 @@
             </div>-->
             <!-- /.box-header -->
             <div class="box-body">
-              <table id="advertisersTable" class="table table-bordered table-striped dataTable" role="grid">
+              <table id="advertisersTable" class="table table-bordered table-hover dataTable" role="grid">
                 <!-- Header Table -->
                 <thead>
                 <tr>
@@ -209,6 +209,7 @@
 <!-- DataTables -->
 <script src="${contextPath}/resources/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="${contextPath}/resources/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="${contextPath}/resources/js/common.js"></script>
 <script src="${contextPath}/resources/js/advertiser.js"></script>
 </body>
 </html>

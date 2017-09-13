@@ -8,6 +8,19 @@
         <class>com.fintechviet.ads.model.Creative</class>
         <class>com.fintechviet.ads.model.Flight</class>
         <class>com.fintechviet.ads.model.Ad</class>
+        <class>com.fintechviet.ads.model.AdClicks</class>
+        <class>com.fintechviet.ads.model.AdImpressions</class>
+        <class>com.fintechviet.ads.model.AdImpressions</class>
+        <class>com.fintechviet.user_mobile.model.UserMobile</class>
+        <class>com.fintechviet.ads.model.AdViews</class>
+        <class>com.fintechviet.ads.model.Cpe</class>
+        <class>com.fintechviet.ads.model.CpiEntity</class>
+        <class>com.fintechviet.ads.model.Cpi</class>
+        <class>com.fintechviet.content.model.ContentClicks</class>
+        <class>com.fintechviet.content.model.ContentImpressions</class>
+        <class>com.fintechviet.content.model.NewsCategory</class>
+        <class>com.fintechviet.content.model.UserMobile</class>
+        <class>com.fintechviet.content.model.News</class>
         <properties>
             <property name="toplink.jdbc.url" value="jdbc:mysql://localhost:3306/mobileads"/>
             <property name="toplink.jdbc.driver" value="com.mysql.jdbc.Driver"/>

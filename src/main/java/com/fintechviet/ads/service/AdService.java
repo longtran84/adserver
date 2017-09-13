@@ -8,4 +8,7 @@ public interface AdService {
     void save(Ad ad);
     void delete(Ad ad);
     List<Ad> getAllAds();
+    List<Ad> getAdByAdvertiser(String adverEmail);
+    void updateStatus(Long id, String status);
+    List<Ad> getAdActive();
 }

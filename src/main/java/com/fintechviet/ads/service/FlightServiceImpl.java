@@ -26,4 +26,14 @@ public class FlightServiceImpl implements FlightService {
     public List<Flight> getAllFlights() {
         return flightRepository.findAll();
     }
+
+    @Override
+    public List<Flight> getFlightByAdvertiser(String adverEmail) {
+        return flightRepository.findByAdvertiser(adverEmail);
+    }
+
+    @Override
+    public void updateStatus(Long id, String status) {
+        flightRepository.updateStatus(status, id);
+    }
 }

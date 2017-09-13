@@ -21,7 +21,7 @@ public class CampaignController {
     @Autowired
     private CampaignValidator campaignValidator;
 
-    @RequestMapping(value = "/campaign", method = RequestMethod.GET)
+    @RequestMapping(value = {"/", "/campaign"}, method = RequestMethod.GET)
     public String campaign(Model model) {
         model.addAttribute("campaignForm", new Campaign());
 
@@ -46,6 +46,21 @@ public class CampaignController {
         campaignService.save(campaignForm);
 
         return "redirect:/campaign";
+    }
+
+    @RequestMapping(value = "/reportCampaign", method = RequestMethod.GET)
+    public String reportCampaign() {
+        return "report_campaign";
+    }
+
+    @RequestMapping(value = "/reportCost", method = RequestMethod.GET)
+    public String reportCost() {
+        return "report_cost";
+    }
+
+    @RequestMapping(value = "/reportInventory", method = RequestMethod.GET)
+    public String reportInventory() {
+        return "report_inventory";
     }
 
 }

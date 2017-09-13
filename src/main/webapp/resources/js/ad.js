@@ -1,13 +1,8 @@
-var data;
 $(document).ready( function () {
+    var data;
     $(function () {
-        var token = $("input[name='_csrf']").val();
-        var header = $("meta[name='_csrf_header']").attr("content");
-        $(document).ajaxSend(function(e, xhr, options) {
-            xhr.setRequestHeader(header, token);
-        });
         $('#editBtn').attr("disabled", true);
-        //$('#flightForm #startDate').val(reFormatDate($('#flightForm #startDate').val()));
+        $('#activateBtn').attr('disabled', true);
     });
 
     var reFormatDate  = function (data) {
@@ -49,21 +44,34 @@ $(document).ready( function () {
              { data: "impressions" },
              { data: "flight.name" },
              { data: "creative.title" },
-             { data: "status" },
+             {   data: null,
+                 "render": function (data) {
+                     if (data.status === 'NEW') {
+                         return 'Mới';
+                     } else if (data.status === 'ACTIVE') {
+                         return 'Đang hoạt động';
+                     } else {
+                         return 'Không hoạt động';
+                     }
+                 }
+             },
              {
                  data: null,
                  className: "center",
-                 defaultContent: '<a href="" class="editor_edit">Sửa</a> / <a href="" class="editor_remove">Xóa</a>'
+                 "render": function (data) {
+                     if (data.status === 'NEW') {
+                         return '<a href="" class="editor_edit">Sửa</a> / <a href="" class="editor_remove">Xóa</a>';
+                     } else if (data.status === 'INACTIVE') {
+                         return '<a href="" class="editor_remove">Xóa</a>';
+                     } else {
+                         return '';
+                     }
+                 }
              }
          ]
 	 });
 
-    // Edit record
-    $('#adsTable tbody').on( 'click', 'a.editor_edit', function (e) {
-        e.preventDefault();
-        $('#editBtn').attr('disabled', false);
-        $('#createBtn').attr('disabled', true);
-        var data = table.row( $(this).parents('tr') ).data();
+    var showDetails = function (data) {
         $('#adForm #flightId').val(data.flight.id);
         $('#adForm #flightName').val(data.flight.name);
         $('#adForm #creativeId').val(data.creative.id);
@@ -78,6 +86,15 @@ $(document).ready( function () {
         $('#adForm #freCapType').val(data.freCapType);
         $('#adForm #description').val(data.description);
         $('#adForm #id').val(data.id);
+    }
+
+    // Edit record
+    $('#adsTable tbody').on( 'click', 'a.editor_edit', function (e) {
+        e.preventDefault();
+        $('#editBtn').attr('disabled', false);
+        $('#createBtn').attr('disabled', true);
+        var data = table.row( $(this).parents('tr') ).data();
+        showDetails(data);
     });
 
     // Delete a record
@@ -103,6 +120,59 @@ $(document).ready( function () {
             error: function(error) {
                 $('#modal-delete').modal('hide');
                 $('.alert-danger').attr('style','display: block');
+            }
+        });
+    });
+
+    $('#adsTable tbody').on( 'click', 'tr', function () {
+        if ( $(this).hasClass('success') ) {
+            $(this).removeClass('success');
+        }
+        else {
+            table.$('tr.success').removeClass('success');
+            $(this).addClass('success');
+        }
+        data = table.row(this).data();
+        if (data.status === 'NEW') {
+            $('#editBtn').attr('disabled', false);
+            $('#createBtn').attr('disabled', true);
+            $('#resetBtn').attr('disabled', false);
+            $('#activateBtn').attr('disabled', false);
+            $('#activateBtn').text('Kích hoạt');
+        } else if (data.status === 'INACTIVE') {
+            $('#editBtn').attr('disabled', true);
+            $('#createBtn').attr('disabled', true);
+            $('#resetBtn').attr('disabled', true);
+            $('#activateBtn').attr('disabled', true);
+        } else {
+            $('#editBtn').attr('disabled', true);
+            $('#createBtn').attr('disabled', true);
+            $('#resetBtn').attr('disabled', true);
+            $('#activateBtn').attr('disabled', false);
+            $('#activateBtn').text('Hủy kích hoạt');
+        }
+        showDetails(data);
+    });
+
+    $('#activateBtn').click(function(){
+        var request = {id: data.id, status: data.status};
+        $.ajax({
+            type: "POST",
+            url: '/activateAd',
+            data: JSON.stringify(request),
+            dataType: "json",
+            contentType: "application/json",
+            success: function (result) {
+                if (data.status === 'NEW') {
+                    $('#activateBtn').text('Hủy kích hoạt');
+                } else {
+                    $('#activateBtn').text('Kích hoạt');
+                    $('#activateBtn').attr('disabled', true);
+                }
+                $('#adsTable').DataTable().ajax.reload();
+            },
+            error: function(error) {
+                alert(error);
             }
         });
     });

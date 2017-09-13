@@ -1,12 +1,8 @@
-var data;
 $(document).ready( function () {
+    var data;
     $(function () {
-        var token = $("input[name='_csrf']").val();
-        var header = $("meta[name='_csrf_header']").attr("content");
-        $(document).ajaxSend(function(e, xhr, options) {
-            xhr.setRequestHeader(header, token);
-        });
         $('#editBtn').attr("disabled", true);
+        $('#activateBtn').attr('disabled', true);
     });
 
     var reFormatDate  = function (data) {
@@ -23,7 +19,7 @@ $(document).ready( function () {
         if (data === null || data === '') return "";
         var date = new Date(data);
         var month = date.getMonth() + 1;
-        return (date.getDate().length > 1 ? date.getDate() : "0" + date.getDate()) + "/" + (month.length > 1 ? month : "0" + month) + "/" + date.getFullYear();
+        return (date.getDate() > 9 ? date.getDate() : "0" + date.getDate()) + "/" + (month.length > 1 ? month : "0" + month) + "/" + date.getFullYear();
     }
 
     var table = $('#flightsTable').DataTable({
@@ -58,21 +54,34 @@ $(document).ready( function () {
                      return formatDate(data);
                  }
              },
-             { data: "status" },
+             {   data: null,
+                 "render": function (data) {
+                     if (data.status === 'NEW') {
+                         return 'Mới';
+                     } else if (data.status === 'ACTIVE') {
+                         return 'Đang hoạt động';
+                     } else {
+                         return 'Không hoạt động';
+                     }
+                 }
+             },
              {
                  data: null,
                  className: "center",
-                 defaultContent: '<a href="" class="editor_edit">Sửa</a> / <a href="" class="editor_remove">Xóa</a>'
+                 "render": function (data) {
+                     if (data.status === 'NEW') {
+                         return '<a href="" class="editor_edit">Sửa</a> / <a href="" class="editor_remove">Xóa</a>';
+                     } else if (data.status === 'INACTIVE') {
+                         return '<a href="" class="editor_remove">Xóa</a>';
+                     } else {
+                         return '';
+                     }
+                 }
              }
          ]
 	 });
 
-    // Edit record
-    $('#flightsTable tbody').on( 'click', 'a.editor_edit', function (e) {
-        e.preventDefault();
-        $('#editBtn').attr('disabled', false);
-        $('#createBtn').attr('disabled', true);
-        var data = table.row( $(this).parents('tr') ).data();
+    var showDetails = function (data) {
         $('#flightForm #campaignId').val(data.campaign.id);
         $('#flightForm #campaignName').val(data.campaign.name);
         $('#flightForm #name').val(data.name);
@@ -84,6 +93,15 @@ $(document).ready( function () {
         $('#flightForm #freCap').val(data.freCap);
         $('#flightForm #freCapDuration').val(data.freCapDuration);
         $('#flightForm #freCapType').val(data.freCapType);
+    }
+
+    // Edit record
+    $('#flightsTable tbody').on( 'click', 'a.editor_edit', function (e) {
+        e.preventDefault();
+        $('#editBtn').attr('disabled', false);
+        $('#createBtn').attr('disabled', true);
+        var data = table.row( $(this).parents('tr') ).data();
+        showDetails(data);
     });
 
     // Delete a record
@@ -91,6 +109,59 @@ $(document).ready( function () {
         e.preventDefault();
         data = table.row( $(this).parents('tr') ).data();
         $('#modal-delete').modal();
+    });
+
+    $('#flightsTable tbody').on( 'click', 'tr', function () {
+        if ( $(this).hasClass('success') ) {
+            $(this).removeClass('success');
+        }
+        else {
+            table.$('tr.success').removeClass('success');
+            $(this).addClass('success');
+        }
+        data = table.row(this).data();
+        if (data.status === 'NEW') {
+            $('#editBtn').attr('disabled', false);
+            $('#createBtn').attr('disabled', true);
+            $('#resetBtn').attr('disabled', false);
+            $('#activateBtn').attr('disabled', false);
+            $('#activateBtn').text('Kích hoạt');
+        } else if (data.status === 'INACTIVE') {
+            $('#editBtn').attr('disabled', true);
+            $('#createBtn').attr('disabled', true);
+            $('#resetBtn').attr('disabled', true);
+            $('#activateBtn').attr('disabled', true);
+        } else {
+            $('#editBtn').attr('disabled', true);
+            $('#createBtn').attr('disabled', true);
+            $('#resetBtn').attr('disabled', true);
+            $('#activateBtn').attr('disabled', false);
+            $('#activateBtn').text('Hủy kích hoạt');
+        }
+        showDetails(data);
+    });
+
+    $('#activateBtn').click(function(){
+        var request = {id: data.id, status: data.status};
+        $.ajax({
+            type: "POST",
+            url: '/activateFlight',
+            data: JSON.stringify(request),
+            dataType: "json",
+            contentType: "application/json",
+            success: function (result) {
+                if (data.status === 'NEW') {
+                    $('#activateBtn').text('Hủy kích hoạt');
+                } else {
+                    $('#activateBtn').text('Kích hoạt');
+                    $('#activateBtn').attr('disabled', true);
+                }
+                $('#flightsTable').DataTable().ajax.reload();
+            },
+            error: function(error) {
+                alert(error);
+            }
+        });
     });
 
     $('#startDate').datepicker({
@@ -104,4 +175,16 @@ $(document).ready( function () {
         format: 'dd/mm/yyyy',
         language: 'vi'
     })
+
+    $('#resetBtn').click(function(){
+        $('#flightForm')[0].reset();
+    });
+
+    $('#close_info').click(function(){
+        $('.alert-info').attr('style','display: none');
+    });
+
+    $('#close_error').click(function(){
+        $('.alert-danger').attr('style','display: none');
+    });
 });

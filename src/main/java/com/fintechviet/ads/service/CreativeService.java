@@ -9,4 +9,6 @@ public interface CreativeService {
     void delete(Creative creative);
     List<Creative> getCreativesByTemplate(String template);
     List<Creative> getAllCreatives();
+    List<Creative> getCreativeByAdvertiserAndTemplate(String adverEmail, String template);
+    void updateStatus(Long id, String status);
 }

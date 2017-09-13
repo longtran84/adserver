@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
@@ -81,11 +82,10 @@
 				</div>
 			</form>
 
-			<!-- /.social-auth-links -->
 
-			<a href="#">I forgot my password</a><br> <a
-				href="${contextPath}/registration" class="text-center">Register
-				a new membership</a>
+			<a href="#">I forgot my password</a><br>
+			<a href="${contextPath}/registration" class="text-center">Đăng ký người dùng</a><br>
+			<a href="${contextPath}/advertiserRegistration" class="text-center">Đăng ký nhà quảng cáo</a>
 
 		</div>
 		<!-- /.login-box-body -->

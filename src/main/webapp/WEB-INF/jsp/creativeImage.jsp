@@ -146,6 +146,7 @@
               <button type="submit" id="createBtn" class="btn btn-primary">Thêm</button>
               <button type="submit" id="editBtn" class="btn btn-primary">Sửa</button>
               <button type="button" id="resetBtn" class="btn bg-orange">Hủy</button>
+              <button type="button" id="activateBtn" class="btn btn-danger">Kích hoạt</button>
             </div>
             </form:form>
           </div>
@@ -155,7 +156,7 @@
             </div>-->
             <!-- /.box-header -->
             <div class="box-body">
-              <table id="creativesTable" class="table table-bordered table-striped dataTable" role="grid">
+              <table id="creativesTable" class="table table-bordered table-hover dataTable" role="grid">
                 <!-- Header Table -->
                 <thead>
                 <tr>
@@ -294,6 +295,7 @@ Biểu tượng cho thấy độ phân giải HD hoặc độ phân giải cao c
 <!-- DataTables -->
 <script src="${contextPath}/resources/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="${contextPath}/resources/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="${contextPath}/resources/js/common.js"></script>
 <script src="${contextPath}/resources/js/advertiserPopup.js"></script>
 <script src="${contextPath}/resources/js/creativeImage.js"></script>
 </body>
