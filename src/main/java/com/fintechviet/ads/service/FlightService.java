@@ -8,4 +8,6 @@ public interface FlightService {
     void save(Flight flight);
     void delete(Flight flight);
     List<Flight> getAllFlights();
+    List<Flight> getFlightByAdvertiser(String adverEmail);
+    void updateStatus(Long id, String status);
 }

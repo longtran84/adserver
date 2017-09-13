@@ -14,17 +14,21 @@ import java.util.List;
  * Created by tungn on 8/21/2017.
  */
 @RestController
-@RequestMapping("/adser")
 public class AdvertiserRestController {
     @Autowired
     private AdvertiserService advertiserService;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public List<Advertiser> getAllAdvertisers(){
-   	 Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-     String name = auth.getName(); //get logged in username
-     System.out.println(name);
-     return advertiserService.getAllAdvertisers();
+    @RequestMapping(value = "/advertisers", method = RequestMethod.GET)
+    public List<Advertiser> getAllAdvertisers() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        boolean hasAdminRole = auth.getAuthorities().stream()
+                .anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
+
+        if (hasAdminRole) {
+            return advertiserService.getAllAdvertisers();
+        } else {
+            return advertiserService.getAdvertiserByEmail(auth.getName());
+        }
     }
 
     @RequestMapping(value = "/deleteAdvertiser", method = RequestMethod.POST)

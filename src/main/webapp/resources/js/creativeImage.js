@@ -1,12 +1,8 @@
-var data;
 $(document).ready( function () {
+    var data;
     $(function () {
-        var token = $("input[name='_csrf']").val();
-        var header = $("meta[name='_csrf_header']").attr("content");
-        $(document).ajaxSend(function(e, xhr, options) {
-            xhr.setRequestHeader(header, token);
-        });
         $('#editBtn').attr("disabled", true);
+        $('#activateBtn').attr('disabled', true);
     });
 
     $('#imageFileBtn').on('click', function(e){
@@ -104,22 +100,34 @@ $(document).ready( function () {
              { data: "title" },
              { data: "advertiser.email" },
              { data: "imageLink" },
-             { data: "status" },
+             {   data: null,
+                 "render": function (data) {
+                     if (data.status === 'NEW') {
+                         return 'Mới';
+                     } else if (data.status === 'ACTIVE') {
+                         return 'Đang hoạt động';
+                     } else {
+                         return 'Không hoạt động';
+                     }
+                 }
+             },
              {
                  data: null,
                  className: "center",
-                 defaultContent: '<a href="" class="editor_edit">Sửa</a> / <a href="" class="editor_remove">Xóa</a>'
+                 "render": function (data) {
+                     if (data.status === 'NEW') {
+                         return '<a href="" class="editor_edit">Sửa</a> / <a href="" class="editor_remove">Xóa</a>';
+                     } else if (data.status === 'INACTIVE') {
+                         return '<a href="" class="editor_remove">Xóa</a>';
+                     } else {
+                         return '';
+                     }
+                 }
              }
          ]
 	 });
 
-
-    // Edit record
-    $('#creativesTable tbody').on( 'click', 'a.editor_edit', function (e) {
-        e.preventDefault();
-        $('#editBtn').attr('disabled', false);
-        $('#createBtn').attr('disabled', true);
-        var data = table.row( $(this).parents('tr') ).data();
+    var showDetails = function (data) {
         $('#creativeForm #advertiserId').val(data.advertiser.id);
         $('#creativeForm #advertiserName').val(data.advertiser.email);
         $('#creativeForm #title').val(data.title);
@@ -127,6 +135,15 @@ $(document).ready( function () {
         $('#creativeForm #alt').val(data.alt);
         $('#creativeForm #imageLink').val(data.imageLink);
         $('#creativeForm #id').val(data.id);
+    }
+
+    // Edit record
+    $('#creativesTable tbody').on( 'click', 'a.editor_edit', function (e) {
+        e.preventDefault();
+        $('#editBtn').attr('disabled', false);
+        $('#createBtn').attr('disabled', true);
+        var data = table.row( $(this).parents('tr') ).data();
+        showDetails(data);
     });
 
     // Delete a record
@@ -154,5 +171,70 @@ $(document).ready( function () {
                 $('.alert-danger').attr('style','display: block');
             }
         });
+    });
+
+    $('#creativesTable tbody').on( 'click', 'tr', function () {
+        if ( $(this).hasClass('success') ) {
+            $(this).removeClass('success');
+        }
+        else {
+            table.$('tr.success').removeClass('success');
+            $(this).addClass('success');
+        }
+        data = table.row(this).data();
+        if (data.status === 'NEW') {
+            $('#editBtn').attr('disabled', false);
+            $('#createBtn').attr('disabled', true);
+            $('#resetBtn').attr('disabled', false);
+            $('#activateBtn').attr('disabled', false);
+            $('#activateBtn').text('Kích hoạt');
+        } else if (data.status === 'INACTIVE') {
+            $('#editBtn').attr('disabled', true);
+            $('#createBtn').attr('disabled', true);
+            $('#resetBtn').attr('disabled', true);
+            $('#activateBtn').attr('disabled', true);
+        } else {
+            $('#editBtn').attr('disabled', true);
+            $('#createBtn').attr('disabled', true);
+            $('#resetBtn').attr('disabled', true);
+            $('#activateBtn').attr('disabled', false);
+            $('#activateBtn').text('Hủy kích hoạt');
+        }
+        showDetails(data);
+    });
+
+    $('#activateBtn').click(function(){
+        var request = {id: data.id, status: data.status};
+        $.ajax({
+            type: "POST",
+            url: '/activateCreative',
+            data: JSON.stringify(request),
+            dataType: "json",
+            contentType: "application/json",
+            success: function (result) {
+                if (data.status === 'NEW') {
+                    $('#activateBtn').text('Hủy kích hoạt');
+                } else {
+                    $('#activateBtn').text('Kích hoạt');
+                    $('#activateBtn').attr('disabled', true);
+                }
+                $('#creativesTable').DataTable().ajax.reload();
+            },
+            error: function(error) {
+                alert(error);
+            }
+        });
+    });
+
+    $('#resetBtn').click(function(){
+        $('#creativeForm')[0].reset();
+    });
+
+    $('#close_info').click(function(){
+        $('.alert-info').attr('style','display: none');
+    });
+
+    $('#close_error').click(function(){
+        $('.alert-danger').attr('style','display: none');
     });
 });

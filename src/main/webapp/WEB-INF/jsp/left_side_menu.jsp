@@ -64,10 +64,10 @@
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i> ChartJS</a></li>
-                    <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Morris</a></li>
-                    <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> Flot</a></li>
-                    <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li>
+                    <li><a href="/reportCampaign"><i class="fa fa-circle-o"></i> Chiến dịch quảng cáo</a></li>
+                    <li><a href="/reportCost"><i class="fa fa-circle-o"></i> Chi phí</a></li>
+                    <li><a href="/reportInventory"><i class="fa fa-circle-o"></i> Inventory</a></li>
+                    <li><a href="/reportUserInterest"><i class="fa fa-circle-o"></i> Sở thích người dùng</a></li>
                 </ul>
             </li>
             <li class="treeview">

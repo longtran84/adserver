@@ -9,7 +9,7 @@
             </div>
             <div class="modal-body">
                 <div class="table-responsive">
-                    <table id="advertisersTable" class="table table-bordered" width="100%">
+                    <table id="advertisersTable" class="table table-bordered table-hover dataTable" width="100%">
                         <!-- Header Table -->
                         <thead>
                         <tr>

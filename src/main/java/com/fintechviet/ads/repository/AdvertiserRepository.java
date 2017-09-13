@@ -16,4 +16,9 @@ public interface AdvertiserRepository extends JpaRepository<Advertiser, Long>, J
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     @Query("UPDATE Advertiser SET status = :status WHERE id = :id")
     void approveAdvertiser(@Param("status") String status, @Param("id") Long id);
+
+    @Modifying
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+    @Query("UPDATE Advertiser SET status = :status WHERE id = :id")
+    void updateStatus(@Param("status") String status, @Param("id") Long id);
 }

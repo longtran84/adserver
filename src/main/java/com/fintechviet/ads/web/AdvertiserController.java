@@ -2,6 +2,7 @@ package com.fintechviet.ads.web;
 
 import com.fintechviet.ads.model.Advertiser;
 import com.fintechviet.ads.service.AdvertiserService;
+import com.fintechviet.ads.service.SecurityService;
 import com.fintechviet.ads.validator.AdvertiserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,9 @@ public class AdvertiserController {
 
     @Autowired
     private AdvertiserValidator advertiserValidator;
+
+    @Autowired
+    private SecurityService securityService;
 
     @RequestMapping(value = {"/advertiser"}, method = RequestMethod.GET)
     public String advertiser(Model model) {
@@ -37,6 +41,28 @@ public class AdvertiserController {
         advertiserService.save(advertiserForm);
 
         return "redirect:/advertiser";
+    }
+
+    @RequestMapping(value = {"/advertiserRegistration"}, method = RequestMethod.GET)
+    public String advertiserRegistration(Model model) {
+        model.addAttribute("advertiserForm", new Advertiser());
+
+        return "advertiserRegistration";
+    }
+
+    @RequestMapping(value = "/advertiserRegistration", method = RequestMethod.POST)
+    public String advertiserRegistration(@ModelAttribute("advertiserForm") Advertiser advertiserForm, BindingResult bindingResult) {
+        advertiserValidator.validate(advertiserForm, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            return "advertiserRegistration";
+        }
+
+        advertiserService.save(advertiserForm);
+
+        securityService.autologin(advertiserForm.getEmail(), advertiserForm.getPasswordConfirm());
+
+        return "redirect:/campaign";
     }
 
 }

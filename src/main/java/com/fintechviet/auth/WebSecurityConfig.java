@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -27,13 +28,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-    	if(devMode) http.csrf().disable();
+    	//if(devMode) http.csrf().disable();
+        //http.csrf().disable().authorizeRequests().anyRequest();
+        http.requestMatcher(new AntPathRequestMatcher("/news/**")).csrf().disable();
         http
         .authorizeRequests()
+        .antMatchers(HttpMethod.POST, "/news/**").permitAll()
         .antMatchers("/resources/**", "/registration").permitAll()
+                .antMatchers("/resources/**", "/advertiserRegistration").permitAll()
         .antMatchers(HttpMethod.GET,"/advertiser").hasAnyRole("ROLE_ADMIN", "ROLE_ADVERTISER")
         .antMatchers(HttpMethod.POST,"/advertiser").hasAnyRole("ROLE_ADMIN", "ROLE_ADVERTISER")
-        .antMatchers("/adser/**").access("hasRole('ROLE_ADMIN')")
         .anyRequest().authenticated()
         .and()
         .formLogin().loginPage("/login")

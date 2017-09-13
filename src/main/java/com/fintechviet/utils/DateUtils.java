@@ -11,6 +11,9 @@ import java.util.Locale;
  */
 public class DateUtils {
     private static String FORMAT_DATE = "dd/MM/yyyy HH:mm:SS";
+    private static String FORMAT_DATE1 = "dd/MM/yyyy";
+    private static String FORMAT_DATE_STR = "dd/MM/yyyy";
+    private static String FORMAT_DATE_DB_STR = "yyyy-MM-dd";
     public static String EQUAL = "EQUAL";
     public static String BEFORE = "BEFORE";
     public static String AFTER = "AFTER";
@@ -22,6 +25,25 @@ public class DateUtils {
         } catch (ParseException ex){
         }
         return null;
+    }
+
+    public static Date convertStringToOnlyDate(String dateStr) {
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat(FORMAT_DATE1);
+            return dateFormat.parse(dateStr);
+        } catch (ParseException ex){
+        }
+        return null;
+    }
+
+    public static String convertDateToString(Date date) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(FORMAT_DATE_STR);
+        return dateFormat.format(date);
+    }
+
+    public static String convertDateToStringDB(Date date) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(FORMAT_DATE_DB_STR);
+        return dateFormat.format(date);
     }
 
     public static String compare(String d1, String d2) {

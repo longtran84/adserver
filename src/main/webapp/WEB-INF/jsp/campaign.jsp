@@ -109,11 +109,11 @@
                   </div>
                   <div class="form-group">
                     <fieldset class="scheduler-border">
-                      <legend class="scheduler-border">Định kỳ</legend>
+                      <legend class="scheduler-border">Tần xuất hiển thị</legend>
                       <div class="control-group">
                         <label>
                           <form:checkbox class="minimal" path="isFreCapTmp" id="isFreCap"/>
-                          Chạy định kỳ
+                          Áp dụng tần xuất hiển thị
                         </label>
                       </div>
                       <div class="form-horizontal">
@@ -176,6 +176,7 @@
               <button type="submit" id="createBtn" class="btn btn-primary">Thêm</button>
               <button type="submit" id="editBtn" class="btn btn-primary">Sửa</button>
               <button type="button" id="resetBtn" class="btn bg-orange">Hủy</button>
+              <button type="button" id="activateBtn" class="btn btn-danger">Kích hoạt</button>
             </div>
             </form:form>
           </div>
@@ -185,7 +186,7 @@
             </div>-->
             <!-- /.box-header -->
             <div class="box-body">
-              <table id="campaignsTable" class="table table-bordered table-striped dataTable" role="grid">
+              <table id="campaignsTable" class="table table-bordered table-hover dataTable" role="grid">
                 <!-- Header Table -->
                 <thead>
                 <tr>
@@ -268,6 +269,7 @@
 <!-- DataTables -->
 <script src="${contextPath}/resources/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="${contextPath}/resources/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="${contextPath}/resources/js/common.js"></script>
 <script src="${contextPath}/resources/js/advertiserPopup.js"></script>
 <script src="${contextPath}/resources/js/campaign.js"></script>
 </body>
