@@ -10,6 +10,7 @@ import com.fintechviet.search.AdvertiserSpecification;
 import com.fintechviet.search.SearchCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specifications;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -29,13 +30,13 @@ public class AdvertiserServiceImpl implements AdvertiserService {
     private RoleRepository roleRepository;
 
     @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private Md5PasswordEncoder md5PasswordEncoder;
 
     @Override
     public void save(Advertiser advertiser) {
         User user = new User();
         user.setUsername(advertiser.getEmail());
-        user.setPassword(bCryptPasswordEncoder.encode(advertiser.getPassword()));
+        user.setPassword(md5PasswordEncoder.encodePassword(advertiser.getPassword(), null));
         user.setRoles(new HashSet<Role>(){{
                                           add(roleRepository.findOne(2l));
                                           }});
