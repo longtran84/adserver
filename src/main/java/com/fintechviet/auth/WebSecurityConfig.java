@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -21,16 +22,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
 
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
     	//if(devMode) http.csrf().disable();
         //http.csrf().disable().authorizeRequests().anyRequest();
-        http.requestMatcher(new AntPathRequestMatcher("/news/**")).csrf().disable();
+        http.csrf().ignoringAntMatchers("/news/**/");
         http
         .authorizeRequests()
         .antMatchers(HttpMethod.POST, "/news/**").permitAll()
@@ -49,6 +45,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
+        auth.userDetailsService(userDetailsService).passwordEncoder(md5PasswordEncoder());
+    }
+
+    @Bean
+    public Md5PasswordEncoder md5PasswordEncoder() throws Exception {
+        return new Md5PasswordEncoder();
     }
 }
