@@ -1,6 +1,7 @@
 package com.fintechviet.content.model;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Created by tungn on 9/12/2017.
@@ -16,6 +17,7 @@ public class News {
     private NewsCategory newsCategory;
     private Integer noOfLike;
     private String status = "ACTIVE";
+    private String source;
 
     @Id
     @Column(name = "id")
@@ -86,6 +88,16 @@ public class News {
 
     public void setNoOfLike(Integer noOfLike) {
         this.noOfLike = noOfLike;
+    }
+
+    @Basic
+    @Column(name = "source")
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
     }
 
     @Basic
