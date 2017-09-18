@@ -18,6 +18,7 @@ public class News {
     private Integer noOfLike;
     private String status = "ACTIVE";
     private String source;
+    private long newsCategoryId;
 
     @Id
     @Column(name = "id")
@@ -108,6 +109,15 @@ public class News {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    @Transient
+    public long getNewsCategoryId() {
+        return newsCategoryId;
+    }
+
+    public void setNewsCategoryId(long newsCategoryId) {
+        this.newsCategoryId = newsCategoryId;
     }
 
     @Override
