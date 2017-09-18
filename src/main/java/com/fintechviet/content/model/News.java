@@ -74,7 +74,7 @@ public class News {
         return newsCategory;
     }
 
-    public void setNewsCategoryId(NewsCategory newsCategory) {
+    public void setNewsCategory(NewsCategory newsCategory) {
         this.newsCategory = newsCategory;
     }
 
