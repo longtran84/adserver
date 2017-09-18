@@ -1,6 +1,7 @@
 package com.fintechviet.content.model;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.Set;
 
 /**
@@ -10,12 +11,14 @@ import java.util.Set;
 @Table(name = "user_mobile", schema = "mobileads", catalog = "")
 public class UserMobile {
     private long id;
+    private String deviceToken;
     private String email;
     private String gender;
-    private String bod;
+    private Integer dob;
     private String location;
-    private Double earning;
-    private String status;
+    private long earning;
+    private String status = "ACTIVE";
+    private Date createdDate;
     private Set<NewsCategory> newsCategories;
 
     @Id
@@ -28,6 +31,17 @@ public class UserMobile {
     public void setId(long id) {
         this.id = id;
     }
+
+    @Basic
+    @Column(name = "deviceToken")
+    public String getDeviceToken() {
+        return deviceToken;
+    }
+
+    public void setDeviceToken(String deviceToken) {
+        this.deviceToken = deviceToken;
+    }
+
 
     @Basic
     @Column(name = "email")
@@ -50,13 +64,13 @@ public class UserMobile {
     }
 
     @Basic
-    @Column(name = "bod")
-    public String getBod() {
-        return bod;
+    @Column(name = "dob")
+    public Integer getDob() {
+        return dob;
     }
 
-    public void setBod(String bod) {
-        this.bod = bod;
+    public void setDob(Integer dob) {
+        this.dob = dob;
     }
 
     @Basic
@@ -71,11 +85,11 @@ public class UserMobile {
 
     @Basic
     @Column(name = "earning")
-    public Double getEarning() {
+    public long getEarning() {
         return earning;
     }
 
-    public void setEarning(Double earning) {
+    public void setEarning(long earning) {
         this.earning = earning;
     }
 
@@ -87,6 +101,16 @@ public class UserMobile {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    @Basic
+    @Column(name = "createdDate", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
 
     @ManyToMany
@@ -107,11 +131,11 @@ public class UserMobile {
         UserMobile that = (UserMobile) o;
 
         if (id != that.id) return false;
+        if (earning != that.earning) return false;
         if (email != null ? !email.equals(that.email) : that.email != null) return false;
         if (gender != null ? !gender.equals(that.gender) : that.gender != null) return false;
-        if (bod != null ? !bod.equals(that.bod) : that.bod != null) return false;
+        if (dob != null ? !dob.equals(that.dob) : that.dob != null) return false;
         if (location != null ? !location.equals(that.location) : that.location != null) return false;
-        if (earning != null ? !earning.equals(that.earning) : that.earning != null) return false;
         if (status != null ? !status.equals(that.status) : that.status != null) return false;
 
         return true;
@@ -122,9 +146,8 @@ public class UserMobile {
         int result = (int) (id ^ (id >>> 32));
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (gender != null ? gender.hashCode() : 0);
-        result = 31 * result + (bod != null ? bod.hashCode() : 0);
+        result = 31 * result + (dob != null ? dob.hashCode() : 0);
         result = 31 * result + (location != null ? location.hashCode() : 0);
-        result = 31 * result + (earning != null ? earning.hashCode() : 0);
         result = 31 * result + (status != null ? status.hashCode() : 0);
         return result;
     }

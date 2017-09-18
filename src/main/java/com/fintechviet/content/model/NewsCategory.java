@@ -10,6 +10,7 @@ import java.util.Set;
 @Table(name = "news_category", schema = "mobileads", catalog = "")
 public class NewsCategory {
     private long id;
+    private String code;
     private String name;
     private String image;
     private String status = "ACTIVE";
@@ -24,6 +25,16 @@ public class NewsCategory {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    @Basic
+    @Column(name = "code")
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     @Basic

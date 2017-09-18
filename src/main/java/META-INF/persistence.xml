@@ -21,6 +21,7 @@
         <class>com.fintechviet.content.model.NewsCategory</class>
         <class>com.fintechviet.content.model.UserMobile</class>
         <class>com.fintechviet.content.model.News</class>
+        <class>com.fintechviet.content.model.EarningDetails</class>
         <properties>
             <property name="toplink.jdbc.url" value="jdbc:mysql://localhost:3306/mobileads"/>
             <property name="toplink.jdbc.driver" value="com.mysql.jdbc.Driver"/>

@@ -6,12 +6,14 @@ import javax.persistence.*;
  * Created by tungn on 9/12/2017.
  */
 @Entity
+@Table(name = "news")
 public class News {
     private long id;
     private String title;
     private String shortDescription;
     private String link;
-    private Integer newsCategoryId;
+    private String imageLink;
+    private NewsCategory newsCategory;
     private Integer noOfLike;
     private String status = "ACTIVE";
 
@@ -57,13 +59,23 @@ public class News {
     }
 
     @Basic
-    @Column(name = "newsCategoryId")
-    public Integer getNewsCategoryId() {
-        return newsCategoryId;
+    @Column(name = "imageLink")
+    public String getImageLink() {
+        return imageLink;
     }
 
-    public void setNewsCategoryId(Integer newsCategoryId) {
-        this.newsCategoryId = newsCategoryId;
+    public void setImageLink(String imageLink) {
+        this.imageLink = imageLink;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "newsCategoryId")
+    public NewsCategory getNewsCategory() {
+        return newsCategory;
+    }
+
+    public void setNewsCategory(NewsCategory newsCategory) {
+        this.newsCategory = newsCategory;
     }
 
     @Basic
@@ -98,8 +110,6 @@ public class News {
         if (shortDescription != null ? !shortDescription.equals(news.shortDescription) : news.shortDescription != null)
             return false;
         if (link != null ? !link.equals(news.link) : news.link != null) return false;
-        if (newsCategoryId != null ? !newsCategoryId.equals(news.newsCategoryId) : news.newsCategoryId != null)
-            return false;
         if (noOfLike != null ? !noOfLike.equals(news.noOfLike) : news.noOfLike != null) return false;
         if (status != null ? !status.equals(news.status) : news.status != null) return false;
 
@@ -112,7 +122,6 @@ public class News {
         result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (shortDescription != null ? shortDescription.hashCode() : 0);
         result = 31 * result + (link != null ? link.hashCode() : 0);
-        result = 31 * result + (newsCategoryId != null ? newsCategoryId.hashCode() : 0);
         result = 31 * result + (noOfLike != null ? noOfLike.hashCode() : 0);
         result = 31 * result + (status != null ? status.hashCode() : 0);
         return result;
