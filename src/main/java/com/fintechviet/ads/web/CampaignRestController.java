@@ -108,4 +108,15 @@ public class CampaignRestController {
         }
         return ResponseEntity.ok(campaign.getId());
     }
+    
+	@RequestMapping(value = "/deleteCampaign/{id}", method=RequestMethod.DELETE)
+	public ResponseEntity<?> deleteCampaign(@PathVariable String id) {
+		try {
+			campaignService.delete(Long.valueOf(id));
+		} catch (Exception e) {
+			return ResponseEntity.badRequest().body("Error");
+		}
+
+		return ResponseEntity.ok(id);
+	}
 }

@@ -165,6 +165,29 @@ $(document).ready( function () {
             }
         });
     });
+    
+    $('#delete_campaign').click(function() {
+    	 $.ajax({
+             type: "DELETE",
+             url: '/deleteCampaign/'+data.id,
+             success: function (result) {
+                 if (data.status === 'NEW') {
+                     $('#activateBtn').text('Hủy kích hoạt');
+                 } else {
+                     $('#activateBtn').text('Kích hoạt');
+                     $('#activateBtn').attr('disabled', true);
+                 }
+                 
+                 location.reload();
+             },
+             error: function(error) {
+                 alert(error);
+             }
+         });
+    	 
+    	 $('#modal-delete').modal('hide');
+    });
+
 
     $("#isFreCapTmp").click( function(){
         if( $(this).is(':checked') ) alert("checked");

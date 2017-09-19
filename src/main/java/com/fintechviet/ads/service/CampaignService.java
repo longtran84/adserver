@@ -9,6 +9,7 @@ import java.util.List;
 public interface CampaignService {
     void save(Campaign campaign);
     void delete(Campaign campaign);
+    void delete(Long id);
     List<Campaign> getAllCampaigns();
     List<Campaign> getCampaignByAdvertiser(String adverEmail);
     void updateStatus(Long id, String status);
