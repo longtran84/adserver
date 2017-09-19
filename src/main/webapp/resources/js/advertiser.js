@@ -29,7 +29,7 @@ $(document).ready( function () {
              {
                  data: null,
                  className: "center",
-                 defaultContent: '<a href="" class="editor_edit">Sửa</a> / <a href="" class="editor_remove">Xóa</a>'
+                 defaultContent: '<a href="" class="editor_edit"><i class="fa fa-fw fa-edit"></i></a>  <a href="" class="editor_remove"><i class="fa fa-fw fa-remove"></i></a>'
              }
          ]
 	 });
