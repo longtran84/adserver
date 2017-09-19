@@ -41,8 +41,12 @@ public class CampaignController {
             campaignForm.setEndDate(DateUtils.convertStringToDate(campaignForm.getEndDateTmp() + " 23:59:59"));
         }
 
-        campaignForm.setFreCap(Integer.valueOf(campaignForm.getFreCapTmp()));
-        campaignForm.setFreCapDuration(Integer.valueOf(campaignForm.getFreCapDurationTmp()));
+//        campaignForm.setFreCap(Integer.valueOf(campaignForm.getFreCapTmp()));
+//        campaignForm.setFreCapDuration(Integer.valueOf(campaignForm.getFreCapDurationTmp()));
+		
+        if (campaignForm.getId() == null) {
+			campaignForm.setStatus("NEW");
+		}
         campaignService.save(campaignForm);
 
         return "redirect:/campaign";

@@ -1,14 +1,14 @@
 package com.fintechviet.ads.validator;
 
-import com.fintechviet.ads.model.Campaign;
-import com.fintechviet.ads.service.CampaignService;
-import com.fintechviet.utils.DateUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
+
+import com.fintechviet.ads.model.Campaign;
+import com.fintechviet.ads.service.CampaignService;
+import com.fintechviet.utils.DateUtils;
 
 @Component
 public class CampaignValidator implements Validator {
@@ -34,19 +34,19 @@ public class CampaignValidator implements Validator {
             errors.rejectValue("name", "campaignForm.name.size");
         }
 
-        if (campaign.isIsFreCapTmp()) {
-            ValidationUtils.rejectIfEmptyOrWhitespace(errors, "freCapTmp", "campaignForm.freCap.empty");
-            ValidationUtils.rejectIfEmptyOrWhitespace(errors, "freCapDurationTmp", "campaignForm.freCap.empty");
-            ValidationUtils.rejectIfEmptyOrWhitespace(errors, "freCapType", "campaignForm.freCap.empty");
-        }
+//        if (campaign.isIsFreCapTmp()) {
+//            ValidationUtils.rejectIfEmptyOrWhitespace(errors, "freCapTmp", "campaignForm.freCap.empty");
+//            ValidationUtils.rejectIfEmptyOrWhitespace(errors, "freCapDurationTmp", "campaignForm.freCap.empty");
+//            ValidationUtils.rejectIfEmptyOrWhitespace(errors, "freCapType", "campaignForm.freCap.empty");
+//        }
 
-        if ((StringUtils.isNotEmpty(campaign.getFreCapTmp()) && StringUtils.isNotEmpty(campaign.getFreCapDurationTmp())) && (!StringUtils.isNumeric(campaign.getFreCapTmp()) || !StringUtils.isNumeric(campaign.getFreCapDurationTmp()))) {
-            errors.rejectValue("freCapTmp", "campaignForm.freCap.invalid");
-        } else {
-            if (Integer.valueOf(campaign.getFreCapTmp()) == 0 || Integer.valueOf(campaign.getFreCapDurationTmp()) == 0) {
-                errors.rejectValue("freCapTmp", "campaignForm.freCap.invalid");
-            }
-        }
+//        if ((StringUtils.isNotEmpty(campaign.getFreCapTmp()) && StringUtils.isNotEmpty(campaign.getFreCapDurationTmp())) && (!StringUtils.isNumeric(campaign.getFreCapTmp()) || !StringUtils.isNumeric(campaign.getFreCapDurationTmp()))) {
+//            errors.rejectValue("freCapTmp", "campaignForm.freCap.invalid");
+//        } else {
+//            if (intValueOf(campaign.getFreCapTmp()) == 0 || intValueOf(campaign.getFreCapDurationTmp()) == 0) {
+//                errors.rejectValue("freCapTmp", "campaignForm.freCap.invalid");
+//            }
+//        }
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "startDateTmp", "campaignForm.startDate.empty");
 
@@ -58,4 +58,5 @@ public class CampaignValidator implements Validator {
             errors.rejectValue("description", "campaignForm.description.size");
         }
     }
+    
 }

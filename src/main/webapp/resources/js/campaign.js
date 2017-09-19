@@ -69,9 +69,9 @@ $(document).ready( function () {
                  className: "center",
                  "render": function (data) {
                      if (data.status === 'NEW') {
-                         return '<a href="" class="editor_edit">Sửa</a> / <a href="" class="editor_remove">Xóa</a>';
+                         return '<a href="" class="editor_edit"><i class="fa fa-fw fa-edit"></i></a>   <a href="" class="editor_remove"><i class="fa fa-fw fa-remove"></i></a>';
                      } else if (data.status === 'INACTIVE') {
-                         return '<a href="" class="editor_remove">Xóa</a>';
+                         return '<a href="" class="editor_remove"><i class="fa fa-fw fa-remove"></i></a>';
                      } else {
                          return '';
                      }
@@ -81,6 +81,7 @@ $(document).ready( function () {
 	 });
 
     var showDetails = function (data) {
+    	$('#campaignForm #id').val(data.id);
         $('#campaignForm #advertiserId').val(data.advertiser.id);
         $('#campaignForm #advertiserName').val(data.advertiser.email);
         $('#campaignForm #name').val(data.name);
@@ -93,6 +94,7 @@ $(document).ready( function () {
         $('#campaignForm #freCapDuration').val(data.freCapDuration);
         $('#campaignForm #freCapType').val(data.freCapType);
         $('#campaignForm #description').val(data.description);
+        $('#campaignForm #status').val(data.status);
     }
 
     // Edit record
