@@ -16,6 +16,7 @@ import java.util.List;
  * Created by tungn on 9/12/2017.
  */
 public interface NewsRepository extends JpaRepository<News, Long> {
+    News findByOriginalId(long id);
     //Query cost by range date and admin
     @Query("SELECT n FROM News n WHERE n.createdDate BETWEEN :from AND :to")
     List<News> getNewsByDate(@Param("from") @Temporal(TemporalType.TIMESTAMP) Date from, @Param("to") @Temporal(TemporalType.TIMESTAMP) Date to);

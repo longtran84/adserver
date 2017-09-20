@@ -7,11 +7,14 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
+import com.fintechviet.quartz.jobs.JobWithCronTrigger;
 import org.quartz.JobDetail;
 import org.quartz.SimpleTrigger;
 import org.quartz.Trigger;
 import org.quartz.spi.JobFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.PropertiesFactoryBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.ApplicationContext;
@@ -51,12 +54,6 @@ public class ConfigureQuartz {
 		factory.setJobFactory(jobFactory);
 		factory.setQuartzProperties(quartzProperties());
 		factory.setTriggers(jobWithCronTriggerBeanTrigger);
-
-		// Here we will set all the trigger beans we have defined.
-//		if (!listOfTrigger.isEmpty()) {
-//			factory.setTriggers(listOfTrigger.toArray(new Trigger[listOfTrigger.size()]));
-//		}
-
 		return factory;
 	}
 
@@ -66,6 +63,16 @@ public class ConfigureQuartz {
 		propertiesFactoryBean.setLocation(new ClassPathResource("/quartz.properties"));
 		propertiesFactoryBean.afterPropertiesSet();
 		return propertiesFactoryBean.getObject();
+	}
+
+	@Bean(name = "jobWithCronTriggerBean")
+	public JobDetailFactoryBean sampleJob() {
+		return createJobDetail(JobWithCronTrigger.class);
+	}
+
+	@Bean(name = "jobWithCronTriggerBeanTrigger")
+	public CronTriggerFactoryBean sampleJobTrigger(@Qualifier("jobWithCronTriggerBean") JobDetail jobDetail, @Value("${cron.frequency.jobwithcrontrigger}") String frequency) {
+		return createCronTrigger(jobDetail, frequency);
 	}
 
 	public static SimpleTriggerFactoryBean createTrigger(JobDetail jobDetail, long pollFrequencyMs) {
