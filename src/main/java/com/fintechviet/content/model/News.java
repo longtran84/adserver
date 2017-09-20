@@ -11,6 +11,7 @@ import java.util.Date;
 @Table(name = "news")
 public class News {
     private long id;
+    private long originalId;
     private String title;
     private String shortDescription;
     private String link;
@@ -20,6 +21,8 @@ public class News {
     private String status = "ACTIVE";
     private String source;
     private long newsCategoryId;
+    private Date publishDate;
+    private Date crawlerDate;
     private Timestamp createdDate;
 
     @Id
@@ -31,6 +34,16 @@ public class News {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    @Basic
+    @Column(name = "originalId")
+    public long getOriginalId() {
+        return originalId;
+    }
+
+    public void setOriginalId(long originalId) {
+        this.originalId = originalId;
     }
 
     @Basic
@@ -120,6 +133,26 @@ public class News {
 
     public void setNewsCategoryId(long newsCategoryId) {
         this.newsCategoryId = newsCategoryId;
+    }
+
+    @Basic
+    @Column(name = "publishDate")
+    public Date getPublishDate() {
+        return publishDate;
+    }
+
+    public void setPublishDate(Date publishDate) {
+        this.publishDate = publishDate;
+    }
+
+    @Basic
+    @Column(name = "crawlerDate")
+    public Date getCrawlerDate() {
+        return crawlerDate;
+    }
+
+    public void setCrawlerDate(Date crawlerDate) {
+        this.crawlerDate = crawlerDate;
     }
 
     @Basic
