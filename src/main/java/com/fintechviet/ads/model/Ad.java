@@ -7,7 +7,7 @@ import javax.persistence.*;
  */
 @Entity
 public class Ad {
-    private long id;
+    private Long id;
     private String name;
     private Integer impressions;
     private Byte isFreCap;
@@ -26,11 +26,11 @@ public class Ad {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

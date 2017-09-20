@@ -60,9 +60,9 @@ $(document).ready( function () {
                  className: "center",
                  "render": function (data) {
                      if (data.status === 'NEW') {
-                         return '<a href="" class="editor_edit">Sửa</a> / <a href="" class="editor_remove">Xóa</a>';
+                         return '<a href="" class="editor_edit"><i class="fa fa-fw fa-edit"></i></a>   <a href="" class="editor_remove"><i class="fa fa-fw fa-remove"></i></a>';
                      } else if (data.status === 'INACTIVE') {
-                         return '<a href="" class="editor_remove">Xóa</a>';
+                         return '<a href="" class="editor_remove"><i class="fa fa-fw fa-remove"></i></a>';
                      } else {
                          return '';
                      }
@@ -86,6 +86,7 @@ $(document).ready( function () {
         $('#adForm #freCapType').val(data.freCapType);
         $('#adForm #description').val(data.description);
         $('#adForm #id').val(data.id);
+        $('#adForm #status').val(data.status);
     }
 
     // Edit record

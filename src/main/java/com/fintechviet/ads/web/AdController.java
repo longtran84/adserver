@@ -35,13 +35,16 @@ public class AdController {
         }
 
         adForm.setImpressions(Integer.valueOf(adForm.getImpressionsTmp()));
-        if (adForm.isIsFreCapTmp()) {
-            adForm.setIsFreCap(Byte.valueOf("1"));
-        } else {
-            adForm.setIsFreCap(Byte.valueOf("0"));
+        if (adForm.getId() == null) {
+        	adForm.setStatus("NEW");
         }
-        adForm.setFreCap(Integer.valueOf(adForm.getFreCapTmp()));
-        adForm.setFreCapDuration(Integer.valueOf(adForm.getFreCapDurationTmp()));
+//        if (adForm.isIsFreCapTmp()) {
+//            adForm.setIsFreCap(Byte.valueOf("1"));
+//        } else {
+//            adForm.setIsFreCap(Byte.valueOf("0"));
+//        }
+//        adForm.setFreCap(Integer.valueOf(adForm.getFreCapTmp()));
+//        adForm.setFreCapDuration(Integer.valueOf(adForm.getFreCapDurationTmp()));
         adService.save(adForm);
 
         return "redirect:/ad";
