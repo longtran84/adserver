@@ -7,6 +7,7 @@ import com.fintechviet.content.repository.NewsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -23,6 +24,11 @@ public class NewsServiceImpl implements NewsService {
             ne.setNewsCategory(newsCategory);
         }
         newsRepository.save(news);
+    }
+
+    @Override
+    public List<News> getNewsByDate(Date from, Date to) {
+        return newsRepository.getNewsByDate(from, to);
     }
 }
 
