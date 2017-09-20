@@ -116,7 +116,7 @@
                     </form:select>
                     <form:errors path="rateType" cssClass="has-error"></form:errors>
                   </div>
-                  <div class="form-group">
+<%--                   <div class="form-group">
                     <fieldset class="scheduler-border">
                       <legend class="scheduler-border">Tần xuất hiển thị</legend>
                       <div class="control-group">
@@ -144,6 +144,11 @@
                         <form:errors path="freCapTmp" cssClass="has-error"></form:errors>
                       </div>
                     </fieldset>
+                  </div> --%>
+                  <div class="form-group">
+                    <label for="name">Mô tả</label>
+                    <form:textarea class="form-control" path="description" id="description" rows="4" placeholder="Mô tả"/>
+                    <form:errors path="description" cssClass="has-error"></form:errors>
                   </div>
                 </div>
                 <!-- /.col -->
@@ -172,11 +177,6 @@
                     <label for="price">Đơn giá *</label>
                     <form:input type="text" class="form-control" path="price" id="price" placeholder="Đơn giá"/>
                     <form:errors path="price" cssClass="has-error"></form:errors>
-                  </div>
-                  <div class="form-group">
-                    <label for="name">Mô tả</label>
-                    <form:textarea class="form-control" path="description" id="description" rows="4" placeholder="Mô tả"/>
-                    <form:errors path="description" cssClass="has-error"></form:errors>
                   </div>
                   <!-- /.form-group -->
                 </div>

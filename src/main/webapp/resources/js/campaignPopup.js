@@ -1,20 +1,29 @@
+var abc = {id:1,name:'abc'};
 var campaignsTable = $('#campaignsTable').DataTable({
-    sAjaxSource: "/campaigns",
-    sAjaxDataProp: "",
-    responsive: true,
-    order: [[ 0, "asc" ]],
-    language: {
-        "zeroRecords": "Không tìm thấy bản ghi nào",
-        "info": "Hiện thị trang _PAGE_ của _PAGES_",
-        "lengthMenu": "Hiển thị _MENU_ bản ghi",
-        "search": "Tìm kiếm",
-        "paginate": {
+    "ajax": {
+        'type': 'POST',
+        'url': '/campaigns',
+        'data': function() {
+            return JSON.stringify(abc);
+        },
+        'dataType': 'json',
+        'contentType': 'application/json'
+         },
+		sAjaxDataProp: "",
+        responsive: true,
+		order: [[ 0, "asc" ]],
+        language: {
+            "zeroRecords": "Không tìm thấy bản ghi nào",
+            "info": "Hiện thị trang _PAGE_ của _PAGES_",
+            "lengthMenu": "Hiển thị _MENU_ bản ghi",
+            "search": "Tìm kiếm",
+            "paginate": {
             "first":    	"Đầu tiên",
             "previous": 	"Trước",
             "next":     	"Sau",
             "last":     	"Cuối cùng"
         }
-    },
+        },
     columns: [
         { data: "name" },
         { data: "advertiser.email" },

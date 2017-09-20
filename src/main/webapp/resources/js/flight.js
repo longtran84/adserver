@@ -70,9 +70,9 @@ $(document).ready( function () {
                  className: "center",
                  "render": function (data) {
                      if (data.status === 'NEW') {
-                         return '<a href="" class="editor_edit">Sửa</a> / <a href="" class="editor_remove">Xóa</a>';
+                         return '<a href="" class="editor_edit"><i class="fa fa-fw fa-edit"></i></a>  <a href="" class="editor_remove"><i class="fa fa-fw fa-remove"></i></a>';
                      } else if (data.status === 'INACTIVE') {
-                         return '<a href="" class="editor_remove">Xóa</a>';
+                         return '<a href="" class="editor_remove"><i class="fa fa-fw fa-remove"></i></a>';
                      } else {
                          return '';
                      }
@@ -109,6 +109,30 @@ $(document).ready( function () {
         e.preventDefault();
         data = table.row( $(this).parents('tr') ).data();
         $('#modal-delete').modal();
+    });
+    
+    $('#delete_flight').click(function(){
+        var request = {id: data.id};
+        $.ajax({
+            type: "POST",
+            /*headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }*/
+            url: '/deleteFlight',
+            data: JSON.stringify(request),
+            dataType: "json",
+            contentType: "application/json",
+            success: function (result) {
+                $('#modal-delete').modal('hide');
+                $('.alert-info').attr('style','display: block');
+                $('#flightsTable').DataTable().ajax.reload();
+            },
+            error: function(error) {
+                $('#modal-delete').modal('hide');
+                $('.alert-danger').attr('style','display: block');
+            }
+        });
     });
 
     $('#flightsTable tbody').on( 'click', 'tr', function () {
