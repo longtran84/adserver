@@ -1,5 +1,7 @@
 package com.fintechviet.content.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -14,6 +16,7 @@ public class NewsCategory {
     private String name;
     private String image;
     private String status = "ACTIVE";
+    @JsonIgnoreProperties("newsCategories")
     private Set<UserMobile> userMobiles;
 
     @Id

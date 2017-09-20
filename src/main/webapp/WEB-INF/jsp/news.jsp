@@ -81,39 +81,27 @@
             </div>-->
             <!-- /.box-header -->
             <div class="box-body">
-              <table id="inventoryReportsTable" class="table table-bordered table-hover dataTable" role="grid">
+              <table id="newsTable" class="table table-bordered table-hover dataTable" role="grid">
                 <!-- Header Table -->
                 <thead>
                 <tr>
-                  <th>Ngày</th>
                   <th>Tiêu đề</th>
-                  <th>Lượt hiển thị nội dung</th>
-                  <th>Lượt click nội dung</th>
-                  <th>CTR nội dung</th>
-                  <th>Lượt hiển thị quảng cáo</th>
-                  <th>Lượt click quảng cáo</th>
-                  <th>CPC CTR</th>
-                  <th>Lượt xem video</th>
-                  <th>CPV CTR</th>
-                  <th>CPI</th>
-                  <th>CPE</th>
+                  <th>Link gốc</th>
+                  <th>Nguồn</th>
+                  <th>Trạng thái</th>
+                  <th>Ngày tạo</th>
+                  <th>Phê duyệt</th>
                 </tr>
                 </thead>
                 <!-- Footer Table -->
                 <tfoot>
                 <tr>
-                  <th>Ngày</th>
-                  <th>Tổng lượt hiển thị</th>
-                  <th>Lượt hiển thị nội dung</th>
-                  <th>Lượt click nội dung</th>
-                  <th>CTR nội dung</th>
-                  <th>Lượt hiển thị quảng cáo</th>
-                  <th>Lượt click quảng cáo</th>
-                  <th>CPC CTR</th>
-                  <th>Lượt xem video</th>
-                  <th>CPV CTR</th>
-                  <th>CPI</th>
-                  <th>CPE</th>
+                  <th>Tiêu đề</th>
+                  <th>Link gốc</th>
+                  <th>Nguồn</th>
+                  <th>Trạng thái</th>
+                  <th>Ngày tạo</th>
+                  <th>Phê duyệt</th>
                 </tr>
                 </tfoot>
               </table>

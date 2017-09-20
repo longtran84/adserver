@@ -1,6 +1,7 @@
 package com.fintechviet.content.model;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -19,6 +20,7 @@ public class News {
     private String status = "ACTIVE";
     private String source;
     private long newsCategoryId;
+    private Timestamp createdDate;
 
     @Id
     @Column(name = "id")
@@ -118,6 +120,16 @@ public class News {
 
     public void setNewsCategoryId(long newsCategoryId) {
         this.newsCategoryId = newsCategoryId;
+    }
+
+    @Basic
+    @Column(name = "createdDate", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    public Timestamp getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Timestamp createdDate) {
+        this.createdDate = createdDate;
     }
 
     @Override

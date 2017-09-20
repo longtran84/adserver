@@ -1,5 +1,7 @@
 package com.fintechviet.content.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
@@ -19,6 +21,7 @@ public class UserMobile {
     private long earning;
     private String status = "ACTIVE";
     private Date createdDate;
+    @JsonIgnoreProperties("userMobiles")
     private Set<NewsCategory> newsCategories;
 
     @Id
