@@ -59,7 +59,9 @@ public class NewsServiceImpl implements NewsService {
             SolrClient client = new HttpSolrClient.Builder(CRAWLER_ENPOINT).build();
             SolrQuery query = new SolrQuery();
             query.setQuery("*:*");
-            query.addFilterQuery(CRAWLER_DATE + ":["+ startTime + " TO " + endTime + "]");
+            String queryStr = CRAWLER_DATE + ":[" + startTime + " TO " + endTime + "]";
+            queryStr = queryStr.replaceAll("\\+", "");
+            query.addFilterQuery(queryStr);
             query.setFields(ID, CATEGORY_CODE, SOURCE_NAME, TITLE, CONTENT, LINK, IMAGE_LINK, PUBLISH_DATE, CRAWLER_DATE);
             query.setStart(0);
             query.setRows(2000);
