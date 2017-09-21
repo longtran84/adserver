@@ -44,6 +44,11 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
+    public void updateStatus(Long id, String status) {
+        newsRepository.updateStatus(status, id);
+    }
+
+    @Override
     public List<News> getNewsByDate(Date from, Date to) {
         return newsRepository.getNewsByDate(from, to);
     }
@@ -100,6 +105,7 @@ public class NewsServiceImpl implements NewsService {
                     } else if(LINK.equals(key)) {
                         news.setLink(value);
                     } else if(IMAGE_LINK.equals(key)) {
+                        value = value.replaceAll("localhost:8080", "222.252.16.132:8888");
                         news.setImageLink(value);
                     } else if(PUBLISH_DATE.equals(key)) {
                         news.setPublishDate((Date)element.getValue());

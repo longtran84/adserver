@@ -58,7 +58,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Inventory
+        Tin tức
       </h1>
       <br>
       <div class="input-group">
@@ -88,6 +88,7 @@
                   <th>Tiêu đề</th>
                   <th>Link gốc</th>
                   <th>Nguồn</th>
+                  <th>Chuyên mục</th>
                   <th>Trạng thái</th>
                   <th>Ngày tạo</th>
                   <th>Phê duyệt</th>
@@ -99,6 +100,7 @@
                   <th>Tiêu đề</th>
                   <th>Link gốc</th>
                   <th>Nguồn</th>
+                  <th>Chuyên mục</th>
                   <th>Trạng thái</th>
                   <th>Ngày tạo</th>
                   <th>Phê duyệt</th>

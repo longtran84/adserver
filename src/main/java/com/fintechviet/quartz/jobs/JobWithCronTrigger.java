@@ -27,7 +27,7 @@ public class JobWithCronTrigger implements Job {
 	@Override
 	public void execute(JobExecutionContext jobExecutionContext) {
 		LOG.info("Running trigger to get news from crawler");
-		newsService.getNewsFromCrawler();
+		//newsService.getNewsFromCrawler();
 	}
 
 }
