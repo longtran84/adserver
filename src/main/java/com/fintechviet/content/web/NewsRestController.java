@@ -40,5 +40,16 @@ public class NewsRestController {
         List<News> news = newsService.getNewsByDate(from, to);
         return newsService.getNewsByDate(from, to);
     }
+
+    @RequestMapping(value = "/news/publish", method = RequestMethod.POST)
+    public ResponseEntity<?> activateCampaign(@RequestBody News news) {
+        try {
+            String status = news.getStatus().equals("ACTIVE") ? "INACTIVE" : "ACTIVE";
+            newsService.updateStatus(news.getId(), status);
+        } catch (Exception ex) {
+            return ResponseEntity.badRequest().body("Error");
+        }
+        return ResponseEntity.ok(news.getId());
+    }
 }
 

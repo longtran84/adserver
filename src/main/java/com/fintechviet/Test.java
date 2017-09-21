@@ -28,7 +28,7 @@ public class Test {
     private static String CRAWLER_DATE = "NgayCrawler";
 
     public static void main(String[] args) throws IOException, SolrServerException {
-        SolrClient client = new HttpSolrClient.Builder("http://192.168.100.107:3689/solr/Crawler").build();
+        /*SolrClient client = new HttpSolrClient.Builder("http://192.168.100.107:3689/solr/Crawler").build();
         SolrQuery query = new SolrQuery();
         query.setQuery("*:*");
         query.addFilterQuery(CRAWLER_DATE + ":[2017-09-20T00:00:00Z TO 2017-09-20T23:59:59Z]");
@@ -66,7 +66,9 @@ public class Test {
             }
             newsList.add(news);
         }
-        System.out.println(DateUtils.convertDateToStringUTC(new Date()));
+        System.out.println(DateUtils.convertDateToStringUTC(new Date()));*/
+        String abc = "http://localhost:8080";
+        System.out.println(abc.replaceAll("localhost:8080", "222.252.16.132:8888"));
     }
 
     private void convertToNews(SolrDocumentList results) {

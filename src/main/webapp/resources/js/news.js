@@ -31,6 +31,7 @@ $(document).ready( function () {
         language: {
             "zeroRecords": "Không tìm thấy bản ghi nào",
             "info": "Hiện thị trang _PAGE_ của _PAGES_",
+            "infoFiltered": "",
             "lengthMenu": "Hiển thị _MENU_ bản ghi",
             "search": "Tìm kiếm",
             "paginate": {
@@ -48,6 +49,7 @@ $(document).ready( function () {
               }
             },
             { data: "source" },
+            { data: "newsCategory.name" },
             { data: null,
                 "render": function (data) {
                     if (data.status === 'NEW') {
@@ -112,4 +114,11 @@ $(document).ready( function () {
             $('#newsTable').DataTable().ajax.reload();
         }
     )
+
+    // Delete a record
+    $('#campaignsTable tbody').on( 'click', 'a.editor_remove', function (e) {
+        e.preventDefault();
+        data = table.row( $(this).parents('tr') ).data();
+        $('#modal-delete').modal();
+    });
 });
