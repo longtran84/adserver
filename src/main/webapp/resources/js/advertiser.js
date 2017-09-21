@@ -1,8 +1,8 @@
 $(document).ready( function () {
     var data;
-    $(function () {
+/*    $(function () {
         $('#editBtn').attr("disabled", true);
-    });
+    });*/
     var table = $('#advertisersTable').DataTable({
 			sAjaxSource: "/advertisers",
 			sAjaxDataProp: "",
@@ -37,9 +37,10 @@ $(document).ready( function () {
     // Edit record
     $('#advertisersTable tbody').on( 'click', 'a.editor_edit', function (e) {
         e.preventDefault();
-        $('#editBtn').attr('disabled', false);
-        $('#createBtn').attr('disabled', true);
+        /*$('#editBtn').attr('disabled', false);*/
+        /*$('#createBtn').attr('disabled', true);*/
         var data = table.row( $(this).parents('tr') ).data();
+        $('#advertiserForm')[0].reset();
         $('#advertiserForm #email').val(data.email);
         $('#advertiserForm #password').val(data.password);
         $('#advertiserForm #passwordConfirm').val(data.password);

@@ -37,12 +37,12 @@ public class AdvertiserValidator implements Validator {
 
         if (!advertiser.getPasswordConfirm().equals(advertiser.getPassword())) {
             errors.rejectValue("passwordConfirm", "advertiserForm.passwordConfirm.diff");
-        }
+        }*/
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "fullName", "advertiserForm.fullName.empty");
         if (advertiser.getFullName().length() > 100) {
-            errors.rejectValue("passwordConfirm", "advertiserForm.fullName.size");
-        }*/
+            errors.rejectValue("fullName", "advertiserForm.fullName.size");
+        }
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "companyName", "advertiserForm.companyName.empty");
         if (advertiser.getCompanyName().length() > 255) {
