@@ -14,7 +14,7 @@ public class DateUtils {
     private static String FORMAT_DATE_UTC = "yyyy-MM-dd'T'HH:mm:ss'Z'";
     private static String FORMAT_DATE1 = "dd/MM/yyyy";
     private static String FORMAT_DATE_STR = "dd/MM/yyyy";
-    private static String FORMAT_DATE_DB_STR = "yyyy-MM-dd";
+    private static String FORMAT_DATE_DB_STR = "yyyy-MM-dd HH:mm:ss";
     public static String EQUAL = "EQUAL";
     public static String BEFORE = "BEFORE";
     public static String AFTER = "AFTER";

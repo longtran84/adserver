@@ -1,12 +1,11 @@
 $(document).ready( function () {
     var dateFrom = getCurrentDate();
     var dateTo = getCurrentDate();
+    var data;
 
     var formatDate  = function (data) {
         if (data === null || data === '') return "";
         var date = new Date(data);
-        //var month = date.getMonth() + 1;
-        //return (date.getDate() > 9 ? date.getDate() : "0" + date.getDate()) + "/" + (month > 9 ? month : "0" + month) + "/" + date.getFullYear();
         return moment(date).format('DD/MM/YYYY HH:mm:ss');
     }
 
@@ -16,10 +15,10 @@ $(document).ready( function () {
         return (date.getDate() > 9 ? date.getDate() : "0" + date.getDate()) + "/" + (month > 9 ? month : "0" + month) + "/" + date.getFullYear();
     }
 
-    var table = $('#newsTable').DataTable({
+    var table = $('#userMobilesTable').DataTable({
         "ajax": {
             'type': 'POST',
-            'url': '/news/list',
+            'url': '/user/userInfos',
             'contentType': 'application/json',
             'data': function() {
                 return JSON.stringify({dateFrom: dateFrom, dateTo: dateTo});
@@ -28,6 +27,7 @@ $(document).ready( function () {
         sAjaxDataProp: "",
         responsive: true,
         order: [[ 0, "asc" ]],
+        scrollX: true,
         language: {
             "zeroRecords": "Không tìm thấy bản ghi nào",
             "info": "Hiện thị trang _PAGE_ của _PAGES_",
@@ -42,22 +42,33 @@ $(document).ready( function () {
             }
         },
         columns: [
-            { data: "title" },
-            { data: null,
+            { data: "id" },
+            { data: "username" },
+            {
+              data: null,
+              className: "center",
               "render": function (data) {
-                  return '<a href=' + data.link + ' class="linkOriginal"><i class="fa fa-fw fa-link"></i></a>';
+                if (data.gender === 'MALE') {
+                    return 'Nam';
+                } else {
+                    return 'Nữ';
+                }
               }
             },
-            { data: "source" },
-            { data: "newsCategory.name" },
+            {
+              data: null,
+              className: "center",
+              "render": function (data) {
+                return 2017 - data.dob;
+              }
+            },
+            { data: "location" },
             { data: null,
                 "render": function (data) {
-                    if (data.status === 'NEW') {
-                        return 'Mới';
-                    } else if (data.status === 'ACTIVE') {
-                        return 'Hiển thị';
+                    if (data.status === 'ACTIVE') {
+                        return 'Đang hoạt động';
                     } else {
-                        return 'Không hiển thị';
+                        return 'Không hoạt động';
                     }
                 }
             },
@@ -67,24 +78,64 @@ $(document).ready( function () {
                     return formatDate(data);
                 }
             },
+            { data: "earning",
+              render: $.fn.dataTable.render.number( '.')
+            },
+            { data: "interests" },
+            { data: "devices" },
+            { data: "userInvite" },
+            { data: "inviteCodeUsed" },
             {
                 data: null,
                 className: "center",
                 "render": function (data) {
                     if (data.status === 'ACTIVE') {
-                        return '<a href="" class="privateConTent" title="Không hiển thị"><i class="fa fa-fw fa-lock"></i></a>';
+                        return '<a href="" class="deactivateUser" title="Hủy bỏ"><i class="fa fa-fw fa-user-times"></i></a>';
                     } else {
-                        return '<a href="" class="publicConTent" title="Hiển thị"><i class="fa fa-fw fa-unlock-alt"></i></a>';
+                        return '<a href="" class="activateUser" title="Kích hoạt"><i class="fa fa-fw fa-user"></i></a>';
                     }
                 }
             }
         ]
     });
 
-    $('#newsTable tbody').on( 'click', 'a.linkOriginal', function (e) {
+    function updateStatus() {
+        var request = {id: data.id, status: data.status};
+        $.ajax({
+            type: "POST",
+            url: '/user/activate',
+            data: JSON.stringify(request),
+            dataType: "json",
+            contentType: "application/json",
+            success: function (result) {
+                $('#userMobilesTable').DataTable().ajax.reload();
+            },
+            error: function(error) {
+                alert(error);
+            }
+        });
+    }
+
+    $('#userMobilesTable tbody').on( 'click', 'a.deactivateUser', function (e) {
         e.preventDefault();
-        var url = $(this).attr('href');
-        window.open(url, 'Trang gốc', 'width=480,height=360,resizable=no,toolbar=no,menubar=no,location=no,status=no');
+        data = table.row( $(this).parents('tr') ).data();
+        $('#modal-deactivate').modal();
+    });
+
+    $('#userMobilesTable tbody').on( 'click', 'a.activateUser', function (e) {
+        e.preventDefault();
+        data = table.row( $(this).parents('tr') ).data();
+        $('#modal-activate').modal();
+    });
+
+    $('#deactivateUserBtn').click(function(){
+        $('#modal-deactivate').modal('hide');
+        updateStatus();
+    });
+
+    $('#activateUserBtn').click(function(){
+        $('#modal-activate').modal('hide');
+        updateStatus();
     });
 
     //Date range as a button
@@ -111,38 +162,7 @@ $(document).ready( function () {
             $('#daterange-btn span').html(start.format('D MMMM, YYYY') + ' - ' + end.format('D MMMM, YYYY'))
             dateFrom = start.format('DD/MM/YYYY');
             dateTo = end.format('DD/MM/YYYY');
-            $('#newsTable').DataTable().ajax.reload();
+            $('#userMobilesTable').DataTable().ajax.reload();
         }
     )
-
-    // Publish or unpublish news
-    $('#newsTable tbody').on( 'click', 'a.editor_remove', function (e) {
-        e.preventDefault();
-        data = table.row( $(this).parents('tr') ).data();
-        $('#modal-delete').modal();
-    });
-
-    $('#delete_advertiser').click(function(){
-        var request = {id: data.id};
-        $.ajax({
-            type: "POST",
-            /*headers: {
-             'Accept': 'application/json',
-             'Content-Type': 'application/json'
-             }*/
-            url: '/deleteAdvertiser',
-            data: JSON.stringify(request),
-            dataType: "json",
-            contentType: "application/json",
-            success: function (result) {
-                $('#modal-delete').modal('hide');
-                $('.alert-info').attr('style','display: block');
-                $('#advertisersTable').DataTable().ajax.reload();
-            },
-            error: function(error) {
-                $('#modal-delete').modal('hide');
-                $('.alert-danger').attr('style','display: block');
-            }
-        });
-    });
 });

@@ -68,9 +68,20 @@ public class Test {
         }
         System.out.println(DateUtils.convertDateToStringUTC(new Date()));*/
         String abc = "http://localhost:8080";
-        System.out.println(abc.replaceAll("localhost:8080", "222.252.16.132:8888"));
+        System.out.println(generateRandomChars(
+                "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890", 8));
     }
 
+    public static String generateRandomChars(String candidateChars, int length) {
+        StringBuilder sb = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < length; i++) {
+            sb.append(candidateChars.charAt(random.nextInt(candidateChars
+                    .length())));
+        }
+
+        return sb.toString();
+    }
     private void convertToNews(SolrDocumentList results) {
         List<News> newsList = new ArrayList<>();
         for (SolrDocument document : results) {

@@ -72,6 +72,18 @@
             </li>
             <li class="treeview">
                 <a href="#">
+                    <i class="fa fa-folder"></i> <span>Người dùng</span>
+                    <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="/user/userInfo"><i class="fa fa-circle-o"></i> Thông tin người dùng</a></li>
+                    <li><a href="/user/userInvite"><i class="fa fa-circle-o"></i> Thông tin giới thiệu</a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#">
                     <i class="fa fa-folder"></i> <span>Nội dung</span>
                     <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
