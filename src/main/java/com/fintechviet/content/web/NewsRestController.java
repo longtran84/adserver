@@ -37,7 +37,6 @@ public class NewsRestController {
     public List<News> inventoryReports(@RequestBody ContentRequest request){
         Date from = DateUtils.convertStringToDate(request.getDateFrom()  + " 00:00:00");
         Date to = DateUtils.convertStringToDate(request.getDateTo() + " 23:59:59");
-        List<News> news = newsService.getNewsByDate(from, to);
         return newsService.getNewsByDate(from, to);
     }
 

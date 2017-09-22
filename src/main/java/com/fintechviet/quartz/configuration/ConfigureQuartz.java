@@ -2,17 +2,16 @@
 package com.fintechviet.quartz.configuration;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import javax.sql.DataSource;
-
-import com.fintechviet.quartz.jobs.JobWithCronTrigger;
+import com.fintechviet.quartz.jobs.JobUserInviteWithCronTrigger;
+import com.fintechviet.quartz.jobs.JobNewsWithCronTrigger;
 import org.quartz.JobDetail;
 import org.quartz.SimpleTrigger;
 import org.quartz.Trigger;
 import org.quartz.spi.JobFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.PropertiesFactoryBean;
@@ -46,14 +45,17 @@ public class ConfigureQuartz {
 	}
 
 	@Bean
-	public SchedulerFactoryBean schedulerFactoryBean(JobFactory jobFactory, Trigger jobWithCronTriggerBeanTrigger) throws IOException {
+	public SchedulerFactoryBean schedulerFactoryBean(JobFactory jobFactory, Trigger jobNewsWithCronTriggerBeanTrigger, Trigger jobUserInviteWithCronTriggerBeanTrigger) throws IOException {
 		SchedulerFactoryBean factory = new SchedulerFactoryBean();
 		factory.setOverwriteExistingJobs(true);
 		factory.setAutoStartup(true);
 		//factory.setDataSource(dataSource);
 		factory.setJobFactory(jobFactory);
 		factory.setQuartzProperties(quartzProperties());
-		factory.setTriggers(jobWithCronTriggerBeanTrigger);
+		List<Trigger> listOfTrigger = new ArrayList<Trigger>();
+		listOfTrigger.add(jobNewsWithCronTriggerBeanTrigger);
+		listOfTrigger.add(jobUserInviteWithCronTriggerBeanTrigger);
+		factory.setTriggers(listOfTrigger.toArray(new Trigger[listOfTrigger.size()]));
 		return factory;
 	}
 
@@ -65,13 +67,23 @@ public class ConfigureQuartz {
 		return propertiesFactoryBean.getObject();
 	}
 
-	@Bean(name = "jobWithCronTriggerBean")
-	public JobDetailFactoryBean sampleJob() {
-		return createJobDetail(JobWithCronTrigger.class);
+	@Bean(name = "jobNewsWithCronTriggerBean")
+	public JobDetailFactoryBean cronJobNews() {
+		return createJobDetail(JobNewsWithCronTrigger.class);
 	}
 
-	@Bean(name = "jobWithCronTriggerBeanTrigger")
-	public CronTriggerFactoryBean sampleJobTrigger(@Qualifier("jobWithCronTriggerBean") JobDetail jobDetail, @Value("${cron.frequency.jobwithcrontrigger}") String frequency) {
+	@Bean(name = "jobNewsWithCronTriggerBeanTrigger")
+	public CronTriggerFactoryBean cronJobNewsTrigger(@Qualifier("jobNewsWithCronTriggerBean") JobDetail jobDetail, @Value("${cron.frequency.job.news.crontrigger}") String frequency) {
+		return createCronTrigger(jobDetail, frequency);
+	}
+
+	@Bean(name = "jobUserInviteWithCronTriggerBean")
+	public JobDetailFactoryBean cronJobUserInvite() {
+		return createJobDetail(JobUserInviteWithCronTrigger.class);
+	}
+
+	@Bean(name = "jobUserInviteWithCronTriggerBeanTrigger")
+	public CronTriggerFactoryBean cronJobUserInviteTrigger(@Qualifier("jobUserInviteWithCronTriggerBean") JobDetail jobDetail, @Value("${cron.frequency.job.userinvite.crontrigger}") String frequency) {
 		return createCronTrigger(jobDetail, frequency);
 	}
 

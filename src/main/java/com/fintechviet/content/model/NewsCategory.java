@@ -1,6 +1,7 @@
 package com.fintechviet.content.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fintechviet.user_mobile.model.UserMobile;
 
 import javax.persistence.*;
 import java.util.Set;

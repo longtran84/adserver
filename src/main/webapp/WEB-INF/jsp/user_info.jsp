@@ -58,7 +58,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Tin tức
+        Người dùng
       </h1>
       <br>
       <div class="input-group">
@@ -81,28 +81,39 @@
             </div>-->
             <!-- /.box-header -->
             <div class="box-body">
-              <table id="newsTable" class="table table-bordered table-hover dataTable" role="grid">
+              <table id="userMobilesTable" class="table table-bordered table-hover dataTable" role="grid">
                 <!-- Header Table -->
                 <thead>
                 <tr>
-                  <th>Tiêu đề</th>
-                  <th>Link gốc</th>
-                  <th>Nguồn</th>
-                  <th>Chuyên mục</th>
+                  <th>ID người dùng</th>
+                  <th>Tên đăng nhập</th>
+                  <th>Giới tính</th>
+                  <th>Tuổi</th>
+                  <th>Địa chỉ</th>
                   <th>Trạng thái</th>
-                  <th>Ngày tạo</th>
+                  <th>Ngày đăng ký</th>
+                  <th>Điểm tích lũy</th>
+                  <th>Chuyên mục yêu thích</th>
+                  <th>Số thiết bị sử dụng</th>
+                  <th>Người giới thiệu</th>
+                  <th>Mã giới thiệu đã dùng</th>
                   <th>Phê duyệt</th>
                 </tr>
                 </thead>
                 <!-- Footer Table -->
                 <tfoot>
                 <tr>
-                  <th>Tiêu đề</th>
-                  <th>Link gốc</th>
-                  <th>Nguồn</th>
-                  <th>Chuyên mục</th>
+                  <th>ID người dùng</th>
+                  <th>Tên đăng nhập</th>
+                  <th>Giới tính</th>
+                  <th>Tuổi</th>
+                  <th>Địa chỉ</th>
                   <th>Trạng thái</th>
-                  <th>Ngày tạo</th>
+                  <th>Ngày đăng ký</th>
+                  <th>Điểm tích lũy</th>
+                  <th>Chuyên mục yêu thích</th>
+                  <th>Số thiết bị sử dụng</th>
+                  <th>Người giới thiệu</th>
                   <th>Phê duyệt</th>
                 </tr>
                 </tfoot>
@@ -113,20 +124,40 @@
       </div>
     </section>
     <!-- /.content -->
-    <div class="modal fade" id="modal-publish">
+    <div class="modal fade" id="modal-deactivate">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Xóa nhà quảng cáo</h4>
+            <h4 class="modal-title">Hủy bỏ người dùng</h4>
           </div>
           <div class="modal-body">
-            <p>Bạn có chắc chắn muốn xóa nhà quảng cáo này?</p>
+            <p>Bạn có chắc chắn muốn hủy người dùng này?</p>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
-            <button type="button" id="delete_advertiser" class="btn btn-primary">Xóa</button>
+            <button type="button" id="deactivateUserBtn" class="btn btn-primary">Hủy</button>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <div class="modal fade" id="modal-activate">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Kích hoạt người dùng</h4>
+          </div>
+          <div class="modal-body">
+            <p>Bạn có chắc chắn muốn kích hoạt người dùng này?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+            <button type="button" id="activateUserBtn" class="btn btn-primary">Kích hoạt</button>
           </div>
         </div>
         <!-- /.modal-content -->
@@ -157,7 +188,7 @@
 <script src="${contextPath}/resources/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="${contextPath}/resources/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <script src="${contextPath}/resources/js/common.js"></script>
-<script src="${contextPath}/resources/js/news.js"></script>
+<script src="${contextPath}/resources/js/user_info.js"></script>
 <script>
     $.widget.bridge('uibutton', $.ui.button);
 </script>
