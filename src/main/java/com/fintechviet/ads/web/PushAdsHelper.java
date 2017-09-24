@@ -1,4 +1,4 @@
-package com.fintechviet.ads;
+package com.fintechviet.ads.web;
 
 import org.json.JSONObject;
 
@@ -37,10 +37,17 @@ public class PushAdsHelper {
         	
             json.put("to", "/topics/ads");
             JSONObject info = new JSONObject();
-            info.put("title", "ads title"); // Notification title
-            info.put("body", "Advertising from Fintechviet"); // Notification
+            //info.put("title", "ads title"); // Notification title
+            //info.put("body", "Advertising from Fintechviet"); // Notification
+
+            JSONObject data = new JSONObject();
+
+            data.put("message", "Advertising from Fintechviet");
+            data.put("image", "http://media.docbao.vn/files/images/site-1/20170923/web/a-hau-hoang-anh-da-sinh-con-gai-dau-long-cach-day-2-ngay-20-100121.jpg");
+            data.put("clickUrl", "http://docbao.vn/tin-tuc/23-09-2017/dong-dat-manh-34-do-richter-o-trieu-tien-sau-loi-de-doa-thu-bom-h/35/484401");
             // body
-            json.put("notification", info);
+            //json.put("notification", info);
+            json.put("data", data);
             
             OutputStreamWriter wr = new OutputStreamWriter(
                     conn.getOutputStream());

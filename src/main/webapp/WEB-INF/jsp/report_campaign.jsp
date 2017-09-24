@@ -62,12 +62,10 @@
       </h1>
       <br>
       <div class="input-group">
-        <button type="button" class="btn btn-default pull-left" id="daterange-btn">
-                    <span>
-                      <i class="fa fa-calendar"></i> Ngày báo cáo
-                    </span>
-          <i class="fa fa-caret-down"></i>
-        </button>
+        <div id="daterange-btn" class="btn btn-default pull-left">
+          <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp;
+          <span></span> <b class="caret"></b>
+        </div>
       </div>
     </section>
 

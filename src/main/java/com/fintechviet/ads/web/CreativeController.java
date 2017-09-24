@@ -57,7 +57,7 @@ public class CreativeController {
     }
 
     @RequestMapping(value = "/creativeImage", method = RequestMethod.POST)
-    public String creativeImage(@ModelAttribute("creativeForm") Creative creativeForm, BindingResult bindingResult) throws IOException{
+    public String creativeImage(@ModelAttribute("creativeForm") Creative creativeForm, BindingResult bindingResult) throws IOException {
         creativeImageValidator.validate(creativeForm, bindingResult);
 
         if (bindingResult.hasErrors()) {

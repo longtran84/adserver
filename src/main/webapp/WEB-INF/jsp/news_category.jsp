@@ -23,15 +23,13 @@
   <link rel="stylesheet" href="${contextPath}/resources/bower_components/Ionicons/css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="${contextPath}/resources/dist/css/AdminLTE.min.css">
-  <!-- iCheck for checkboxes and radio inputs -->
-  <link rel="stylesheet" href="${contextPath}/resources/plugins/iCheck/all.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="${contextPath}/resources/dist/css/skins/_all-skins.min.css">
   <!-- DataTables -->
   <link rel="stylesheet" href="${contextPath}/resources/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
-  <!-- daterange picker -->
-  <link rel="stylesheet" href="${contextPath}/resources/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+  <!-- bootstrap datepicker -->
+  <link rel="stylesheet" href="${contextPath}/resources/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
   <link href="${contextPath}/resources/css/common.css" rel="stylesheet">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -57,62 +55,105 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1>
-        Người dùng
-      </h1>
-      <br>
-      <div class="input-group">
-        <div id="daterange-btn" class="btn btn-default pull-left">
-          <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp;
-          <span></span> <b class="caret"></b>
-        </div>
+      <div class="alert alert-info alert-dismissible">
+        <button type="button" id="close_info" class="close" aria-hidden="true">&times;</button>
+        <h4><i class="icon fa fa-info"></i> Thông báo!</h4>
+        Chuyên mục tin tức đã được xóa thành công!
       </div>
+      <div class="alert alert-danger alert-dismissible">
+        <button type="button" id="close_error" class="close" aria-hidden="true">&times;</button>
+        <h4><i class="icon fa fa-ban"></i> Thông báo!</h4>
+        <span>Có lỗi xảy ra khi xóa chuyên mục tin tức!</span>
+      </div>
+      <h1>
+        Chuyên mục tin tức
+      </h1>
     </section>
 
     <!-- Main content -->
     <section class="content">
       <div class="row">
         <div class="col-xs-12">
+          <div class="box box-default">
+            <div class="box-header with-border">
+              <h3 class="box-title">Thông tin</h3>
+
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+              </div>
+            </div>
+            <form:form id="categoryForm" action="${contextPath}/news/category" modelAttribute="categoryForm" method="post" enctype="multipart/form-data">
+            <!-- /.box-header -->
+            <div class="box-body">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="code">Mã chuyên mục *</label>
+                    <form:input type="text" class="form-control" path="code" id="code" placeholder="Mã chuyên mục"/>
+                    <form:errors path="code" cssClass="has-error"></form:errors>
+                  </div>
+                  <div class="form-group">
+                    <label for="name">Tên chuyên mục *</label>
+                    <form:input type="text" class="form-control" path="name" id="name" placeholder="Tiêu đề"/>
+                    <form:errors path="name" cssClass="has-error"></form:errors>
+                  </div>
+                  <div class="form-group">
+                    <label for="imageName">Ảnh *</label>
+                    <div class="input-group">
+                      <input type="text" class="form-control" id="imageName" placeholder="Ảnh" autofocus="true" disabled="true">
+                      <span class="input-group-btn">
+                        <button type="button" class="btn btn-info btn-flat" id="imageFileBtn">Chọn ảnh...</button>
+                      </span>
+                      <form:input type="file" id="imageFile" path="imageFile"/>
+                    </div>
+                    <form:errors path="imageFile" cssClass="has-error"></form:errors>
+                  </div>
+                  <div class="form-group">
+                    <label for="imagePreview">Xem trước ảnh</label>
+                    <div class="input-group">
+                      <img id="imagePreview" alt="Xem trước ảnh được tải lên" width="250px" height="250px"/>
+                    </div>
+                  </div>
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- /.row -->
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer">
+              <form:input type="hidden" id="id" path="id"/>
+              <button type="submit" id="createBtn" class="btn btn-primary">Thêm</button>
+              <button type="submit" id="editBtn" class="btn btn-primary">Sửa</button>
+              <button type="button" id="resetBtn" class="btn bg-orange">Hủy</button>
+              <button type="button" id="activateBtn" class="btn btn-danger">Kích hoạt</button>
+            </div>
+            </form:form>
+          </div>
           <div class="box">
             <!--<div class="box-header">
               <h3 class="box-title">Hover Data Table</h3>
             </div>-->
             <!-- /.box-header -->
             <div class="box-body">
-              <table id="userMobilesTable" class="table table-bordered table-hover dataTable" role="grid">
+              <table id="categoriesTable" class="table table-bordered table-hover dataTable" role="grid">
                 <!-- Header Table -->
                 <thead>
                 <tr>
-                  <th>ID người dùng</th>
-                  <th>Tên đăng nhập</th>
-                  <th>Giới tính</th>
-                  <th>Tuổi</th>
-                  <th>Địa chỉ</th>
+                  <th>Mã chuyên mục</th>
+                  <th>Tên chuyên mục</th>
+                  <th>Ảnh</th>
                   <th>Trạng thái</th>
-                  <th>Ngày đăng ký</th>
-                  <th>Điểm tích lũy</th>
-                  <th>Chuyên mục yêu thích</th>
-                  <th>Số thiết bị sử dụng</th>
-                  <th>Người giới thiệu</th>
-                  <th>Mã giới thiệu đã dùng</th>
-                  <th>Phê duyệt</th>
+                  <th>Sửa / Xóa</th>
                 </tr>
                 </thead>
                 <!-- Footer Table -->
                 <tfoot>
                 <tr>
-                  <th>ID người dùng</th>
-                  <th>Tên đăng nhập</th>
-                  <th>Giới tính</th>
-                  <th>Tuổi</th>
-                  <th>Địa chỉ</th>
+                  <th>Mã chuyên mục</th>
+                  <th>Tên chuyên mục</th>
+                  <th>Ảnh</th>
                   <th>Trạng thái</th>
-                  <th>Ngày đăng ký</th>
-                  <th>Điểm tích lũy</th>
-                  <th>Chuyên mục yêu thích</th>
-                  <th>Số thiết bị sử dụng</th>
-                  <th>Người giới thiệu</th>
-                  <th>Phê duyệt</th>
+                  <th>Sửa / Xóa</th>
                 </tr>
                 </tfoot>
               </table>
@@ -122,40 +163,20 @@
       </div>
     </section>
     <!-- /.content -->
-    <div class="modal fade" id="modal-deactivate">
+    <div class="modal fade" id="modal-delete">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Hủy bỏ người dùng</h4>
+            <h4 class="modal-title">Xóa chuyên mục tin tức</h4>
           </div>
           <div class="modal-body">
-            <p>Bạn có chắc chắn muốn hủy người dùng này?</p>
+            <p>Bạn có chắc chắn muốn xóa chuyên mục tin tức này?</p>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
-            <button type="button" id="deactivateUserBtn" class="btn btn-primary">Hủy</button>
-          </div>
-        </div>
-        <!-- /.modal-content -->
-      </div>
-      <!-- /.modal-dialog -->
-    </div>
-    <div class="modal fade" id="modal-activate">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Kích hoạt người dùng</h4>
-          </div>
-          <div class="modal-body">
-            <p>Bạn có chắc chắn muốn kích hoạt người dùng này?</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
-            <button type="button" id="activateUserBtn" class="btn btn-primary">Kích hoạt</button>
+            <button type="button" id="delete_category" class="btn btn-primary">Xóa</button>
           </div>
         </div>
         <!-- /.modal-content -->
@@ -172,23 +193,20 @@
 <script src="${contextPath}/resources/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="${contextPath}/resources/bower_components/jquery-ui/jquery-ui.min.js"></script>
-<!-- iCheck 1.0.1 -->
-<script src="${contextPath}/resources/plugins/iCheck/icheck.min.js"></script>
+<script>
+  $.widget.bridge('uibutton', $.ui.button);
+</script>
 <!-- Bootstrap 3.3.7 -->
 <script src="${contextPath}/resources/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- Slimscroll -->
 <script src="${contextPath}/resources/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-<!-- date-range-picker -->
-<script src="${contextPath}/resources/bower_components/moment/min/moment-with-locales.min.js"></script>
-<script src="${contextPath}/resources/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script src="${contextPath}/resources/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<script src="${contextPath}/resources/bower_components/bootstrap-datepicker/dist/locales/bootstrap-datepicker.vi.min.js"></script>
 <script src="${contextPath}/resources/dist/js/adminlte.min.js"></script>
 <!-- DataTables -->
 <script src="${contextPath}/resources/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="${contextPath}/resources/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <script src="${contextPath}/resources/js/common.js"></script>
-<script src="${contextPath}/resources/js/user_info.js"></script>
-<script>
-    $.widget.bridge('uibutton', $.ui.button);
-</script>
+<script src="${contextPath}/resources/js/news_category.js"></script>
 </body>
 </html>

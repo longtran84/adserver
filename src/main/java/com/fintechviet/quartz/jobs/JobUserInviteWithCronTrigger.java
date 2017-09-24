@@ -21,7 +21,7 @@ public class JobUserInviteWithCronTrigger implements Job {
 	@Override
 	public void execute(JobExecutionContext jobExecutionContext) {
 		LOG.info("Running trigger to update user invite");
-		userMobileService.updateEarningForUser();
+		//userMobileService.updateEarningForUser();
 	}
 
 }
