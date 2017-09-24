@@ -41,6 +41,22 @@ $(document).ready( function () {
         /*$('#createBtn').attr('disabled', true);*/
         var data = table.row( $(this).parents('tr') ).data();
         $('#advertiserForm')[0].reset();
+        showDetails(data);
+    });
+    
+    $('#advertisersTable tbody').on( 'click', 'tr', function () {
+        if ( $(this).hasClass('success') ) {
+            $(this).removeClass('success');
+        }
+        else {
+            table.$('tr.success').removeClass('success');
+            $(this).addClass('success');
+        }
+        var data = table.row(this).data();
+        showDetails(data);
+    });
+    
+    var showDetails = function (data) {
         $('#advertiserForm #email').val(data.email);
         $('#advertiserForm #password').val(data.password);
         $('#advertiserForm #passwordConfirm').val(data.password);
@@ -49,7 +65,7 @@ $(document).ready( function () {
         $('#advertiserForm #companyName').val(data.companyName);
         $('#advertiserForm #charge').val(data.charge);
         $('#advertiserForm #id').val(data.id);
-    });
+    }
 
     // Delete a record
     $('#advertisersTable tbody').on( 'click', 'a.editor_remove', function (e) {
@@ -73,6 +89,9 @@ $(document).ready( function () {
             success: function (result) {
                 $('#modal-delete').modal('hide');
                 $('.alert-info').attr('style','display: block');
+                
+                $('#advertiserForm')[0].reset();
+                
                 $('#advertisersTable').DataTable().ajax.reload();
             },
             error: function(error) {

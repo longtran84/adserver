@@ -1,7 +1,7 @@
 $(document).ready( function () {
     var data;
     $(function () {
-        $('#editBtn').attr("disabled", true);
+        /*$('#editBtn').attr("disabled", true);*/
         $('#activateBtn').attr('disabled', true);
     });
 
@@ -95,13 +95,23 @@ $(document).ready( function () {
         $('#campaignForm #freCapType').val(data.freCapType);
         $('#campaignForm #description').val(data.description);
         $('#campaignForm #status').val(data.status);
-    }
+    };
+    
+    var resetForm = function () {
+        $('#campaignForm')[0].reset();
+        $('#campaignForm #id').val(null);
+        $('#campaignForm #advertiserId').val(null);
+        
+        $('#editBtn').attr('disabled', false);
+        $('#resetBtn').attr('disabled', false);
+        $('#activateBtn').attr('disabled', true);
+    };
 
     // Edit record
     $('#campaignsTable tbody').on( 'click', 'a.editor_edit', function (e) {
         e.preventDefault();
         $('#editBtn').attr('disabled', false);
-        $('#createBtn').attr('disabled', true);
+        /*$('#createBtn').attr('disabled', true);*/
         var data = table.row( $(this).parents('tr') ).data();
         showDetails(data);
     });
@@ -124,19 +134,19 @@ $(document).ready( function () {
         data = table.row(this).data();
         if (data.status === 'NEW') {
             $('#editBtn').attr('disabled', false);
-            $('#createBtn').attr('disabled', true);
-            $('#resetBtn').attr('disabled', false);
+            /*$('#createBtn').attr('disabled', true);*/
+            /*$('#resetBtn').attr('disabled', false);*/
             $('#activateBtn').attr('disabled', false);
             $('#activateBtn').text('Kích hoạt');
         } else if (data.status === 'INACTIVE') {
             $('#editBtn').attr('disabled', true);
-            $('#createBtn').attr('disabled', true);
-            $('#resetBtn').attr('disabled', true);
+           /* $('#createBtn').attr('disabled', true);*/
+            /*$('#resetBtn').attr('disabled', false);*/
             $('#activateBtn').attr('disabled', true);
         } else {
             $('#editBtn').attr('disabled', true);
-            $('#createBtn').attr('disabled', true);
-            $('#resetBtn').attr('disabled', true);
+           /* $('#createBtn').attr('disabled', true);*/
+           /* $('#resetBtn').attr('disabled', false);*/
             $('#activateBtn').attr('disabled', false);
             $('#activateBtn').text('Hủy kích hoạt');
         }
@@ -154,10 +164,14 @@ $(document).ready( function () {
             success: function (result) {
                 if (data.status === 'NEW') {
                     $('#activateBtn').text('Hủy kích hoạt');
+                    $('#editBtn').attr('disabled', true);
                 } else {
                     $('#activateBtn').text('Kích hoạt');
                     $('#activateBtn').attr('disabled', true);
                 }
+                $('#editBtn').attr('disabled', true);
+                $('#activateBtn').attr('disabled', true);
+                
                 $('#campaignsTable').DataTable().ajax.reload();
             },
             error: function(error) {
@@ -181,7 +195,8 @@ $(document).ready( function () {
                  location.reload();
              },
              error: function(error) {
-                 alert(error);
+            	 $('.alert-danger').attr('style','display: block');
+                 /*alert(error);*/
              }
          });
     	 
@@ -206,7 +221,7 @@ $(document).ready( function () {
     })
 
     $('#resetBtn').click(function(){
-        $('#campaignForm')[0].reset();
+    	resetForm();
     });
 
     $('#close_info').click(function(){

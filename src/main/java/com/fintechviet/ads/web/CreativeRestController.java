@@ -46,8 +46,15 @@ public class CreativeRestController {
     }
 
     @RequestMapping(path = "/creatives", method = RequestMethod.GET)
-    public List<Creative> getCreatives(){
-        return creativeService.getAllCreatives();
+    public List<Creative> getCreatives() {
+    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        boolean hasAdminRole = auth.getAuthorities().stream()
+                .anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
+        if (hasAdminRole) {
+        	return creativeService.getAllCreatives();
+        } else {
+        	return creativeService.getCreativeByAdvertiser(auth.getName());
+        }
     }
 
     @RequestMapping(value = "/deleteCreative", method = RequestMethod.POST)

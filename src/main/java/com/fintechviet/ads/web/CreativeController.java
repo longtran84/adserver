@@ -49,10 +49,14 @@ public class CreativeController {
         if (bindingResult.hasErrors()) {
             return "creativeVideo";
         }
+        
+        if (creativeForm.getId() == null) {
+        	creativeForm.setStatus("NEW");
+        }
 
         creativeForm.setTemplate("video");
         creativeService.save(creativeForm);
-
+ 
         return "redirect:/creativeVideo";
     }
 
@@ -73,6 +77,10 @@ public class CreativeController {
             outputStream.flush();
             outputStream.close();
             creativeForm.setImageLink("/abc/" + file.getOriginalFilename());
+        }
+        
+        if (creativeForm.getId() == null) {
+        	creativeForm.setStatus("NEW");
         }
 
         creativeService.save(creativeForm);
