@@ -26,15 +26,9 @@ public class NewsCategoryRestController {
         return newsCategoryService.getUserInterestReport();
     }
 
-    @RequestMapping(value = "/news/saveNewsCategories", method = RequestMethod.POST)
-    public ResponseEntity<?> saveNewsCategories(@RequestBody NewsCategory[] newsCategories){
-        try {
-            newsCategoryService.save(Arrays.asList(newsCategories));
-        } catch(Exception ex){
-            ex.printStackTrace();
-            //return ResponseEntity.badRequest().body("Error1");
-        }
-        return ResponseEntity.ok("ok");
+    @RequestMapping(path = "/news/categories", method = RequestMethod.GET)
+    public List<NewsCategory> getAllNewsCategories(){
+        return newsCategoryService.getAllNewCategories();
     }
 }
 

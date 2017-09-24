@@ -105,7 +105,7 @@ public class NewsServiceImpl implements NewsService {
                     } else if(LINK.equals(key)) {
                         news.setLink(value);
                     } else if(IMAGE_LINK.equals(key)) {
-                        value = value.replaceAll("localhost:8080", "222.252.16.132:8888");
+                        value = value.replaceAll("localhost", "222.252.16.132");
                         news.setImageLink(value);
                     } else if(PUBLISH_DATE.equals(key)) {
                         news.setPublishDate((Date)element.getValue());
