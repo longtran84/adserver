@@ -32,7 +32,12 @@ $(document).ready( function () {
              columns: [
              { data: "title" },
              { data: "advertiser.email" },
-             { data: "videoLink" },
+             {   data: null,
+                 "render": function (data) {
+                     return '<video class="videoLink" width="400" height="255" preload="auto" controls>' +
+                                  '<source src="' + data.videoLink + '" type="video/mp4"></video>';
+                 }
+             },
              {   data: null,
                  "render": function (data) {
                      if (data.status === 'NEW') {
@@ -187,4 +192,25 @@ $(document).ready( function () {
     $('#close_error').click(function(){
         $('.alert-danger').attr('style','display: none');
     });
+
+    $('#videoFileBtn').on('click', function(e){
+        e.preventDefault();
+        $('#videoFile').click();
+    });
+
+    $('#videoFile').on('change', function () {
+        var files = this.files;
+        if (!files.length) {
+            return;
+        }
+        var validExtensions = ['mp4', 'mpeg'];
+        var fileName = files[0].name;
+        var fileNameExt = fileName.substr(fileName.lastIndexOf('.') + 1).toLowerCase();
+        if (($.inArray(fileNameExt, validExtensions) == -1) || (this.files[0].size/1024 > 2000)) {
+            $('#modal-file-error').modal();
+            return;
+        }
+        $('#videoName').val(fileName);
+    });
+
 });

@@ -63,7 +63,7 @@ public class NewsCategoryController {
             outputStream.close();
             String serverName = request.getServerName();
             int serverPort = request.getServerPort();
-            categoryForm.setImage("http://" + serverName + ":"+ serverPort + "/images/" + file.getOriginalFilename());
+            categoryForm.setImage(serverName + ":" + serverPort + "/images/" + file.getOriginalFilename());
         }
 
         newsCategoryService.save(categoryForm);

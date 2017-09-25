@@ -33,6 +33,11 @@ public class NewsCategoryServiceImpl implements NewsCategoryService {
     }
 
     @Override
+    public void delete(NewsCategory newsCategory) {
+        newsCategoryRepository.delete(newsCategory);
+    }
+
+    @Override
     public List<NewsCategory> getAllNewCategories() {
         return newsCategoryRepository.findAll();
     }

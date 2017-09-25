@@ -72,7 +72,11 @@ $(document).ready( function () {
              { data: "name" },
              { data: null,
                "render": function (data) {
-                 return '<div><a href="#" data-image=' + data.image + ' class="categoryImage">' + data.image + '</a></div>';
+                 if (data.image !== null) {
+                     return '<img src="'+ data.image + '" alt="image" height="200" />';
+                 } else {
+                     return '<img src="/images/no-image.png" alt="image" height="200" />';
+                 }
                }
              },
              {   data: null,
@@ -91,9 +95,7 @@ $(document).ready( function () {
                  className: "center",
                  "render": function (data) {
                      if (data.status === 'NEW') {
-                         return '<a href="" class="editor_edit">Sửa</a> / <a href="" class="editor_remove">Xóa</a>';
-                     } else if (data.status === 'INACTIVE') {
-                         return '<a href="" class="editor_remove">Xóa</a>';
+                         return '<a href="" class="editor_edit"><i class="fa fa-fw fa-edit"></i></a>  <a href="" class="editor_remove"><i class="fa fa-fw fa-remove"></i></a>';
                      } else {
                          return '';
                      }
@@ -103,10 +105,10 @@ $(document).ready( function () {
 	 });
 
     var showDetails = function (data) {
-        $('#categoryForm #code').val(data.advertiser.id);
-        $('#creativeForm #name').val(data.advertiser.email);
-        $('#creativeForm #imageLink').val(data.imageLink);
-        $('#creativeForm #id').val(data.id);
+        $('#categoryForm #code').val(data.code);
+        $('#categoryForm #name').val(data.name);
+        $('#categoryForm #imageLink').val(data.videoLink);
+        $('#categoryForm #id').val(data.id);
     }
 
     // Edit record
@@ -208,15 +210,5 @@ $(document).ready( function () {
 
     $('#close_error').click(function(){
         $('.alert-danger').attr('style','display: none');
-    });
-
-    $('#categoriesTable').on('mouseenter', '.categoryImage', function() {
-        var image_name=$(this).data('image');
-        var imageTag='<div style="position:absolute;">'+'<img src="'+image_name+'" alt="image" height="200" />'+'</div>';
-        $(this).parent('div').append(imageTag);
-    });
-
-    $('#categoriesTable').on('mouseleave', '.categoryImage', function() {
-        $(this).parent('div').children('div').remove();
     });
 });

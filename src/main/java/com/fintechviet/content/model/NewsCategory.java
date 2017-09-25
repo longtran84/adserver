@@ -17,7 +17,7 @@ public class NewsCategory {
     private String code;
     private String name;
     private String image;
-    private String status = "ACTIVE";
+    private String status = "NEW";
     @JsonIgnoreProperties("newsCategories")
     private Set<UserMobile> userMobiles;
     private MultipartFile imageFile;

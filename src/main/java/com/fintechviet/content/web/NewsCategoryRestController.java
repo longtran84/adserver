@@ -30,5 +30,15 @@ public class NewsCategoryRestController {
     public List<NewsCategory> getAllNewsCategories(){
         return newsCategoryService.getAllNewCategories();
     }
+
+    @RequestMapping(value = "/news/deleteCategory", method = RequestMethod.POST)
+    public ResponseEntity<?> deleteCategory(@RequestBody NewsCategory newsCategory) {
+        try {
+            newsCategoryService.delete(newsCategory);
+        } catch (Exception ex) {
+            return ResponseEntity.badRequest().body("Error");
+        }
+        return ResponseEntity.ok(newsCategory);
+    }
 }
 

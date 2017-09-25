@@ -99,7 +99,11 @@ $(document).ready( function () {
              columns: [
              { data: "title" },
              { data: "advertiser.email" },
-             { data: "imageLink" },
+             { data: null,
+                 "render": function (data) {
+                     return '<div><a href="#" data-image=' + data.imageLink + ' class="adImage">' + data.imageLink + '</a></div>';
+                 }
+             },
              {   data: null,
                  "render": function (data) {
                      if (data.status === 'NEW') {
@@ -252,5 +256,21 @@ $(document).ready( function () {
 
     $('#close_error').click(function(){
         $('.alert-danger').attr('style','display: none');
+    });
+
+    $('#creativesTable').on('mouseenter', '.adImage', function() {
+        var image_name=$(this).data('image');
+        var imageTag='<div style="position:absolute;">'+'<img id="imagePreviewHover" src="' + image_name + '" alt="image" height="200" />'+'</div>';
+        $(this).parent('div').append(imageTag);
+        img = new Image();
+        img.src = image_name;
+        img.onload = function() {
+            $('#imagePreviewHover').attr('width', this.width + 'px');
+            $('#imagePreviewHover').attr('height', this.height + 'px');
+        }
+    });
+
+    $('#creativesTable').on('mouseleave', '.adImage', function() {
+        $(this).parent('div').children('div').remove();
     });
 });
