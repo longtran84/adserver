@@ -238,4 +238,9 @@ public class CampaignServiceImpl implements CampaignService {
 
         return  reports;
     }
+
+	@Override
+	public void delete(Long id) {
+		campaignRepository.delete(id);
+	}
 }

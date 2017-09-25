@@ -43,24 +43,24 @@ public class AdValidator implements Validator {
         if (StringUtils.isNotEmpty(ad.getImpressionsTmp()) && !StringUtils.isNumeric(ad.getImpressionsTmp())) {
             errors.rejectValue("impressionsTmp", "adForm.impressions.invalid");
         } else {
-            if (Integer.valueOf(ad.getImpressionsTmp()) == 0) {
+            if (StringUtils.isNotEmpty(ad.getImpressionsTmp()) && Integer.valueOf(ad.getImpressionsTmp()) == 0) {
                 errors.rejectValue("impressionsTmp", "adForm.impressions.invalid");
             }
         }
 
-        if (ad.isIsFreCapTmp()) {
-            ValidationUtils.rejectIfEmptyOrWhitespace(errors, "freCapTmp", "adForm.freCap.empty");
-            ValidationUtils.rejectIfEmptyOrWhitespace(errors, "freCapDurationTmp", "adForm.freCap.empty");
-            ValidationUtils.rejectIfEmptyOrWhitespace(errors, "freCapType", "adForm.freCap.empty");
-        }
-
-        if ((StringUtils.isNotEmpty(ad.getFreCapTmp()) && StringUtils.isNotEmpty(ad.getFreCapDurationTmp())) && (!StringUtils.isNumeric(ad.getFreCapTmp()) || !StringUtils.isNumeric(ad.getFreCapDurationTmp()))) {
-            errors.rejectValue("freCapTmp", "adForm.freCap.invalid");
-        } else {
-            if (Integer.valueOf(ad.getFreCapTmp()) == 0 || Integer.valueOf(ad.getFreCapDurationTmp()) == 0) {
-                errors.rejectValue("freCapTmp", "adForm.freCap.invalid");
-            }
-        }
+//        if (ad.isIsFreCapTmp()) {
+//            ValidationUtils.rejectIfEmptyOrWhitespace(errors, "freCapTmp", "adForm.freCap.empty");
+//            ValidationUtils.rejectIfEmptyOrWhitespace(errors, "freCapDurationTmp", "adForm.freCap.empty");
+//            ValidationUtils.rejectIfEmptyOrWhitespace(errors, "freCapType", "adForm.freCap.empty");
+//        }
+//
+//        if ((StringUtils.isNotEmpty(ad.getFreCapTmp()) && StringUtils.isNotEmpty(ad.getFreCapDurationTmp())) && (!StringUtils.isNumeric(ad.getFreCapTmp()) || !StringUtils.isNumeric(ad.getFreCapDurationTmp()))) {
+//            errors.rejectValue("freCapTmp", "adForm.freCap.invalid");
+//        } else {
+//            if (Integer.valueOf(ad.getFreCapTmp()) == 0 || Integer.valueOf(ad.getFreCapDurationTmp()) == 0) {
+//                errors.rejectValue("freCapTmp", "adForm.freCap.invalid");
+//            }
+//        }
 
         if (ad.getDescription().length()  > 255) {
             errors.rejectValue("description", "adForm.description.size");

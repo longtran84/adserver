@@ -34,13 +34,19 @@ public class AdvertiserServiceImpl implements AdvertiserService {
 
     @Override
     public void save(Advertiser advertiser) {
-        User user = new User();
-        user.setUsername(advertiser.getEmail());
-        user.setPassword(md5PasswordEncoder.encodePassword(advertiser.getPassword(), null));
-        user.setRoles(new HashSet<Role>(){{
-                                          add(roleRepository.findOne(2l));
-                                          }});
-        userRepository.save(user);
+		if (advertiser.getId() == null) {
+			User user = new User();
+			user.setUsername(advertiser.getEmail());
+			user.setPassword(md5PasswordEncoder.encodePassword(advertiser.getPassword(), null));
+			user.setRoles(new HashSet<Role>() {
+				{
+					add(roleRepository.findOne(2l));
+				}
+			});
+
+			userRepository.save(user);
+		}
+
         advertiserRepository.save(advertiser);
     }
 

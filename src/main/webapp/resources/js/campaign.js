@@ -1,7 +1,7 @@
 $(document).ready( function () {
     var data;
     $(function () {
-        $('#editBtn').attr("disabled", true);
+        /*$('#editBtn').attr("disabled", true);*/
         $('#activateBtn').attr('disabled', true);
     });
 
@@ -69,9 +69,9 @@ $(document).ready( function () {
                  className: "center",
                  "render": function (data) {
                      if (data.status === 'NEW') {
-                         return '<a href="" class="editor_edit">Sửa</a> / <a href="" class="editor_remove">Xóa</a>';
+                         return '<a href="" class="editor_edit"><i class="fa fa-fw fa-edit"></i></a>   <a href="" class="editor_remove"><i class="fa fa-fw fa-remove"></i></a>';
                      } else if (data.status === 'INACTIVE') {
-                         return '<a href="" class="editor_remove">Xóa</a>';
+                         return '<a href="" class="editor_remove"><i class="fa fa-fw fa-remove"></i></a>';
                      } else {
                          return '';
                      }
@@ -81,6 +81,7 @@ $(document).ready( function () {
 	 });
 
     var showDetails = function (data) {
+    	$('#campaignForm #id').val(data.id);
         $('#campaignForm #advertiserId').val(data.advertiser.id);
         $('#campaignForm #advertiserName').val(data.advertiser.email);
         $('#campaignForm #name').val(data.name);
@@ -93,13 +94,24 @@ $(document).ready( function () {
         $('#campaignForm #freCapDuration').val(data.freCapDuration);
         $('#campaignForm #freCapType').val(data.freCapType);
         $('#campaignForm #description').val(data.description);
-    }
+        $('#campaignForm #status').val(data.status);
+    };
+    
+    var resetForm = function () {
+        $('#campaignForm')[0].reset();
+        $('#campaignForm #id').val(null);
+        $('#campaignForm #advertiserId').val(null);
+        
+        $('#editBtn').attr('disabled', false);
+        $('#resetBtn').attr('disabled', false);
+        $('#activateBtn').attr('disabled', true);
+    };
 
     // Edit record
     $('#campaignsTable tbody').on( 'click', 'a.editor_edit', function (e) {
         e.preventDefault();
         $('#editBtn').attr('disabled', false);
-        $('#createBtn').attr('disabled', true);
+        /*$('#createBtn').attr('disabled', true);*/
         var data = table.row( $(this).parents('tr') ).data();
         showDetails(data);
     });
@@ -122,19 +134,19 @@ $(document).ready( function () {
         data = table.row(this).data();
         if (data.status === 'NEW') {
             $('#editBtn').attr('disabled', false);
-            $('#createBtn').attr('disabled', true);
-            $('#resetBtn').attr('disabled', false);
+            /*$('#createBtn').attr('disabled', true);*/
+            /*$('#resetBtn').attr('disabled', false);*/
             $('#activateBtn').attr('disabled', false);
             $('#activateBtn').text('Kích hoạt');
         } else if (data.status === 'INACTIVE') {
             $('#editBtn').attr('disabled', true);
-            $('#createBtn').attr('disabled', true);
-            $('#resetBtn').attr('disabled', true);
+           /* $('#createBtn').attr('disabled', true);*/
+            /*$('#resetBtn').attr('disabled', false);*/
             $('#activateBtn').attr('disabled', true);
         } else {
             $('#editBtn').attr('disabled', true);
-            $('#createBtn').attr('disabled', true);
-            $('#resetBtn').attr('disabled', true);
+           /* $('#createBtn').attr('disabled', true);*/
+           /* $('#resetBtn').attr('disabled', false);*/
             $('#activateBtn').attr('disabled', false);
             $('#activateBtn').text('Hủy kích hoạt');
         }
@@ -152,10 +164,14 @@ $(document).ready( function () {
             success: function (result) {
                 if (data.status === 'NEW') {
                     $('#activateBtn').text('Hủy kích hoạt');
+                    $('#editBtn').attr('disabled', true);
                 } else {
                     $('#activateBtn').text('Kích hoạt');
                     $('#activateBtn').attr('disabled', true);
                 }
+                $('#editBtn').attr('disabled', true);
+                $('#activateBtn').attr('disabled', true);
+                
                 $('#campaignsTable').DataTable().ajax.reload();
             },
             error: function(error) {
@@ -163,6 +179,30 @@ $(document).ready( function () {
             }
         });
     });
+    
+    $('#delete_campaign').click(function() {
+    	 $.ajax({
+             type: "DELETE",
+             url: '/deleteCampaign/'+data.id,
+             success: function (result) {
+                 if (data.status === 'NEW') {
+                     $('#activateBtn').text('Hủy kích hoạt');
+                 } else {
+                     $('#activateBtn').text('Kích hoạt');
+                     $('#activateBtn').attr('disabled', true);
+                 }
+                 
+                 location.reload();
+             },
+             error: function(error) {
+            	 $('.alert-danger').attr('style','display: block');
+                 /*alert(error);*/
+             }
+         });
+    	 
+    	 $('#modal-delete').modal('hide');
+    });
+
 
     $("#isFreCapTmp").click( function(){
         if( $(this).is(':checked') ) alert("checked");
@@ -181,7 +221,7 @@ $(document).ready( function () {
     })
 
     $('#resetBtn').click(function(){
-        $('#campaignForm')[0].reset();
+    	resetForm();
     });
 
     $('#close_info').click(function(){

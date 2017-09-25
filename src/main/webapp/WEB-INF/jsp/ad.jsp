@@ -111,7 +111,7 @@
                     <form:input type="text" class="form-control" path="impressionsTmp" id="impressions" placeholder="Số lần xuất hiện"/>
                     <form:errors path="impressionsTmp" cssClass="has-error"></form:errors>
                   </div>
-                  <div class="form-group">
+<%--                   <div class="form-group">
                     <fieldset class="scheduler-border">
                       <legend class="scheduler-border">Tần xuất hiển thị</legend>
                       <div class="control-group">
@@ -139,6 +139,11 @@
                         <form:errors path="freCapTmp" cssClass="has-error"></form:errors>
                       </div>
                     </fieldset>
+                  </div> --%>
+                  <div class="form-group">
+                    <label for="name">Mô tả</label>
+                    <form:textarea class="form-control" path="description" id="description" rows="4" placeholder="Mô tả"/>
+                    <form:errors path="description" cssClass="has-error"></form:errors>
                   </div>
                 </div>
                 <!-- /.col -->
@@ -165,11 +170,6 @@
                     </div>
                     <form:errors path="creative.id" cssClass="has-error"></form:errors>
                   </div>
-                  <div class="form-group">
-                    <label for="name">Mô tả</label>
-                    <form:textarea class="form-control" path="description" id="description" rows="4" placeholder="Mô tả"/>
-                    <form:errors path="description" cssClass="has-error"></form:errors>
-                  </div>
                   <!-- /.form-group -->
                 </div>
                 <!-- /.col -->
@@ -179,9 +179,10 @@
             <!-- /.box-body -->
             <div class="box-footer">
               <form:input type="hidden" id="id" path="id"/>
-              <button type="submit" id="createBtn" class="btn btn-primary">Thêm</button>
-              <button type="submit" id="editBtn" class="btn btn-primary">Sửa</button>
-              <button type="button" id="resetBtn" class="btn bg-orange">Hủy</button>
+              <form:input type="hidden" id="status" path="status"/>
+              <!-- <button type="submit" id="createBtn" class="btn btn-primary">Thêm</button> -->
+              <button type="button" id="resetBtn" class="btn btn-success">Nhập Mới</button>
+              <button type="submit" id="editBtn" class="btn btn-primary">Lưu</button>
               <button type="button" id="activateBtn" class="btn btn-danger">Kích hoạt</button>
             </div>
             </form:form>

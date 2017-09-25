@@ -89,32 +89,32 @@
 
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="email">Email</label>
+                    <label for="email">Email *</label>
                     <form:input type="email" class="form-control" path="email" id="email" placeholder="Email" autofocus="true"/>
-                    <form:errors path="email"></form:errors>
+                    <form:errors path="email" cssClass="has-error"></form:errors>
                   </div>
                   <div class="form-group">
-                    <label for="fullName">Họ tên</label>
+                    <label for="fullName">Họ tên *</label>
                     <form:input type="text" class="form-control" path="fullName" id="fullName" placeholder="Họ tên"/>
-                    <form:errors path="fullName"></form:errors>
+                    <form:errors path="fullName" cssClass="has-error"></form:errors>
                   </div>
                   <div class="form-group">
-                    <label for="phone">Điện thoại</label>
+                    <label for="phone">Điện thoại *</label>
                     <form:input type="text" class="form-control" path="phone" id="phone" placeholder="Điện thoại"/>
-                    <form:errors path="phone"></form:errors>
+                    <form:errors path="phone" cssClass="has-error"></form:errors>
                   </div>
                 </div>
                 <!-- /.col -->
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="companyName">Tên công ty</label>
+                    <label for="companyName">Tên công ty *</label>
                     <form:input type="text" class="form-control" path="companyName" id="companyName" placeholder="Tên công ty"/>
-                    <form:errors path="companyName"></form:errors>
+                    <form:errors path="companyName" cssClass="has-error"></form:errors>
                   </div>
                   <div class="form-group">
                     <label for="charge">Tổng chi phí</label>
                     <form:input type="text" class="form-control" path="charge" id="charge" placeholder="Tổng chi phí"/>
-                    <form:errors path="charge"></form:errors>
+                    <form:errors path="charge" cssClass="has-error"></form:errors>
                   </div>
                   <!-- /.form-group -->
                 </div>
@@ -125,9 +125,9 @@
             <!-- /.box-body -->
             <div class="box-footer">
               <form:input type="hidden" id="id" path="id"/>
-              <button type="submit" id="createBtn" class="btn btn-primary">Thêm</button>
-              <button type="submit" id="editBtn" class="btn btn-primary">Sửa</button>
-              <button type="button" id="resetBtn" class="btn bg-orange">Hủy</button>
+              <!-- <button type="submit" id="createBtn" class="btn btn-primary">Thêm</button> -->
+              <button type="button" id="resetBtn" class="btn btn-success">Nhập Mới</button>
+              <button type="submit" id="editBtn" class="btn btn-primary">Lưu</button>
             </div>
             </form:form>
           </div>
