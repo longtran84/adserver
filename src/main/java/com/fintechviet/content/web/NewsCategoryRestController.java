@@ -1,5 +1,6 @@
 package com.fintechviet.content.web;
 
+import com.fintechviet.ads.model.Campaign;
 import com.fintechviet.content.dto.UserInterestDTO;
 import com.fintechviet.content.model.NewsCategory;
 import com.fintechviet.content.service.NewsCategoryService;
@@ -40,5 +41,17 @@ public class NewsCategoryRestController {
         }
         return ResponseEntity.ok(newsCategory);
     }
+    
+    @RequestMapping(value = "/activateCategory", method = RequestMethod.POST)
+    public ResponseEntity<?> activateNewsCategory(@RequestBody NewsCategory newsCategory) {
+        try {
+            String status = newsCategory.getStatus().equals("ACTIVE") ? "INACTIVE" : "ACTIVE";
+            newsCategoryService.updateStatus(newsCategory.getId(), status);
+        } catch (Exception ex) {
+            return ResponseEntity.badRequest().body("Error");
+        }
+        return ResponseEntity.ok(newsCategory.getId());
+    }
+    
 }
 

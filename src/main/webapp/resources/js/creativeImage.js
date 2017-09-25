@@ -16,12 +16,12 @@ $(document).ready( function () {
             img = new Image();
             img.src = _URL.createObjectURL(files[0]);
             img.onload = function() {
-                var validSizes = ['320x50','480x32','320x100','468x60','728x90','300x250','320x480','480x320'];
+                /*var validSizes = ['320x50','480x32','320x100','468x60','728x90','300x250','320x480','480x320'];
                 var size = this.width + "x" +  this.height;
                 if ($.inArray(size, validSizes) == -1) {
                     $('#modal-file-error').modal();
                     return;
-                }
+                }*/
                 $('#imagePreview').attr('width', this.width + 'px');
                 $('#imagePreview').attr('height', this.height + 'px');
                 var reader = new FileReader();
@@ -64,10 +64,10 @@ $(document).ready( function () {
         var validExtensions = ['jpg','png','gif'];
         var fileName = files[0].name;
         var fileNameExt = fileName.substr(fileName.lastIndexOf('.') + 1).toLowerCase();
-        if (($.inArray(fileNameExt, validExtensions) == -1) || (this.files[0].size/1024 > 150)) {
-            $('#modal-file-error').modal();
-            return;
-        }
+//        if (($.inArray(fileNameExt, validExtensions) == -1) || (this.files[0].size/1024 > 150)) {
+//            $('#modal-file-error').modal();
+//            return;
+//        }
         readURL(files);
         $('#imageName').val(fileName);
     });
@@ -149,7 +149,6 @@ $(document).ready( function () {
         $('#creativeForm #advertiserId').val(null);
         
         $('#editBtn').attr('disabled', false);
-        $('#resetBtn').attr('disabled', false);
         $('#activateBtn').attr('disabled', true);
     };
 
@@ -210,7 +209,7 @@ $(document).ready( function () {
             $('#editBtn').attr('disabled', true);
             /*$('#createBtn').attr('disabled', true);*/
             /*$('#resetBtn').attr('disabled', true);*/
-            $('#activateBtn').attr('disabled', true);
+            $('#activateBtn').attr('disabled', false);
         } else {
             $('#editBtn').attr('disabled', true);
             /*$('#createBtn').attr('disabled', true);*/
@@ -230,14 +229,13 @@ $(document).ready( function () {
             dataType: "json",
             contentType: "application/json",
             success: function (result) {
-                if (data.status === 'NEW') {
+                if (data.status === 'NEW' || data.status === 'INACTIVE') {
                     $('#activateBtn').text('Hủy kích hoạt');
                 } else {
                     $('#activateBtn').text('Kích hoạt');
-                    $('#activateBtn').attr('disabled', true);
                 }
-                $('#editBtn').attr('disabled', true);
-                $('#activateBtn').attr('disabled', true);
+                
+                resetForm();
                 $('#creativesTable').DataTable().ajax.reload();
             },
             error: function(error) {
