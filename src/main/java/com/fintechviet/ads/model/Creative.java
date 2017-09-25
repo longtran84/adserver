@@ -19,8 +19,9 @@ public class Creative {
     private String template;
     private String imageLink;
     private String videoLink;
-    private String status;
+    private String status = "NEW";
     private MultipartFile imageFile;
+    private MultipartFile videoFile;
 
     @Id
     @Column(name = "id")
@@ -120,6 +121,15 @@ public class Creative {
 
     public void setImageFile(MultipartFile imageFile) {
         this.imageFile = imageFile;
+    }
+
+    @Transient
+    public MultipartFile getVideoFile() {
+        return videoFile;
+    }
+
+    public void setVideoFile(MultipartFile videoFile) {
+        this.videoFile = videoFile;
     }
 
     @Override

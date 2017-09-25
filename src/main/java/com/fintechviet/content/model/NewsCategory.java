@@ -1,5 +1,9 @@
 package com.fintechviet.content.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fintechviet.user_mobile.model.UserMobile;
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -13,8 +17,10 @@ public class NewsCategory {
     private String code;
     private String name;
     private String image;
-    private String status = "ACTIVE";
+    private String status = "NEW";
+    @JsonIgnoreProperties("newsCategories")
     private Set<UserMobile> userMobiles;
+    private MultipartFile imageFile;
 
     @Id
     @Column(name = "id")
@@ -76,6 +82,14 @@ public class NewsCategory {
         this.userMobiles = userMobiles;
     }
 
+    @Transient
+    public MultipartFile getImageFile() {
+        return imageFile;
+    }
+
+    public void setImageFile(MultipartFile imageFile) {
+        this.imageFile = imageFile;
+    }
 
     @Override
     public boolean equals(Object o) {

@@ -11,9 +11,10 @@ import java.util.Locale;
  */
 public class DateUtils {
     private static String FORMAT_DATE = "dd/MM/yyyy HH:mm:SS";
+    private static String FORMAT_DATE_UTC = "yyyy-MM-dd'T'HH:mm:ss'Z'";
     private static String FORMAT_DATE1 = "dd/MM/yyyy";
     private static String FORMAT_DATE_STR = "dd/MM/yyyy";
-    private static String FORMAT_DATE_DB_STR = "yyyy-MM-dd";
+    private static String FORMAT_DATE_DB_STR = "yyyy-MM-dd HH:mm:ss";
     public static String EQUAL = "EQUAL";
     public static String BEFORE = "BEFORE";
     public static String AFTER = "AFTER";
@@ -36,8 +37,8 @@ public class DateUtils {
         return null;
     }
 
-    public static String convertDateToString(Date date) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat(FORMAT_DATE_STR);
+    public static String convertDateToStringUTC(Date date) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(FORMAT_DATE_UTC);
         return dateFormat.format(date);
     }
 

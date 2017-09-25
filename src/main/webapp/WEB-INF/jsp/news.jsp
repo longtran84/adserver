@@ -58,7 +58,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Inventory
+        Tin tức
       </h1>
       <br>
       <div class="input-group">
@@ -81,39 +81,29 @@
             </div>-->
             <!-- /.box-header -->
             <div class="box-body">
-              <table id="inventoryReportsTable" class="table table-bordered table-hover dataTable" role="grid">
+              <table id="newsTable" class="table table-bordered table-hover dataTable" role="grid">
                 <!-- Header Table -->
                 <thead>
                 <tr>
-                  <th>Ngày</th>
                   <th>Tiêu đề</th>
-                  <th>Lượt hiển thị nội dung</th>
-                  <th>Lượt click nội dung</th>
-                  <th>CTR nội dung</th>
-                  <th>Lượt hiển thị quảng cáo</th>
-                  <th>Lượt click quảng cáo</th>
-                  <th>CPC CTR</th>
-                  <th>Lượt xem video</th>
-                  <th>CPV CTR</th>
-                  <th>CPI</th>
-                  <th>CPE</th>
+                  <th>Link gốc</th>
+                  <th>Nguồn</th>
+                  <th>Chuyên mục</th>
+                  <th>Trạng thái</th>
+                  <th>Ngày tạo</th>
+                  <th>Phê duyệt</th>
                 </tr>
                 </thead>
                 <!-- Footer Table -->
                 <tfoot>
                 <tr>
-                  <th>Ngày</th>
-                  <th>Tổng lượt hiển thị</th>
-                  <th>Lượt hiển thị nội dung</th>
-                  <th>Lượt click nội dung</th>
-                  <th>CTR nội dung</th>
-                  <th>Lượt hiển thị quảng cáo</th>
-                  <th>Lượt click quảng cáo</th>
-                  <th>CPC CTR</th>
-                  <th>Lượt xem video</th>
-                  <th>CPV CTR</th>
-                  <th>CPI</th>
-                  <th>CPE</th>
+                  <th>Tiêu đề</th>
+                  <th>Link gốc</th>
+                  <th>Nguồn</th>
+                  <th>Chuyên mục</th>
+                  <th>Trạng thái</th>
+                  <th>Ngày tạo</th>
+                  <th>Phê duyệt</th>
                 </tr>
                 </tfoot>
               </table>
@@ -123,6 +113,26 @@
       </div>
     </section>
     <!-- /.content -->
+    <div class="modal fade" id="modal-publish">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Xóa nhà quảng cáo</h4>
+          </div>
+          <div class="modal-body">
+            <p>Bạn có chắc chắn muốn xóa nhà quảng cáo này?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+            <button type="button" id="delete_advertiser" class="btn btn-primary">Xóa</button>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
   </div>
   <!-- /.content-wrapper -->
   <%@ include file = "footer.jsp" %>

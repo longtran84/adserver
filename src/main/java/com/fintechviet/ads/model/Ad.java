@@ -15,7 +15,7 @@ public class Ad {
     private Integer freCapDuration;
     private String freCapType;
     private String description;
-    private String status;
+    private String status = "NEW";
     private Flight flight;
     private Creative creative;
     private boolean isFreCapTmp;

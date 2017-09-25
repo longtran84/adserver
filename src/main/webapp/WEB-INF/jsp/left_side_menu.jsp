@@ -72,21 +72,27 @@
             </li>
             <li class="treeview">
                 <a href="#">
+                    <i class="fa fa-folder"></i> <span>Người dùng</span>
+                    <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="/user/userInfo"><i class="fa fa-circle-o"></i> Thông tin người dùng</a></li>
+                    <li><a href="/user/userInvite"><i class="fa fa-circle-o"></i> Thông tin giới thiệu</a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#">
                     <i class="fa fa-folder"></i> <span>Nội dung</span>
                     <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="pages/examples/invoice.html"><i class="fa fa-circle-o"></i> Invoice</a></li>
-                    <li><a href="pages/examples/profile.html"><i class="fa fa-circle-o"></i> Profile</a></li>
-                    <li><a href="pages/examples/login.html"><i class="fa fa-circle-o"></i> Login</a></li>
-                    <li><a href="pages/examples/register.html"><i class="fa fa-circle-o"></i> Register</a></li>
-                    <li><a href="pages/examples/lockscreen.html"><i class="fa fa-circle-o"></i> Lockscreen</a></li>
-                    <li><a href="pages/examples/404.html"><i class="fa fa-circle-o"></i> 404 Error</a></li>
-                    <li><a href="pages/examples/500.html"><i class="fa fa-circle-o"></i> 500 Error</a></li>
-                    <li><a href="pages/examples/blank.html"><i class="fa fa-circle-o"></i> Blank Page</a></li>
-                    <li><a href="pages/examples/pace.html"><i class="fa fa-circle-o"></i> Pace Page</a></li>
+                    <li><a href="/news/category"><i class="fa fa-circle-o"></i> Chuyên mục tin tức</a></li>
+                    <li><a href="/news/page"><i class="fa fa-circle-o"></i> Tin tức</a></li>
+                    <li><a href="/content"><i class="fa fa-circle-o"></i> Nội dung</a></li>
                 </ul>
             </li>
             <li class="treeview">

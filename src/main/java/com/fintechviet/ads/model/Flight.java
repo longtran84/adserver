@@ -20,7 +20,7 @@ public class Flight {
     private String rateType;
     private Double price;
     private String description;
-    private String status;
+    private String status = "NEW";
     private Campaign campaign;
     private String startDateTmp;
     private String endDateTmp;

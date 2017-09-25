@@ -370,6 +370,18 @@ $(document).ready( function () {
 
     //Date range as a button
     moment.locale('vi');
+    function setDaterange(start, end) {
+        $('#daterange-btn span').html(start.format('D MMMM, YYYY') + ' - ' + end.format('D MMMM, YYYY'))
+        dateFrom = start.format('DD/MM/YYYY');
+        dateTo = end.format('DD/MM/YYYY');
+        charts = {};
+        $('#loadingIcon').attr('style', "display:block");
+        $('#campaignReportsTable').DataTable().ajax.reload();
+    }
+
+    var start = moment();
+    var end = moment();
+
     $('#daterange-btn').daterangepicker(
         {
             locale: {
@@ -385,16 +397,10 @@ $(document).ready( function () {
                 'Tháng này'  : [moment().startOf('month'), moment().endOf('month')],
                 'Tháng trước'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
             },
-            startDate: moment(),
-            endDate  : moment()
+            startDate: start,
+            endDate  : end
         },
-        function (start, end) {
-            $('#daterange-btn span').html(start.format('D MMMM, YYYY') + ' - ' + end.format('D MMMM, YYYY'))
-            dateFrom = start.format('DD/MM/YYYY');
-            dateTo = end.format('DD/MM/YYYY');
-            charts = {};
-            $('#loadingIcon').attr('style', "display:block");
-            $('#campaignReportsTable').DataTable().ajax.reload();
-        }
+        setDaterange
     )
+    setDaterange(start, end);
 });

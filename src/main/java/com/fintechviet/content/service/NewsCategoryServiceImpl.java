@@ -28,8 +28,18 @@ public class NewsCategoryServiceImpl implements NewsCategoryService {
     }
 
     @Override
-    public void save(List<NewsCategory> newsCategories) {
-        newsCategoryRepository.save(newsCategories);
+    public void save(NewsCategory newsCategory) {
+        newsCategoryRepository.save(newsCategory);
+    }
+
+    @Override
+    public void delete(NewsCategory newsCategory) {
+        newsCategoryRepository.delete(newsCategory);
+    }
+
+    @Override
+    public List<NewsCategory> getAllNewCategories() {
+        return newsCategoryRepository.findAll();
     }
 }
 

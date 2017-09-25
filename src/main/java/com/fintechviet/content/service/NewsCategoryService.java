@@ -7,5 +7,7 @@ import java.util.List;
 
 public interface NewsCategoryService {
     List<UserInterestDTO> getUserInterestReport();
-    void save(List<NewsCategory> newsCategories);
+    void save(NewsCategory newsCategory);
+    void delete(NewsCategory newsCategory);
+    List<NewsCategory> getAllNewCategories();
 }

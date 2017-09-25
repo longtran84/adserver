@@ -57,15 +57,25 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <div class="alert alert-info alert-dismissible">
-        <button type="button" id="close_info" class="close" aria-hidden="true">&times;</button>
+      <div id="push-ad-info" class="alert alert-info alert-dismissible">
+        <button type="button" id="push_ad_close_info" class="close" aria-hidden="true">&times;</button>
+        <h4><i class="icon fa fa-info"></i> Thông báo!</h4>
+        Quảng cáo đã được gửi thành công!
+      </div>
+      <div id="delete-ad-info" class="alert alert-info alert-dismissible">
+        <button type="button" id="delete_ad_close_info" class="close" aria-hidden="true">&times;</button>
         <h4><i class="icon fa fa-info"></i> Thông báo!</h4>
         Quảng cáo đã được xóa thành công!
       </div>
-      <div class="alert alert-danger alert-dismissible">
-        <button type="button" id="close_error" class="close" aria-hidden="true">&times;</button>
+      <div id="delete-ad-error" class="alert alert-danger alert-dismissible">
+        <button type="button" id="delete_ad_close_error" class="close" aria-hidden="true">&times;</button>
         <h4><i class="icon fa fa-ban"></i> Thông báo!</h4>
-        <span>Có lỗi xảy ra khi xóa quảng cáo.</span>
+        <span>Có lỗi xảy ra khi xóa quảng cáo!</span>
+      </div>
+      <div id="push-ad-error" class="alert alert-danger alert-dismissible">
+        <button type="button" id="push_ad_close_error" class="close" aria-hidden="true">&times;</button>
+        <h4><i class="icon fa fa-ban"></i> Thông báo!</h4>
+        <span>Có lỗi xảy ra khi gửi quảng cáo!</span>
       </div>
       <h1>
         Quảng cáo
@@ -192,6 +202,7 @@
                   <th>Nhóm quảng cáo</th>
                   <th>Định dạng quảng cáo</th>
                   <th>Trạng thái</th>
+                  <th>Gửi quảng cáo</th>
                   <th>Sửa / Xóa</th>
                 </tr>
                 </thead>
@@ -203,6 +214,7 @@
                   <th>Nhóm quảng cáo</th>
                   <th>Định dạng quảng cáo</th>
                   <th>Trạng thái</th>
+                  <th>Gửi quảng cáo</th>
                   <th>Sửa / Xóa</th>
                 </tr>
                 </tfoot>
@@ -227,6 +239,26 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
             <button type="button" id="delete_ad" class="btn btn-primary">Xóa</button>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <div class="modal fade" id="modal-pushAd">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Gửi quảng cáo</h4>
+          </div>
+          <div class="modal-body">
+            <p>Bạn có chắc chắn muốn gửi quảng cáo này?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+            <button type="button" id="pushAdBtn" class="btn btn-primary">Gửi</button>
           </div>
         </div>
         <!-- /.modal-content -->

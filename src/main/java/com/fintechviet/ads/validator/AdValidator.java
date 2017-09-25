@@ -18,7 +18,7 @@ public class AdValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> aClass) {
-        return Campaign.class.equals(aClass);
+        return Ad.class.equals(aClass);
     }
 
     @Override

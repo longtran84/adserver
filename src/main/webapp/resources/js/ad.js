@@ -59,6 +59,15 @@ $(document).ready( function () {
                  data: null,
                  className: "center",
                  "render": function (data) {
+                     if (data.status === 'ACTIVE') {
+                         return '<a href="" class="pushAd" title="Gửi quảng cáo"><i class="fa fa-fw fa-send"></i></a>';
+                     }
+                 }
+             },
+             {
+                 data: null,
+                 className: "center",
+                 "render": function (data) {
                      if (data.status === 'NEW') {
                          return '<a href="" class="editor_edit"><i class="fa fa-fw fa-edit"></i></a>   <a href="" class="editor_remove"><i class="fa fa-fw fa-remove"></i></a>';
                      } else if (data.status === 'INACTIVE') {
@@ -89,6 +98,31 @@ $(document).ready( function () {
         $('#adForm #status').val(data.status);
     }
 
+    $('#adsTable tbody').on( 'click', 'a.pushAd', function (e) {
+        e.preventDefault();
+        data = table.row( $(this).parents('tr') ).data();
+        $('#modal-pushAd').modal();
+    });
+
+    $('#pushAdBtn').click(function(){
+        var request = {id: data.id};
+        $.ajax({
+            type: "POST",
+            url: '/pushAd',
+            data: JSON.stringify(request),
+            dataType: "json",
+            contentType: "application/json",
+            success: function (result) {
+                $('#modal-pushAd').modal('hide');
+                $('#push-ad-info').attr('style','display: block');
+            },
+            error: function(error) {
+                $('#modal-pushAd').modal('hide');
+                $('#push-ad-error').attr('style','display: block');
+            }
+        });
+    });
+
     // Edit record
     $('#adsTable tbody').on( 'click', 'a.editor_edit', function (e) {
         e.preventDefault();
@@ -115,12 +149,12 @@ $(document).ready( function () {
             contentType: "application/json",
             success: function (result) {
                 $('#modal-delete').modal('hide');
-                $('.alert-info').attr('style','display: block');
+                $('#delete-ad-info').attr('style','display: block');
                 $('#adsTable').DataTable().ajax.reload();
             },
             error: function(error) {
                 $('#modal-delete').modal('hide');
-                $('.alert-danger').attr('style','display: block');
+                $('#delete-ad-error').attr('style','display: block');
             }
         });
     });
@@ -182,11 +216,19 @@ $(document).ready( function () {
         $('#adForm')[0].reset();
     });
 
-    $('#close_info').click(function(){
-        $('.alert-info').attr('style','display: none');
+    $('#delete_ad_close_info').click(function(){
+        $('#delete-ad-info').attr('style','display: none');
     });
 
-    $('#close_error').click(function(){
-        $('.alert-danger').attr('style','display: none');
+    $('#delete_ad_close_error').click(function(){
+        $('#delete-ad-error').attr('style','display: none');
+    });
+
+    $('#push_ad_close_info').click(function(){
+        $('#push-ad-info').attr('style','display: none');
+    });
+
+    $('#push_ad_close_error').click(function(){
+        $('#push-ad-error').attr('style','display: none');
     });
 });

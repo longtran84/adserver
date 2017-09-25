@@ -19,7 +19,7 @@ public class Campaign {
     private Integer freCapDuration;
     private String freCapType;
     private String description;
-    private String status;
+    private String status = "NEW";
     private Advertiser advertiser;
     private String startDateTmp;
     private String endDateTmp;

@@ -83,7 +83,7 @@
                 <!--<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>-->
               </div>
             </div>
-            <form:form id="creativeForm" action="${contextPath}/creativeVideo" modelAttribute="creativeForm" method="post">
+            <form:form id="creativeForm" action="${contextPath}/creativeVideo" modelAttribute="creativeForm" method="post" enctype="multipart/form-data">
             <!-- /.box-header -->
             <div class="box-body">
               <div class="row">
@@ -119,9 +119,15 @@
                     <form:errors path="alt" cssClass="has-error"></form:errors>
                   </div>
                   <div class="form-group">
-                    <label for="title">Đường dẫn Video *</label>
-                    <form:input type="text" class="form-control" path="videoLink" id="videoLink" placeholder="Đường dẫn video"/>
-                    <form:errors path="videoLink" cssClass="has-error"></form:errors>
+                    <label for="title">Video *</label>
+                    <div class="input-group">
+                      <input type="text" class="form-control" id="videoName" placeholder="Video" autofocus="true" disabled="true">
+                      <span class="input-group-btn">
+                        <button type="button" class="btn btn-info btn-flat" id="videoFileBtn">Chọn video...</button>
+                      </span>
+                      <form:input type="file" id="videoFile" path="videoFile"/>
+                    </div>
+                    <form:errors path="videoFile" cssClass="has-error"></form:errors>
                   </div>
                 </div>
                 <!-- /.col -->
@@ -186,6 +192,41 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
             <button type="button" id="delete_creative" class="btn btn-primary">Xóa</button>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <div class="modal modal-danger fade" id="modal-file-error">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Định dạng và độ lớn video quảng cáo được hỗ trợ</h4>
+          </div>
+          <div class="modal-body">
+            <table class="table table-bordered">
+              <tr>
+                <td>
+                  Loại video
+                </td>
+                <td>
+                  <ul>
+                    <li>.MP4</li>
+                    <li>.MPEG</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>Độ lớn video</td>
+                <td>2 MB hoặc nhỏ hơn</td>
+              </tr>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline" data-dismiss="modal">Đóng</button>
           </div>
         </div>
         <!-- /.modal-content -->

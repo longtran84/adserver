@@ -1,6 +1,7 @@
 package com.fintechviet.content.model;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -10,6 +11,7 @@ import java.util.Date;
 @Table(name = "news")
 public class News {
     private long id;
+    private long originalId;
     private String title;
     private String shortDescription;
     private String link;
@@ -19,6 +21,9 @@ public class News {
     private String status = "ACTIVE";
     private String source;
     private long newsCategoryId;
+    private Date publishDate;
+    private Date crawlerDate;
+    private Timestamp createdDate;
 
     @Id
     @Column(name = "id")
@@ -29,6 +34,16 @@ public class News {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    @Basic
+    @Column(name = "originalId")
+    public long getOriginalId() {
+        return originalId;
+    }
+
+    public void setOriginalId(long originalId) {
+        this.originalId = originalId;
     }
 
     @Basic
@@ -118,6 +133,36 @@ public class News {
 
     public void setNewsCategoryId(long newsCategoryId) {
         this.newsCategoryId = newsCategoryId;
+    }
+
+    @Basic
+    @Column(name = "publishDate")
+    public Date getPublishDate() {
+        return publishDate;
+    }
+
+    public void setPublishDate(Date publishDate) {
+        this.publishDate = publishDate;
+    }
+
+    @Basic
+    @Column(name = "crawlerDate")
+    public Date getCrawlerDate() {
+        return crawlerDate;
+    }
+
+    public void setCrawlerDate(Date crawlerDate) {
+        this.crawlerDate = crawlerDate;
+    }
+
+    @Basic
+    @Column(name = "createdDate", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    public Timestamp getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Timestamp createdDate) {
+        this.createdDate = createdDate;
     }
 
     @Override

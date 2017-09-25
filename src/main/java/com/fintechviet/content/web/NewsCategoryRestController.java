@@ -26,15 +26,19 @@ public class NewsCategoryRestController {
         return newsCategoryService.getUserInterestReport();
     }
 
-    @RequestMapping(value = "/news/saveNewsCategories", method = RequestMethod.POST)
-    public ResponseEntity<?> saveNewsCategories(@RequestBody NewsCategory[] newsCategories){
+    @RequestMapping(path = "/news/categories", method = RequestMethod.GET)
+    public List<NewsCategory> getAllNewsCategories(){
+        return newsCategoryService.getAllNewCategories();
+    }
+
+    @RequestMapping(value = "/news/deleteCategory", method = RequestMethod.POST)
+    public ResponseEntity<?> deleteCategory(@RequestBody NewsCategory newsCategory) {
         try {
-            newsCategoryService.save(Arrays.asList(newsCategories));
-        } catch(Exception ex){
-            ex.printStackTrace();
-            //return ResponseEntity.badRequest().body("Error1");
+            newsCategoryService.delete(newsCategory);
+        } catch (Exception ex) {
+            return ResponseEntity.badRequest().body("Error");
         }
-        return ResponseEntity.ok("ok");
+        return ResponseEntity.ok(newsCategory);
     }
 }
 
