@@ -54,6 +54,10 @@ public class CreativeController {
         if (bindingResult.hasErrors()) {
             return "creativeVideo";
         }
+        
+        if (creativeForm.getId() == null) {
+        	creativeForm.setStatus("NEW");
+        }
 
         creativeForm.setTemplate("video");
         MultipartFile file = creativeForm.getVideoFile();
@@ -70,7 +74,7 @@ public class CreativeController {
             creativeForm.setVideoLink(serverName + ":" + serverPort + "/ad/videos/" + file.getOriginalFilename());
         }
         creativeService.save(creativeForm);
-
+ 
         return "redirect:/creativeVideo";
     }
 
@@ -94,6 +98,10 @@ public class CreativeController {
             String serverName = request.getServerName();
             int serverPort = request.getServerPort();
             creativeForm.setImageLink(serverName + ":" + serverPort + "/ad/images/" + file.getOriginalFilename());
+        }
+        
+        if (creativeForm.getId() == null) {
+        	creativeForm.setStatus("NEW");
         }
 
         creativeService.save(creativeForm);

@@ -41,4 +41,10 @@ public class CreativeServiceImpl implements CreativeService {
     public void updateStatus(Long id, String status) {
         creativeRepository.updateStatus(status, id);
     }
+
+	@Override
+	public List<Creative> getCreativeByAdvertiser(String adverEmail) {
+		return creativeRepository.findByAdvertiser(adverEmail);
+	}
+
 }
