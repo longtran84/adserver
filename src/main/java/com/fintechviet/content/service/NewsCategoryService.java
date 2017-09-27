@@ -10,4 +10,5 @@ public interface NewsCategoryService {
     void save(NewsCategory newsCategory);
     void delete(NewsCategory newsCategory);
     List<NewsCategory> getAllNewCategories();
+    void updateStatus(Long id, String status);
 }

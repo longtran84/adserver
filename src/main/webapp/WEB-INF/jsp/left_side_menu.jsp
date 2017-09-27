@@ -21,18 +21,18 @@
             <sec:authorize access="hasRole('ROLE_ADMIN')">
             <li>
                 <a href="/advertiser">
-                    <i class="fa fa-calendar"></i> <span>Nhà quảng cáo</span>
+                    <i class="fa  fa-adn"></i> <span>Nhà quảng cáo</span>
                 </a>
             </li>
             </sec:authorize>
             <li >
                 <a href="/campaign">
-                    <i class="fa fa-edit"></i> <span>Chiến dịch quảng cáo</span>
+                    <i class="fa fa-bullhorn"></i> <span>Chiến dịch quảng cáo</span>
                 </a>
             </li>
             <li>
                 <a href="/flight">
-                    <i class="fa fa-files-o"></i>
+                    <i class="fa fa-object-group"></i>
                     <span>Nhóm quảng cáo</span>
                 </a>
             </li>
@@ -45,8 +45,8 @@
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="/creativeVideo"><i class="fa fa-circle-o"></i> Video</a></li>
-                    <li><a href="/creativeImage"><i class="fa fa-circle-o"></i> Ảnh</a></li>
+                    <li><a href="/creativeVideo"><i class="fa fa-file-video-o"></i> Video</a></li>
+                    <li><a href="/creativeImage"><i class="fa fa-file-image-o"></i> Ảnh</a></li>
                 </ul>
             </li>
             <li>
@@ -72,14 +72,14 @@
             </li>
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-folder"></i> <span>Người dùng</span>
+                    <i class="fa fa-user"></i> <span>Người dùng</span>
                     <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="/user/userInfo"><i class="fa fa-circle-o"></i> Thông tin người dùng</a></li>
-                    <li><a href="/user/userInvite"><i class="fa fa-circle-o"></i> Thông tin giới thiệu</a></li>
+                    <li><a href="/user/userInfo"><i class="fa  fa-info-circle"></i> Thông tin người dùng</a></li>
+                    <li><a href="/user/userInvite"><i class="fa fa-info"></i> Thông tin giới thiệu</a></li>
                 </ul>
             </li>
             <li class="treeview">
@@ -97,7 +97,7 @@
             </li>
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-share"></i> <span>Sự kiện</span>
+                    <i class="fa fa-calendar-check-o"></i> <span>Sự kiện</span>
                     <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>

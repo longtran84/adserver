@@ -122,9 +122,9 @@
             <!-- /.box-body -->
             <div class="box-footer">
               <form:input type="hidden" id="id" path="id"/>
-              <button type="submit" id="createBtn" class="btn btn-primary">Thêm</button>
-              <button type="submit" id="editBtn" class="btn btn-primary">Sửa</button>
-              <button type="button" id="resetBtn" class="btn bg-orange">Hủy</button>
+              <!-- <button type="submit" id="createBtn" class="btn btn-primary">Thêm</button> -->
+              <button type="button" id="resetBtn" class="btn btn-success">Nhập Mới</button>
+              <button type="submit" id="editBtn" class="btn btn-primary">Lưu</button>
               <button type="button" id="activateBtn" class="btn btn-danger">Kích hoạt</button>
             </div>
             </form:form>
