@@ -22,6 +22,7 @@
   <link rel="stylesheet" href="${contextPath}/resources/dist/css/AdminLTE.min.css">
   <!-- iCheck -->
   <link rel="stylesheet" href="${contextPath}/resources/plugins/iCheck/square/blue.css">
+  <link rel="stylesheet" href="${contextPath}/resources/css/common.css">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -40,46 +41,34 @@
   </div>
 
   <div class="register-box-body">
-    <p class="login-box-msg">Register a new membership</p>
+    <p class="login-box-msg">Đăng ký người dùng mới</p>
 
     <form:form modelAttribute="userForm" method="post">
-      <!--<div class="form-group has-feedback">
-        <input type="text" class="form-control" placeholder="Full name">
-        <span class="glyphicon glyphicon-user form-control-feedback"></span>
-      </div>
-      -->
       <div class="form-group has-feedback">
           <form:input type="email" path="username" class="form-control" placeholder="Email" autofocus="true"></form:input>
           <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-          <form:errors path="username"></form:errors>
+          <form:errors cssClass="has-error" path="username"></form:errors>
       </div>
       <div class="form-group has-feedback">
-          <form:input type="password" path="password" class="form-control" placeholder="Password"></form:input>
+          <form:input type="password" path="password" class="form-control" placeholder="Mật khẩu"></form:input>
           <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-          <form:errors path="password"></form:errors>
+          <form:errors cssClass="has-error" path="password"></form:errors>
       </div>
       <div class="form-group has-feedback">
           <form:input type="password" path="passwordConfirm" class="form-control"
-                      placeholder="Confirm your password"></form:input>
+                      placeholder="Xác nhận mật khẩu"></form:input>
           <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
-          <form:errors path="passwordConfirm"></form:errors>
+          <form:errors cssClass="has-error" path="passwordConfirm"></form:errors>
       </div>
       <div class="row">
-        <div class="col-xs-8">
-          <div class="checkbox icheck">
-            <label>
-              <input type="checkbox"> I agree to the <a href="#">terms</a>
-            </label>
-          </div>
-        </div>
         <!-- /.col -->
         <div class="col-xs-4">
-          <button type="submit" class="btn btn-primary btn-block btn-flat">Register</button>
+          <button type="submit" class="btn btn-primary btn-block btn-flat">Đăng ký</button>
         </div>
         <!-- /.col -->
       </div>
     </form:form>
-    <a href="${contextPath}/login" class="text-center">I already have a membership</a>
+    <a href="${contextPath}/login" class="text-center">Tôi đã có tài khoản</a>
   </div>
   <!-- /.form-box -->
 </div>

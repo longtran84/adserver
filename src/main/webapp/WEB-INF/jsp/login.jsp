@@ -29,6 +29,7 @@
 <!-- iCheck -->
 <link rel="stylesheet"
 	href="${contextPath}/resources/plugins/iCheck/square/blue.css">
+<link rel="stylesheet" href="${contextPath}/resources/css/common.css">
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -48,7 +49,7 @@
 		</div>
 		<!-- /.login-logo -->
 		<div class="login-box-body">
-			<p class="login-box-msg">Sign in to start your session</p>
+			<p class="login-box-msg">Đăng nhập để bắt đầu phiên làm việc</p>
 
 			<form action="${contextPath}/login" method="post">
 				<div class="form-group ${error != null ? 'has-error' : ''}">
@@ -63,30 +64,28 @@
 							placeholder="Password"> <span
 							class="glyphicon glyphicon-lock form-control-feedback"></span>
 					</div>
-					<span>${error}</span> <input type="hidden"
+					<span class="has-error">${error}</span> <input type="hidden"
 						name="${_csrf.parameterName}" value="${_csrf.token}" />
 				</div>
 				<div class="row">
-					<div class="col-xs-8">
+					<!--<div class="col-xs-8">
 						<div class="checkbox icheck">
-							<label> <input type="checkbox"> Remember Me
+							<label> <input type="checkbox"> Nhớ tôi
 							</label>
 						</div>
-					</div>
+					</div>-->
 					<!-- /.col -->
 					<div class="col-xs-4">
-						<button type="submit" class="btn btn-primary btn-block btn-flat">Sign
-							In</button>
+						<button type="submit" class="btn btn-primary btn-block btn-flat">Đăng nhập</button>
 					</div>
 					<!-- /.col -->
 				</div>
 			</form>
 
 
-			<a href="#">I forgot my password</a><br>
+			<a href="#">Quên mật khẩu</a><br>
 			<a href="${contextPath}/registration" class="text-center">Đăng ký người dùng</a><br>
-			<a href="${contextPath}/advertiserRegistration" class="text-center">Đăng ký nhà quảng cáo</a>
-
+			<!--<a href="${contextPath}/advertiserRegistration" class="text-center">Đăng ký nhà quảng cáo</a>-->
 		</div>
 		<!-- /.login-box-body -->
 	</div>

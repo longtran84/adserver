@@ -23,7 +23,7 @@ public class AdvertiserValidator implements Validator {
         Advertiser advertiser = (Advertiser) o;
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "advertiserForm.email.empty");
-        if (advertiser.getEmail().length()  > 255) {
+        if (advertiser.getEmail().length() < 8 || advertiser.getEmail().length() > 32) {
             errors.rejectValue("email", "advertiserForm.email.size");
         }
         if ((advertiserService.findByEmail(advertiser.getEmail()) != null) && (advertiser.getId() == null)) {

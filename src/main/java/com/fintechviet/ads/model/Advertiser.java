@@ -12,12 +12,10 @@ public class Advertiser {
     private Long id;
     private String email;
     private String fullName;
-    private String password;
-    private String passwordConfirm;
     private String phone;
     private String companyName;
     private Double charge;
-    private String status;
+    private String status = "ACTIVE";
     private Set<Campaign> campaigns;
 
     @Id
@@ -28,23 +26,6 @@ public class Advertiser {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    @Transient
-    public String getPasswordConfirm() {
-        return passwordConfirm;
-    }
-
-    public void setPasswordConfirm(String passwordConfirm) {
-        this.passwordConfirm = passwordConfirm;
     }
 
     public String getEmail() {

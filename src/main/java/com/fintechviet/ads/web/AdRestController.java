@@ -62,7 +62,8 @@ public class AdRestController {
     public ResponseEntity<?> pushAds(@RequestBody Ad ad) {
         String result;
         try {
-            result = PushAdsHelper.sendPushAds("1:373715018719:android:984a277669e564aa");
+            Ad a = adService.getAdById(ad.getId());
+            result = PushAdsHelper.sendPushAds(a);
         } catch (IOException ex) {
             return ResponseEntity.badRequest().body("FAILURE");
         }

@@ -32,12 +32,14 @@ public class AdvertiserServiceImpl implements AdvertiserService {
     @Autowired
     private Md5PasswordEncoder md5PasswordEncoder;
 
+    private static String DEFAULT_PASSWORD = "12345678";
+
     @Override
     public void save(Advertiser advertiser) {
 		if (advertiser.getId() == null) {
 			User user = new User();
 			user.setUsername(advertiser.getEmail());
-			user.setPassword(md5PasswordEncoder.encodePassword(advertiser.getPassword(), null));
+			user.setPassword(md5PasswordEncoder.encodePassword(DEFAULT_PASSWORD, null));
 			user.setRoles(new HashSet<Role>() {
 				{
 					add(roleRepository.findOne(2l));
@@ -88,6 +90,10 @@ public class AdvertiserServiceImpl implements AdvertiserService {
 		advertiserRepository.approveAdvertiser(status, id);
 		
 	}
-    
+
+    @Override
+    public void update(Advertiser advertiser) {
+        advertiserRepository.save(advertiser);
+    }
     
 }

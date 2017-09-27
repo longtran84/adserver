@@ -37,4 +37,9 @@ public class AdServiceImpl implements AdService {
         adRepository.updateStatus(status, id);
     }
 
+    @Override
+    public Ad getAdById(long id) {
+        return adRepository.findOne(id);
+    }
+
 }

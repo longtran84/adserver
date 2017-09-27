@@ -7,6 +7,7 @@ import java.util.List;
 public interface AdvertiserService {
     void save(Advertiser advertiser);
     void delete(Advertiser advertiser);
+    void update(Advertiser advertiser);
     Advertiser findByEmail(String email);
     List<Advertiser> search(Advertiser advertiser);
     List<Advertiser> getAllAdvertisers();
