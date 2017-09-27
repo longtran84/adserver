@@ -41,5 +41,10 @@ public class NewsCategoryServiceImpl implements NewsCategoryService {
     public List<NewsCategory> getAllNewCategories() {
         return newsCategoryRepository.findAll();
     }
+
+	@Override
+	public void updateStatus(Long id, String status) {
+		newsCategoryRepository.updateStatus(status, id);
+	}
 }
 

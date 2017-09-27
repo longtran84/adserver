@@ -13,7 +13,7 @@ import java.util.Set;
 @Entity
 @Table(name = "news_category", schema = "mobileads", catalog = "")
 public class NewsCategory {
-    private long id;
+    private Long id;
     private String code;
     private String name;
     private String image;
@@ -25,11 +25,11 @@ public class NewsCategory {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

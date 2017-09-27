@@ -1,7 +1,7 @@
 $(document).ready( function () {
     var data;
     $(function () {
-        $('#editBtn').attr("disabled", true);
+        /*$('#editBtn').attr("disabled", true);*/
         $('#activateBtn').attr('disabled', true);
     });
 
@@ -109,13 +109,22 @@ $(document).ready( function () {
         $('#categoryForm #name').val(data.name);
         $('#categoryForm #imageLink').val(data.videoLink);
         $('#categoryForm #id').val(data.id);
-    }
+    };
+    
+    var resetForm = function () {
+        $('#categoryForm')[0].reset();
+
+        $('#categoryForm #id').val(null);
+        $('#editBtn').attr('disabled', false);
+        $('#activateBtn').attr('disabled', true);
+    };
+
 
     // Edit record
     $('#categoriesTable tbody').on( 'click', 'a.editor_edit', function (e) {
         e.preventDefault();
         $('#editBtn').attr('disabled', false);
-        $('#createBtn').attr('disabled', true);
+        /*$('#createBtn').attr('disabled', true);*/
         var data = table.row( $(this).parents('tr') ).data();
         showDetails(data);
     });
@@ -138,7 +147,7 @@ $(document).ready( function () {
             success: function (result) {
                 $('#modal-delete').modal('hide');
                 $('.alert-info').attr('style','display: block');
-                $('#creativesTable').DataTable().ajax.reload();
+                $('#categoriesTable').DataTable().ajax.reload();
             },
             error: function(error) {
                 $('#modal-delete').modal('hide');
@@ -158,19 +167,19 @@ $(document).ready( function () {
         data = table.row(this).data();
         if (data.status === 'NEW') {
             $('#editBtn').attr('disabled', false);
-            $('#createBtn').attr('disabled', true);
-            $('#resetBtn').attr('disabled', false);
+            /*$('#createBtn').attr('disabled', true);*/
+            /* $('#resetBtn').attr('disabled', false);*/
             $('#activateBtn').attr('disabled', false);
             $('#activateBtn').text('Kích hoạt');
         } else if (data.status === 'INACTIVE') {
             $('#editBtn').attr('disabled', true);
-            $('#createBtn').attr('disabled', true);
-            $('#resetBtn').attr('disabled', true);
-            $('#activateBtn').attr('disabled', true);
+            /*$('#createBtn').attr('disabled', true);*/
+            /*$('#resetBtn').attr('disabled', true);*/
+            $('#activateBtn').attr('disabled', false);
         } else {
             $('#editBtn').attr('disabled', true);
-            $('#createBtn').attr('disabled', true);
-            $('#resetBtn').attr('disabled', true);
+            /* $('#createBtn').attr('disabled', true);*/
+            /*$('#resetBtn').attr('disabled', true);*/
             $('#activateBtn').attr('disabled', false);
             $('#activateBtn').text('Hủy kích hoạt');
         }
@@ -186,13 +195,14 @@ $(document).ready( function () {
             dataType: "json",
             contentType: "application/json",
             success: function (result) {
-                if (data.status === 'NEW') {
+                if (data.status === 'NEW' || data.status === 'INACTIVE') {
                     $('#activateBtn').text('Hủy kích hoạt');
                 } else {
                     $('#activateBtn').text('Kích hoạt');
-                    $('#activateBtn').attr('disabled', true);
                 }
-                $('#creativesTable').DataTable().ajax.reload();
+                
+                resetForm();
+                $('#categoriesTable').DataTable().ajax.reload();
             },
             error: function(error) {
                 alert(error);
@@ -201,7 +211,7 @@ $(document).ready( function () {
     });
 
     $('#resetBtn').click(function(){
-        $('#categoryForm')[0].reset();
+        resetForm();
     });
 
     $('#close_info').click(function(){

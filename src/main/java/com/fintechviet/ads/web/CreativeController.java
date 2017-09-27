@@ -71,7 +71,7 @@ public class CreativeController {
             outputStream.close();
             String serverName = request.getServerName();
             int serverPort = request.getServerPort();
-            creativeForm.setVideoLink(serverName + ":" + serverPort + "/ad/videos/" + file.getOriginalFilename());
+            creativeForm.setVideoLink("http://"+serverName + ":" + serverPort + "/ad/videos/" + file.getOriginalFilename());
         }
         creativeService.save(creativeForm);
  
@@ -97,7 +97,7 @@ public class CreativeController {
             outputStream.close();
             String serverName = request.getServerName();
             int serverPort = request.getServerPort();
-            creativeForm.setImageLink(serverName + ":" + serverPort + "/ad/images/" + file.getOriginalFilename());
+            creativeForm.setImageLink("http://"+serverName + ":" + serverPort + "/ad/images/" + file.getOriginalFilename());
         }
         
         if (creativeForm.getId() == null) {

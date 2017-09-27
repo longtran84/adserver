@@ -104,7 +104,6 @@ $(document).ready( function () {
         $('#flightForm #id').val(null);
         
         $('#editBtn').attr('disabled', false);
-        $('#resetBtn').attr('disabled', false);
         $('#activateBtn').attr('disabled', true);
     };
 
@@ -169,7 +168,7 @@ $(document).ready( function () {
             $('#editBtn').attr('disabled', true);
             /*$('#createBtn').attr('disabled', true);*/
             /*$('#resetBtn').attr('disabled', true);*/
-            $('#activateBtn').attr('disabled', true);
+            $('#activateBtn').attr('disabled', false);
         } else {
             $('#editBtn').attr('disabled', true);
             /*$('#createBtn').attr('disabled', true);*/
@@ -189,17 +188,13 @@ $(document).ready( function () {
             dataType: "json",
             contentType: "application/json",
             success: function (result) {
-                if (data.status === 'NEW') {
+                if (data.status === 'NEW' || data.status === 'INACTIVE') {
                     $('#activateBtn').text('Hủy kích hoạt');
-                    $('#editBtn').attr('disabled', true);
                 } else {
                     $('#activateBtn').text('Kích hoạt');
-                    $('#activateBtn').attr('disabled', true);
                 }
                 
-                $('#editBtn').attr('disabled', true);
-                $('#activateBtn').attr('disabled', true);
-                
+                resetForm();
                 $('#flightsTable').DataTable().ajax.reload();
             },
             error: function(error) {
