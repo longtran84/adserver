@@ -1,3 +1,5 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <header class="main-header">
     <!-- Logo -->
     <a href="index.html" class="logo">
@@ -15,7 +17,7 @@
                 <!-- User Account: style can be found in dropdown.less -->
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="${contextPath}/resources/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                        <img src="${userAvatar}" class="user-image" alt="User Image">
                         <span class="hidden-xs">
                 <c:if test="${pageContext.request.userPrincipal.name != null}">
                     ${pageContext.request.userPrincipal.name}
@@ -25,7 +27,7 @@
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header">
-                            <img src="${contextPath}/resources/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                            <img src="${userAvatar}" class="img-circle" alt="User Image">
                             <c:if test="${pageContext.request.userPrincipal.name != null}">
                                 <p>${pageContext.request.userPrincipal.name}</p>
                             </c:if>
@@ -35,14 +37,19 @@
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
-                                <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                <sec:authorize access="hasRole('ROLE_ADMIN')">
+                                   <a href="/admin_profile" class="btn btn-default btn-flat">Thông tin tài khoản</a>
+                                </sec:authorize>
+                                <sec:authorize access="!hasRole('ROLE_ADMIN')">
+                                    <a href="/advertiser_profile" class="btn btn-default btn-flat">Thông tin tài khoản</a>
+                                </sec:authorize>
                             </div>
                             <div class="pull-right">
                                 <c:if test="${pageContext.request.userPrincipal.name != null}">
                                     <form id="logoutForm" method="POST" action="${contextPath}/logout">
                                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                     </form>
-                                    <a onclick="document.forms['logoutForm'].submit()" class="btn btn-default btn-flat">Sign out</a>
+                                    <a onclick="document.forms['logoutForm'].submit()" class="btn btn-default btn-flat">Đăng xuất</a>
                                 </c:if>
                             </div>
                         </li>

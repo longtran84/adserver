@@ -1,6 +1,10 @@
 package com.fintechviet.ads.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Set;
 
 @Entity
@@ -10,6 +14,10 @@ public class User {
     private String username;
     private String password;
     private String passwordConfirm;
+    private String avatarLink = "/images/avatar/avatar.png";
+    private MultipartFile avatarFile;
+    private String status = "ACTIVE";
+    private Timestamp createdDate;
     private Set<Role> roles;
 
     @Id
@@ -38,6 +46,23 @@ public class User {
         this.password = password;
     }
 
+    public String getAvatarLink() {
+        return avatarLink;
+    }
+
+    public void setAvatarLink(String avatarLink) {
+        this.avatarLink = avatarLink;
+    }
+
+    @Transient
+    public MultipartFile getAvatarFile() {
+        return avatarFile;
+    }
+
+    public void setAvatarFile(MultipartFile avatarFile) {
+        this.avatarFile = avatarFile;
+    }
+
     @Transient
     public String getPasswordConfirm() {
         return passwordConfirm;
@@ -47,6 +72,7 @@ public class User {
         this.passwordConfirm = passwordConfirm;
     }
 
+    @JsonIgnore
     @ManyToMany
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     public Set<Role> getRoles() {
@@ -55,5 +81,23 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    @Basic
+    @Column(name = "createdDate", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    public Timestamp getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Timestamp createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

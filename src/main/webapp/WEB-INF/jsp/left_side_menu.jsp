@@ -6,7 +6,7 @@
         <!-- Sidebar user panel -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="${contextPath}/resources/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                <img src="${userAvatar}" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
                 <c:if test="${pageContext.request.userPrincipal.name != null}">
@@ -128,7 +128,19 @@
                     <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
                 </ul>
             </li>
-            <li><a href="https://adminlte.io/docs"><i class="fa fa-book"></i> <span>Quản trị hệ thống</span></a></li>
+            <sec:authorize access="hasRole('ROLE_ADMIN')">
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-book"></i> <span>Quản trị hệ thống</span>
+                    <span class="pull-right-container">
+                       <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="/system/admin"><i class="fa fa-circle-o"></i> Quản trị viên</a></li>
+                </ul>
+            </li>
+            </sec:authorize>
         </ul>
     </section>
     <!-- /.sidebar -->

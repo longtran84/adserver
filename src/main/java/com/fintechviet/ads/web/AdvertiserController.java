@@ -5,6 +5,8 @@ import com.fintechviet.ads.service.AdvertiserService;
 import com.fintechviet.ads.service.SecurityService;
 import com.fintechviet.ads.validator.AdvertiserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -60,9 +62,40 @@ public class AdvertiserController {
 
         advertiserService.save(advertiserForm);
 
-        securityService.autologin(advertiserForm.getEmail(), advertiserForm.getPasswordConfirm());
+        //securityService.autologin(advertiserForm.getEmail(), advertiserForm.getPasswordConfirm());
 
         return "redirect:/campaign";
+    }
+
+    @RequestMapping(value = {"/advertiser_profile"}, method = RequestMethod.GET)
+    public String advertiserProfile(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Advertiser advertiser = advertiserService.findByEmail(auth.getName());
+        model.addAttribute("advertiser", advertiser);
+
+        return "advertiser_profile";
+    }
+
+    @RequestMapping(value = {"/advertiser_profile_edit"}, method = RequestMethod.GET)
+    public String advertiserProfileEdit(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Advertiser advertiser = advertiserService.findByEmail(auth.getName());
+        model.addAttribute("advertiserForm", advertiser);
+
+        return "advertiser_profile_edit";
+    }
+
+    @RequestMapping(value = "/advertiser_profile_edit", method = RequestMethod.POST)
+    public String advertiserProfileEdit(@ModelAttribute("advertiserForm") Advertiser advertiserForm, BindingResult bindingResult) {
+        advertiserValidator.validate(advertiserForm, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            return "advertiser_profile_edit";
+        }
+
+        advertiserService.update(advertiserForm);
+
+        return "redirect:/advertiser_profile";
     }
 
 }
