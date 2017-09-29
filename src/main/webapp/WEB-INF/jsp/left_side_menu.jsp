@@ -55,6 +55,12 @@
                     <span>Quảng cáo</span>
                 </a>
             </li>
+            <li>
+                <a href="/appAd">
+                    <i class="fa fa-laptop"></i>
+                    <span>Quảng cáo ứng dụng</span>
+                </a>
+            </li>
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-pie-chart"></i>
@@ -68,6 +74,7 @@
                     <li><a href="/reportCost"><i class="fa fa-circle-o"></i> Chi phí</a></li>
                     <li><a href="/reportInventory"><i class="fa fa-circle-o"></i> Inventory</a></li>
                     <li><a href="/reportUserInterest"><i class="fa fa-circle-o"></i> Sở thích người dùng</a></li>
+                    <li><a href="/reportApp"><i class="fa fa-circle-o"></i> Ứng dụng quảng cáo</a></li>
                 </ul>
             </li>
             <li class="treeview">
@@ -82,6 +89,7 @@
                     <li><a href="/user/userInvite"><i class="fa fa-info"></i> Thông tin giới thiệu</a></li>
                 </ul>
             </li>
+            <sec:authorize access="hasRole('ROLE_ADMIN')">
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-folder"></i> <span>Nội dung</span>
@@ -95,6 +103,7 @@
                     <li><a href="/content"><i class="fa fa-circle-o"></i> Nội dung</a></li>
                 </ul>
             </li>
+            </sec:authorize>
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-calendar-check-o"></i> <span>Sự kiện</span>

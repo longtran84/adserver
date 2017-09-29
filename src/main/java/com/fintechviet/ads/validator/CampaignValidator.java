@@ -23,7 +23,6 @@ public class CampaignValidator implements Validator {
     @Override
     public void validate(Object o, Errors errors) {
         Campaign campaign = (Campaign) o;
-        campaign = (Campaign) o;
 
         if (campaign.getAdvertiser().getId() == null) {
             errors.rejectValue("advertiser.id", "campaignForm.advertiser.empty");

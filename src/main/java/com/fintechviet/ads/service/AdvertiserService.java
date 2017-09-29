@@ -13,4 +13,5 @@ public interface AdvertiserService {
     List<Advertiser> getAllAdvertisers();
     List<Advertiser> getAdvertiserByEmail(String email);
     void approveAdvertisers(Long id, boolean approved);
+    void updateStatus(Long id, String status);
 }

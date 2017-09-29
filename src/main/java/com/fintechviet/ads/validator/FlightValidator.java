@@ -23,7 +23,6 @@ public class FlightValidator implements Validator {
     @Override
     public void validate(Object o, Errors errors) {
         Flight flight = (Flight) o;
-        flight = (Flight) o;
 
         if (flight.getCampaign().getId() == null) {
             errors.rejectValue("campaign.id", "flightForm.campaign.empty");

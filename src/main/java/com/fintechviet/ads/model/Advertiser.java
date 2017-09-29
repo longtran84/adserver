@@ -3,6 +3,7 @@ package com.fintechviet.ads.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Set;
 
@@ -17,6 +18,7 @@ public class Advertiser {
     private Double charge;
     private String status = "ACTIVE";
     private Set<Campaign> campaigns;
+    private Timestamp createdDate;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -84,5 +86,15 @@ public class Advertiser {
 
     public void setCampaign(Set<Campaign> campaigns) {
         this.campaigns = campaigns;
+    }
+
+    @Basic
+    @Column(name = "createdDate", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    public Timestamp getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Timestamp createdDate) {
+        this.createdDate = createdDate;
     }
 }

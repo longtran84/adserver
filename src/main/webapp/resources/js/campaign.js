@@ -8,8 +8,13 @@ $(document).ready( function () {
     var formatDate  = function (data) {
         if (data === null || data === '') return "";
         var date = new Date(data);
-        var month = date.getMonth() + 1;
-        return (date.getDate() > 9 ? date.getDate() : "0" + date.getDate()) + "/" + (month > 9 ? month : "0" + month) + "/" + date.getFullYear();
+        return moment(date).format('DD/MM/YYYY');
+    }
+
+    var formatFullDate  = function (data) {
+        if (data === null || data === '') return "";
+        var date = new Date(data);
+        return moment(date).format('DD/MM/YYYY HH:mm:ss');
     }
 
     var abc = {id:1,name:'abc'};
@@ -53,6 +58,12 @@ $(document).ready( function () {
                      return formatDate(data);
                  }
              },
+             { data: "createdDate",
+                 "type": "date",
+                 "render": function (data) {
+                     return formatFullDate(data);
+                 }
+             },
              { data: null,
                  "render": function (data) {
                     if (data.status === 'NEW') {
@@ -70,8 +81,8 @@ $(document).ready( function () {
                  "render": function (data) {
                      if (data.status === 'NEW') {
                          return '<a href="" class="editor_edit"><i class="fa fa-fw fa-edit"></i></a>   <a href="" class="editor_remove"><i class="fa fa-fw fa-remove"></i></a>';
-                     } else if (data.status === 'INACTIVE') {
-                         return '<a href="" class="editor_remove"><i class="fa fa-fw fa-remove"></i></a>';
+                     } else if(data.status === 'ACTIVE') {
+                         return '<a href="" class="editor_edit"><i class="fa fa-fw fa-edit"></i></a>';
                      } else {
                          return '';
                      }

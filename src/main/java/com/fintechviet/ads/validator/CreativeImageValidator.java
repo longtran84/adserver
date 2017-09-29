@@ -23,7 +23,6 @@ public class CreativeImageValidator implements Validator {
     @Override
     public void validate(Object o, Errors errors) {
         Creative creative = (Creative) o;
-        creative = (Creative) o;
 
         if (creative.getAdvertiser().getId() == null) {
             errors.rejectValue("advertiser.id", "creativeForm.advertiser.empty");

@@ -196,6 +196,7 @@
                   <th>Nhà quảng cáo</th>
                   <th>Ngày bắt đầu</th>
                   <th>Ngày kết thúc</th>
+                  <th>Ngày tạo</th>
                   <th>Trạng thái</th>
                   <th>Sửa / Xóa</th>
                 </tr>
@@ -207,6 +208,7 @@
                   <th>Nhà quảng cáo</th>
                   <th>Ngày bắt đầu</th>
                   <th>Ngày kết thúc</th>
+                  <th>Ngày tạo</th>
                   <th>Trạng thái</th>
                   <th>Sửa / Xóa</th>
                 </tr>
@@ -271,6 +273,7 @@
 <!-- DataTables -->
 <script src="${contextPath}/resources/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="${contextPath}/resources/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="${contextPath}/resources/bower_components/moment/min/moment-with-locales.min.js"></script>
 <script src="${contextPath}/resources/js/common.js"></script>
 <script src="${contextPath}/resources/js/advertiserPopup.js"></script>
 <script src="${contextPath}/resources/js/campaign.js"></script>

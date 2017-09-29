@@ -201,6 +201,7 @@
                   <th>Số lần hiển thị</th>
                   <th>Nhóm quảng cáo</th>
                   <th>Định dạng quảng cáo</th>
+                  <th>Ngày tạo</th>
                   <th>Trạng thái</th>
                   <th>Gửi quảng cáo</th>
                   <th>Sửa / Xóa</th>
@@ -213,6 +214,7 @@
                   <th>Số lần hiển thị</th>
                   <th>Nhóm quảng cáo</th>
                   <th>Định dạng quảng cáo</th>
+                  <th>Ngày tạo</th>
                   <th>Trạng thái</th>
                   <th>Gửi quảng cáo</th>
                   <th>Sửa / Xóa</th>
@@ -299,6 +301,7 @@
 <!-- DataTables -->
 <script src="${contextPath}/resources/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="${contextPath}/resources/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="${contextPath}/resources/bower_components/moment/min/moment-with-locales.min.js"></script>
 <script src="${contextPath}/resources/js/common.js"></script>
 <script src="${contextPath}/resources/js/creativePopup.js"></script>
 <script src="${contextPath}/resources/js/flightPopup.js"></script>
