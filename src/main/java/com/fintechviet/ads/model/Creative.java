@@ -23,6 +23,7 @@ public class Creative {
     private String status = "NEW";
     private MultipartFile imageFile;
     private MultipartFile videoFile;
+    private Timestamp createdDate;
 
     @Id
     @Column(name = "id")
@@ -141,6 +142,16 @@ public class Creative {
 
     public void setVideoFile(MultipartFile videoFile) {
         this.videoFile = videoFile;
+    }
+
+    @Basic
+    @Column(name = "createdDate", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    public Timestamp getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Timestamp createdDate) {
+        this.createdDate = createdDate;
     }
 
     @Override

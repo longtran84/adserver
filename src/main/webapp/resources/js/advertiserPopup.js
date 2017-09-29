@@ -23,7 +23,13 @@ var advertisersTable = $('#advertisersTable').DataTable({
         {
             data: null,
             className: "center",
-            defaultContent: '<a href="" class="editor_choose">Chọn</a>'
+            "render": function (data) {
+                if (data.status === 'ACTIVE') {
+                    return '<a href="" class="editor_choose"><i class="fa fa-fw fa-check"></i></a>';
+                } else {
+                    return '';
+                }
+            }
         }
     ]
 });

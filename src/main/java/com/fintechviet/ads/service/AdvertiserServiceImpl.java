@@ -95,5 +95,10 @@ public class AdvertiserServiceImpl implements AdvertiserService {
     public void update(Advertiser advertiser) {
         advertiserRepository.save(advertiser);
     }
+
+    @Override
+    public void updateStatus(Long id, String status) {
+        advertiserRepository.updateStatus(status, id);
+    }
     
 }

@@ -24,7 +24,6 @@ public class AdValidator implements Validator {
     @Override
     public void validate(Object o, Errors errors) {
         Ad ad = (Ad) o;
-        ad = (Ad) o;
 
         if (ad.getFlight().getId() == null) {
             errors.rejectValue("flight.id", "adForm.flight.empty");

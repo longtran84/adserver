@@ -1,6 +1,7 @@
 package com.fintechviet.ads.model;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 /**
  * Created by tungn on 8/31/2017.
@@ -22,6 +23,7 @@ public class Ad {
     private String impressionsTmp;
     private String freCapTmp;
     private String freCapDurationTmp;
+    private Timestamp createdDate;
 
     @Id
     @Column(name = "id")
@@ -168,6 +170,16 @@ public class Ad {
 
     public void setFreCapDurationTmp(String freCapDurationTmp) {
         this.freCapDurationTmp = freCapDurationTmp;
+    }
+
+    @Basic
+    @Column(name = "createdDate", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    public Timestamp getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Timestamp createdDate) {
+        this.createdDate = createdDate;
     }
 
     @Override

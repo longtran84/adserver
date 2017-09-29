@@ -41,6 +41,17 @@ public class AdvertiserRestController {
         return ResponseEntity.ok(advertiser);
     }
 
+    @RequestMapping(value = "/activateAdvertiser", method = RequestMethod.POST)
+    public ResponseEntity<?> activateCampaign(@RequestBody Advertiser advertiser) {
+        try {
+            String status = advertiser.getStatus().equals("ACTIVE") ? "INACTIVE" : "ACTIVE";
+            advertiserService.updateStatus(advertiser.getId(), status);
+        } catch (Exception ex) {
+            return ResponseEntity.badRequest().body("Error");
+        }
+        return ResponseEntity.ok(advertiser.getId());
+    }
+
     @RequestMapping(value = "/searchAdvertiser", method = RequestMethod.POST)
     public List<Advertiser> searchAdvertiser(@RequestBody Advertiser advertiser) {
         return advertiserService.search(advertiser);

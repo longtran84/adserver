@@ -43,7 +43,13 @@ var campaignsTable = $('#campaignsTable').DataTable({
         {
             data: null,
             className: "center",
-            defaultContent: '<a href="" class="editor_choose">Chọn</a>'
+            "render": function (data) {
+                if (data.status === 'ACTIVE') {
+                    return '<a href="" class="editor_choose"><i class="fa fa-fw fa-check"></i></a>';
+                } else {
+                    return '';
+                }
+            }
         }
     ]
 });
@@ -61,14 +67,6 @@ $('#campaignsTable tbody').on( 'click', 'a.editor_choose', function (e) {
     var data = campaignsTable.row( $(this).parents('tr') ).data();
     $('#campaignId').val(data.id);
     $('#campaignName').val(data.name);
-    $('#isFreCapTmp').prop('checked', data.isFreCap == 1 ? true : false);
-    $('.icheckbox_minimal-blue').removeClass('checked');
-    $('.icheckbox_minimal-blue').addClass(data.isFreCap == 1 ? 'checked' : '');
-    if (data.isFreCap == 1) {
-        $('#freCap').val(data.freCap);
-        $('#freCapDuration').val(data.freCapDuration);
-        $('#freCapType').val(data.freCapType);
-    }
 });
 
 $('#modal-choose-campaign').on('shown.bs.modal', function() {

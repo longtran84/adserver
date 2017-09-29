@@ -26,6 +26,7 @@ public class Campaign {
     private boolean isFreCapTmp;
     private String freCapTmp;
     private String freCapDurationTmp;
+    private Timestamp createdDate;
 
     @Id
     @Column(name = "id")
@@ -181,6 +182,16 @@ public class Campaign {
 
     public void setFreCapDurationTmp(String freCapDurationTmp) {
         this.freCapDurationTmp = freCapDurationTmp;
+    }
+
+    @Basic
+    @Column(name = "createdDate", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    public Timestamp getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Timestamp createdDate) {
+        this.createdDate = createdDate;
     }
 
     @Override

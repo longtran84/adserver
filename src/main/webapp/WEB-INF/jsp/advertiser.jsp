@@ -128,6 +128,7 @@
               <!-- <button type="submit" id="createBtn" class="btn btn-primary">Thêm</button> -->
               <button type="button" id="resetBtn" class="btn btn-success">Nhập Mới</button>
               <button type="submit" id="editBtn" class="btn btn-primary">Lưu</button>
+              <button type="button" id="activateBtn" class="btn btn-danger">Kích hoạt</button>
             </div>
             </form:form>
           </div>
@@ -146,6 +147,8 @@
                   <th>Tên công ty</th>
                   <th>Điện thoại</th>
                   <th>Tổng chi phí</th>
+                  <th>Ngày đăng ký</th>
+                  <th>Trạng thái</th>
                   <th>Sửa / Xóa</th>
                 </tr>
                 </thead>
@@ -157,6 +160,8 @@
                   <th>Tên công ty</th>
                   <th>Điện thoại</th>
                   <th>Tổng chi phí</th>
+                  <th>Ngày đăng ký</th>
+                  <th>Trạng thái</th>
                   <th>Sửa / Xóa</th>
                 </tr>
                 </tfoot>
@@ -209,6 +214,7 @@
 <!-- DataTables -->
 <script src="${contextPath}/resources/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="${contextPath}/resources/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="${contextPath}/resources/bower_components/moment/min/moment-with-locales.min.js"></script>
 <script src="${contextPath}/resources/js/common.js"></script>
 <script src="${contextPath}/resources/js/advertiser.js"></script>
 </body>
