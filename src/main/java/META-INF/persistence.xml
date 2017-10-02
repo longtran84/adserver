@@ -20,6 +20,7 @@
         <class>com.fintechviet.content.model.ContentImpressions</class>
         <class>com.fintechviet.content.model.NewsCategory</class>
         <class>com.fintechviet.user_mobile.model.UserMobile</class>
+        <class>com.fintechviet.user_mobile.model.UserMobileLuckyNumber</class>
         <class>com.fintechviet.content.model.News</class>
         <class>com.fintechviet.content.model.EarningDetails</class>
         <class>com.fintechviet.user_mobile.model.UserMobileDeviceToken</class>

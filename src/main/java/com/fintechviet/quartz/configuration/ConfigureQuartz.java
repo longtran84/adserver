@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import com.fintechviet.quartz.jobs.JobGenerateLuckyNumberWithCronTrigger;
 import com.fintechviet.quartz.jobs.JobUserInviteWithCronTrigger;
 import com.fintechviet.quartz.jobs.JobNewsWithCronTrigger;
 import org.quartz.JobDetail;
@@ -45,7 +46,8 @@ public class ConfigureQuartz {
 	}
 
 	@Bean
-	public SchedulerFactoryBean schedulerFactoryBean(JobFactory jobFactory, Trigger jobNewsWithCronTriggerBeanTrigger, Trigger jobUserInviteWithCronTriggerBeanTrigger) throws IOException {
+	public SchedulerFactoryBean schedulerFactoryBean(JobFactory jobFactory, Trigger jobNewsWithCronTriggerBeanTrigger, Trigger jobUserInviteWithCronTriggerBeanTrigger,
+													 Trigger jobGenerateLuckyNumberWithCronTriggerBeanTrigger) throws IOException {
 		SchedulerFactoryBean factory = new SchedulerFactoryBean();
 		factory.setOverwriteExistingJobs(true);
 		factory.setAutoStartup(true);
@@ -55,6 +57,7 @@ public class ConfigureQuartz {
 		List<Trigger> listOfTrigger = new ArrayList<Trigger>();
 		listOfTrigger.add(jobNewsWithCronTriggerBeanTrigger);
 		listOfTrigger.add(jobUserInviteWithCronTriggerBeanTrigger);
+		listOfTrigger.add(jobGenerateLuckyNumberWithCronTriggerBeanTrigger);
 		factory.setTriggers(listOfTrigger.toArray(new Trigger[listOfTrigger.size()]));
 		return factory;
 	}
@@ -84,6 +87,16 @@ public class ConfigureQuartz {
 
 	@Bean(name = "jobUserInviteWithCronTriggerBeanTrigger")
 	public CronTriggerFactoryBean cronJobUserInviteTrigger(@Qualifier("jobUserInviteWithCronTriggerBean") JobDetail jobDetail, @Value("${cron.frequency.job.userinvite.crontrigger}") String frequency) {
+		return createCronTrigger(jobDetail, frequency);
+	}
+
+	@Bean(name = "jobGenerateLuckyNumberWithCronTriggerBean")
+	public JobDetailFactoryBean cronGenerateLuckyNumber() {
+		return createJobDetail(JobGenerateLuckyNumberWithCronTrigger.class);
+	}
+
+	@Bean(name = "jobGenerateLuckyNumberWithCronTriggerBeanTrigger")
+	public CronTriggerFactoryBean cronGenerateLuckyNumberTrigger(@Qualifier("jobGenerateLuckyNumberWithCronTriggerBean") JobDetail jobDetail, @Value("${cron.frequency.job.generate.luckynumber.crontrigger}") String frequency) {
 		return createCronTrigger(jobDetail, frequency);
 	}
 
