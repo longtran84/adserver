@@ -1,7 +1,7 @@
 $(document).ready( function () {
     var data;
     $(function () {
-        /*$('#editBtn').attr("disabled", true);*/
+       /* $('#editBtn').attr("disabled", true);*/
         $('#activateBtn').attr('disabled', true);
     });
 
@@ -11,8 +11,28 @@ $(document).ready( function () {
         return moment(date).format('DD/MM/YYYY HH:mm:ss');
     }
 
-    var table = $('#creativesTable').DataTable({
-			sAjaxSource: "/creativeVideos",
+    $('#imageFileBtn').on('click', function(e){
+        e.preventDefault();
+        $('#imageFile').click();
+    });
+
+    $('#imageFile').on('change', function () {
+        var files = this.files;
+        if (!files.length) {
+            return;
+        }
+        var validExtensions = ['jpg','png','gif'];
+        var fileName = files[0].name;
+        var fileNameExt = fileName.substr(fileName.lastIndexOf('.') + 1).toLowerCase();
+        if (($.inArray(fileNameExt, validExtensions) == -1) || (this.files[0].size/1024 > 150)) {
+           $('#modal-file-error').modal();
+           return;
+        }
+        $('#imageName').val(fileName);
+    });
+
+    var table = $('#gamesTable').DataTable({
+			sAjaxSource: "/games",
 			sAjaxDataProp: "",
             responsive: true,
 			order: [[ 0, "asc" ]],
@@ -29,18 +49,15 @@ $(document).ready( function () {
             }
             },
              columns: [
-             { data: "title" },
-             { data: "advertiser.email" },
-             {   data: null,
+             { data: "name" },
+             { data: null,
                  "render": function (data) {
-                     return '<video class="videoLink" width="400" height="255" preload="auto" controls>' +
-                                  '<source src="' + data.videoLink + '" type="video/mp4"></video>';
+                     return '<img src="'+ data.image + '" alt="image" width="200" height="200" />';
                  }
              },
-             { data: "createdDate",
-                 "type": "date",
+             { data: null,
                  "render": function (data) {
-                     return formatDate(data);
+                     return '<a href=' + data.link + ' class="gameLink"><i class="fa fa-fw fa-link"></i></a>';
                  }
              },
              {   data: null,
@@ -52,6 +69,12 @@ $(document).ready( function () {
                      } else {
                          return 'Không hoạt động';
                      }
+                 }
+             },
+             { data: "createdDate",
+                 "type": "date",
+                 "render": function (data) {
+                     return formatDate(data);
                  }
              },
              {
@@ -70,29 +93,32 @@ $(document).ready( function () {
          ]
 	 });
 
+    $('#gamesTable tbody').on( 'click', 'a.gameLink', function (e) {
+        e.preventDefault();
+        var url = $(this).attr('href');
+        window.open(url, 'Game link', 'width=600,height=800,resizable=no,toolbar=no,menubar=no,location=no,status=no');
+    });
+
     var showDetails = function (data) {
-        $('#creativeForm #advertiserId').val(data.advertiser.id);
-        $('#creativeForm #advertiserName').val(data.advertiser.email);
-        $('#creativeForm #title').val(data.title);
-        $('#creativeForm #body').val(data.body);
-        $('#creativeForm #alt').val(data.alt);
-        $('#creativeForm #videoLink').val(data.videoLink);
-        $('#creativeForm #id').val(data.id);
-        $('#creativeForm #status').val(data.status);
-    }; 
+        $('#gameForm #name').val(data.name);
+        $('#gameForm #image').val(data.image);
+        $('#gameForm #link').val(data.link);
+        $('#gameForm #id').val(data.id);
+        $('#gameForm #status').val(data.status);
+    };
     
     var resetForm = function () {
-        $('#creativeForm')[0].reset();
+        $('#gameForm')[0].reset();
         
-        $('#creativeForm #id').val(null);
-        $('#creativeForm #advertiserId').val(null);
+        $('#gameForm #id').val(null);
+        $('#gameForm #status').val(null);
         
         $('#editBtn').attr('disabled', false);
         $('#activateBtn').attr('disabled', true);
     };
 
     // Edit record
-    $('#creativesTable tbody').on( 'click', 'a.editor_edit', function (e) {
+    $('#gamesTable tbody').on( 'click', 'a.editor_edit', function (e) {
         e.preventDefault();
         $('#editBtn').attr('disabled', false);
         /*$('#createBtn').attr('disabled', true);*/
@@ -101,24 +127,24 @@ $(document).ready( function () {
     });
 
     // Delete a record
-    $('#creativesTable tbody').on( 'click', 'a.editor_remove', function (e) {
+    $('#gamesTable tbody').on( 'click', 'a.editor_remove', function (e) {
         e.preventDefault();
         data = table.row( $(this).parents('tr') ).data();
         $('#modal-delete').modal();
     });
 
-    $('#delete_creative').click(function(){
+    $('#delete_game').click(function(){
         var request = {id: data.id};
         $.ajax({
             type: "POST",
-            url: '/deleteCreative',
+            url: '/deleteGame',
             data: JSON.stringify(request),
             dataType: "json",
             contentType: "application/json",
             success: function (result) {
                 $('#modal-delete').modal('hide');
                 $('.alert-info').attr('style','display: block');
-                $('#creativesTable').DataTable().ajax.reload();
+                $('#gamesTable').DataTable().ajax.reload();
                 
                 resetForm();
             },
@@ -129,7 +155,7 @@ $(document).ready( function () {
         });
     });
 
-    $('#creativesTable tbody').on( 'click', 'tr', function () {
+    $('#gamesTable tbody').on( 'click', 'tr', function () {
         if ( $(this).hasClass('success') ) {
             $(this).removeClass('success');
         }
@@ -152,7 +178,7 @@ $(document).ready( function () {
         } else {
             $('#editBtn').attr('disabled', false);
             /*$('#createBtn').attr('disabled', true);*/
-           /* $('#resetBtn').attr('disabled', true);*/
+            /*$('#resetBtn').attr('disabled', true);*/
             $('#activateBtn').attr('disabled', false);
             $('#activateBtn').text('Hủy kích hoạt');
         }
@@ -163,7 +189,7 @@ $(document).ready( function () {
         var request = {id: data.id, status: data.status};
         $.ajax({
             type: "POST",
-            url: '/activateCreative',
+            url: '/activateGame',
             data: JSON.stringify(request),
             dataType: "json",
             contentType: "application/json",
@@ -175,7 +201,7 @@ $(document).ready( function () {
                 }
                 
                 resetForm();
-                $('#creativesTable').DataTable().ajax.reload();
+                $('#gamesTable').DataTable().ajax.reload();
             },
             error: function(error) {
                 alert(error);
@@ -193,26 +219,6 @@ $(document).ready( function () {
 
     $('#close_error').click(function(){
         $('.alert-danger').attr('style','display: none');
-    });
-
-    $('#videoFileBtn').on('click', function(e){
-        e.preventDefault();
-        $('#videoFile').click();
-    });
-
-    $('#videoFile').on('change', function () {
-        var files = this.files;
-        if (!files.length) {
-            return;
-        }
-        var validExtensions = ['mp4', 'mpeg'];
-        var fileName = files[0].name;
-        var fileNameExt = fileName.substr(fileName.lastIndexOf('.') + 1).toLowerCase();
-        if (($.inArray(fileNameExt, validExtensions) == -1) || (this.files[0].size/1024 > 2000)) {
-            $('#modal-file-error').modal();
-            return;
-        }
-        $('#videoName').val(fileName);
     });
 
 });

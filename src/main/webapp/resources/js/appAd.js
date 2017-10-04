@@ -96,6 +96,8 @@ $(document).ready( function () {
         $('#appAdForm #name').val(data.name);
         $('#appAdForm #icon').val(data.icon);
         $('#appAdForm #installLink').val(data.installLink);
+        $('#appAdForm #id').val(data.id);
+        $('#appAdForm #status').val(data.status);
     };
     
     var resetForm = function () {
@@ -167,7 +169,7 @@ $(document).ready( function () {
             /*$('#resetBtn').attr('disabled', true);*/
             $('#activateBtn').attr('disabled', false);
         } else {
-            $('#editBtn').attr('disabled', true);
+            $('#editBtn').attr('disabled', false);
             /*$('#createBtn').attr('disabled', true);*/
             /*$('#resetBtn').attr('disabled', true);*/
             $('#activateBtn').attr('disabled', false);

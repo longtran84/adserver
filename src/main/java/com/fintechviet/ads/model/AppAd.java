@@ -16,6 +16,7 @@ public class AppAd {
     private String icon;
     private String installLink;
     private Campaign campaign;
+    private String shortDescription;
     private String status = "NEW";
     private Timestamp createdDate;
     private MultipartFile iconFile;
@@ -59,6 +60,14 @@ public class AppAd {
 
     public void setInstallLink(String installLink) {
         this.installLink = installLink;
+    }
+
+    public String getShortDescription() {
+        return shortDescription;
+    }
+
+    public void setShortDescription(String shortDescription) {
+        this.shortDescription = shortDescription;
     }
 
     @Basic

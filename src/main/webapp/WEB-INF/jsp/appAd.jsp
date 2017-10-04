@@ -104,6 +104,11 @@
                     <form:input type="text" class="form-control" path="name" id="name" placeholder="Tên ứng dụng"/>
                     <form:errors path="name" cssClass="has-error"></form:errors>
                   </div>
+                  <div class="form-group">
+                    <label for="shortDescription">Mô tả ứng dụng *</label>
+                    <form:input type="text" class="form-control" path="shortDescription" id="shortDescription" placeholder="Mô tả ứng dụng"/>
+                    <form:errors path="shortDescription" cssClass="has-error"></form:errors>
+                  </div>
                 </div>
                 <!-- /.col -->
                 <div class="col-md-6">
@@ -131,6 +136,7 @@
             <!-- /.box-body -->
             <div class="box-footer">
               <form:input type="hidden" id="id" path="id"/>
+              <form:input type="hidden" id="status" path="status"/>
               <!-- <button type="submit" id="createBtn" class="btn btn-primary">Thêm</button> -->
 			  <button type="button" id="resetBtn" class="btn btn-success">Nhập Mới</button>	
               <button type="submit" id="editBtn" class="btn btn-primary">Lưu</button>

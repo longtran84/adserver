@@ -18,7 +18,7 @@
                             <th>Ngày bắt đầu</th>
                             <th>Ngày kết thúc</th>
                             <th>Trạng thái</th>
-                            <th>Sửa / Xóa</th>
+                            <th>Lựa chọn</th>
                         </tr>
                         </thead>
                         <!-- Footer Table -->
@@ -29,7 +29,7 @@
                             <th>Ngày bắt đầu</th>
                             <th>Ngày kết thúc</th>
                             <th>Trạng thái</th>
-                            <th>Sửa / Xóa</th>
+                            <th>Lựa chọn</th>
                         </tr>
                         </tfoot>
                     </table>

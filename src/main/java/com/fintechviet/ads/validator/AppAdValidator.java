@@ -34,6 +34,11 @@ public class AppAdValidator implements Validator {
             errors.rejectValue("installLink", "appAdForm.installLink.size");
         }
 
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "shortDescription", "appAdForm.shortDescription.empty");
+        if (appAd.getShortDescription().length()  > 255) {
+            errors.rejectValue("shortDescription", "appAdForm.shortDescription.size");
+        }
+
         if (StringUtils.isEmpty(appAd.getIconFile().getOriginalFilename())) {
             errors.rejectValue("iconFile", "appAdForm.iconFile.empty");
         }

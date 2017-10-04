@@ -101,6 +101,7 @@
                     <li><a href="/news/category"><i class="fa fa-circle-o"></i> Chuyên mục tin tức</a></li>
                     <li><a href="/news/page"><i class="fa fa-circle-o"></i> Tin tức</a></li>
                     <li><a href="/content"><i class="fa fa-circle-o"></i> Nội dung</a></li>
+                    <li><a href="/game"><i class="fa fa-circle-o"></i> Trò chơi</a></li>
                 </ul>
             </li>
             </sec:authorize>

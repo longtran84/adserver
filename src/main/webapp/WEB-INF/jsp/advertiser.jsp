@@ -125,6 +125,7 @@
             <!-- /.box-body -->
             <div class="box-footer">
               <form:input type="hidden" id="id" path="id"/>
+              <form:input type="hidden" id="status" path="status"/>
               <!-- <button type="submit" id="createBtn" class="btn btn-primary">Thêm</button> -->
               <button type="button" id="resetBtn" class="btn btn-success">Nhập Mới</button>
               <button type="submit" id="editBtn" class="btn btn-primary">Lưu</button>
