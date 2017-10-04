@@ -93,7 +93,7 @@ $(document).ready( function () {
             $('#editBtn').attr('disabled', true);
             $('#activateBtn').attr('disabled', false);
         } else {
-            $('#editBtn').attr('disabled', true);
+            $('#editBtn').attr('disabled', false);
             $('#activateBtn').attr('disabled', false);
             $('#activateBtn').text('Hủy kích hoạt');
         }
@@ -109,6 +109,7 @@ $(document).ready( function () {
         $('#advertiserForm #companyName').val(data.companyName);
         $('#advertiserForm #charge').val(data.charge);
         $('#advertiserForm #id').val(data.id);
+        $('#advertiserForm #status').val(data.status);
     }
 
     // Delete a record

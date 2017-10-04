@@ -58,15 +58,15 @@
       <div class="alert alert-info alert-dismissible">
         <button type="button" id="close_info" class="close" aria-hidden="true">&times;</button>
         <h4><i class="icon fa fa-info"></i> Thông báo!</h4>
-        Định dạng quảng cáo đã được xóa thành công!
+        Trò chơi đã được xóa thành công!
       </div>
       <div class="alert alert-danger alert-dismissible">
         <button type="button" id="close_error" class="close" aria-hidden="true">&times;</button>
         <h4><i class="icon fa fa-ban"></i> Thông báo!</h4>
-        <span>Có lỗi xảy ra khi xóa định dạng quảng cáo.</span>
+        <span>Có lỗi xảy ra khi xóa trò chơi!</span>
       </div>
       <h1>
-        Định dạng quảng cáo
+        Trò chơi
       </h1>
     </section>
 
@@ -83,54 +83,18 @@
                 <!--<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>-->
               </div>
             </div>
-            <form:form id="creativeForm" action="${contextPath}/creativeImage" modelAttribute="creativeForm" method="post" enctype="multipart/form-data">
+            <form:form id="gameForm" action="${contextPath}/game" modelAttribute="gameForm" method="post" enctype="multipart/form-data">
             <!-- /.box-header -->
             <div class="box-body">
               <div class="row">
-
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="advertiserName">Nhà quảng cáo *</label>
-                    <div class="input-group">
-                      <input type="text" class="form-control" id="advertiserName" placeholder="Nhà quảng cáo" autofocus="true" disabled="true">
-                      <form:input type="hidden" path="advertiser.id" id="advertiserId"/>
-                      <span class="input-group-btn">
-                        <button type="button" class="btn btn-info btn-flat" data-toggle="modal" data-target="#modal-choose-advertiser">...</button>
-                      </span>
-                    </div>
-                    <form:errors path="advertiser.id" cssClass="has-error"></form:errors>
+                    <label for="name">Tên trò chơi *</label>
+                    <form:input type="text" class="form-control" path="name" id="name" placeholder="Tên trò chơi"/>
+                    <form:errors path="name" cssClass="has-error"></form:errors>
                   </div>
                   <div class="form-group">
-                    <label for="title">Tiêu đề *</label>
-                    <form:input type="text" class="form-control" path="title" id="title" placeholder="Tiêu đề"/>
-                    <form:errors path="title" cssClass="has-error"></form:errors>
-                  </div>
-                  <div class="form-group">
-                    <label for="body">Nội dung</label>
-                    <form:textarea class="form-control" path="body" id="body" rows="5" placeholder="Nội dung"/>
-                    <form:errors path="body" cssClass="has-error"></form:errors>
-                  </div>
-                </div>
-                <!-- /.col -->
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="title">Alt</label>
-                    <form:input type="text" class="form-control" path="alt" id="alt" placeholder="Alt"/>
-                    <form:errors path="alt" cssClass="has-error"></form:errors>
-                  </div>
-                  <div class="form-group">
-                    <label for="adTypeName">Loại quảng cáo *</label>
-                    <div class="input-group">
-                      <input type="text" class="form-control" id="adTypeName" placeholder="Loại quảng cáo" autofocus="true" disabled="true">
-                      <form:input type="hidden" path="adType.id" id="adTypeId"/>
-                      <span class="input-group-btn">
-                        <button type="button" class="btn btn-info btn-flat" data-toggle="modal" data-target="#modal-choose-adType">...</button>
-                      </span>
-                    </div>
-                    <form:errors path="adType.id" cssClass="has-error"></form:errors>
-                  </div>
-                  <div class="form-group">
-                    <label for="title">Ảnh *</label>
+                    <label for="imageName">Ảnh *</label>
                     <div class="input-group">
                       <input type="text" class="form-control" id="imageName" placeholder="Ảnh" autofocus="true" disabled="true">
                       <span class="input-group-btn">
@@ -140,11 +104,13 @@
                     </div>
                     <form:errors path="imageFile" cssClass="has-error"></form:errors>
                   </div>
+                </div>
+                <!-- /.col -->
+                <div class="col-md-6">
                   <div class="form-group">
-                    <label for="body">Xem trước ảnh</label>
-                    <div class="input-group">
-                      <img id="imagePreview" alt="Xem trước ảnh được tải lên" width="250px" height="250px"/>
-                    </div>
+                    <label for="link">Đường dẫn trò chơi *</label>
+                    <form:input type="text" class="form-control" path="link" id="link" placeholder="Đường dẫn trò chơi"/>
+                    <form:errors path="link" cssClass="has-error"></form:errors>
                   </div>
                 </div>
                 <!-- /.col -->
@@ -154,7 +120,7 @@
             <!-- /.box-body -->
             <div class="box-footer">
               <form:input type="hidden" id="id" path="id"/>
-              <form:input type="hidden" id="status" path="status"/>		
+              <form:input type="hidden" id="status" path="status"/>
               <!-- <button type="submit" id="createBtn" class="btn btn-primary">Thêm</button> -->
 			  <button type="button" id="resetBtn" class="btn btn-success">Nhập Mới</button>	
               <button type="submit" id="editBtn" class="btn btn-primary">Lưu</button>
@@ -168,13 +134,13 @@
             </div>-->
             <!-- /.box-header -->
             <div class="box-body">
-              <table id="creativesTable" class="table table-bordered table-hover dataTable" role="grid">
+              <table id="gamesTable" class="table table-bordered table-hover dataTable" role="grid">
                 <!-- Header Table -->
                 <thead>
                 <tr>
-                  <th>Tiêu đề</th>
-                  <th>Nhà quảng cáo</th>
+                  <th>Tên trò chơi</th>
                   <th>Ảnh</th>
+                  <th>Đường dẫn</th>
                   <th>Ngày tạo</th>
                   <th>Trạng thái</th>
                   <th>Sửa / Xóa</th>
@@ -183,9 +149,9 @@
                 <!-- Footer Table -->
                 <tfoot>
                 <tr>
-                  <th>Tiêu đề</th>
-                  <th>Nhà quảng cáo</th>
+                  <th>Tên trò chơi</th>
                   <th>Ảnh</th>
+                  <th>Đường dẫn</th>
                   <th>Ngày tạo</th>
                   <th>Trạng thái</th>
                   <th>Sửa / Xóa</th>
@@ -204,14 +170,14 @@
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Xóa định dạng quảng cáo</h4>
+            <h4 class="modal-title">Xóa trò chơi</h4>
           </div>
           <div class="modal-body">
-            <p>Bạn có chắc chắn muốn xóa định dạng quảng cáo này?</p>
+            <p>Bạn có chắc chắn muốn xóa trò chơi này?</p>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
-            <button type="button" id="delete_creative" class="btn btn-primary">Xóa</button>
+            <button type="button" id="delete_game" class="btn btn-primary">Xóa</button>
           </div>
         </div>
         <!-- /.modal-content -->
@@ -224,7 +190,7 @@
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Định dạng và kích thước ảnh quảng cáo được hỗ trợ</h4>
+            <h4 class="modal-title">Định dạng và kích thước ảnh được hỗ trợ</h4>
           </div>
           <div class="modal-body">
             <table class="table table-bordered">
@@ -244,37 +210,6 @@
                 <td>Độ lớn ảnh</td>
                 <td>150 KB hoặc nhỏ hơn</td>
               </tr>
-              <tr>
-                <td>Kích thước ảnh</td>
-                <td>
-                  <ul>
-                    <li><strong>320 x 50</strong>: Mobile leaderboard <img src="//lh5.ggpht.com/r72rVFHFrC311Whh1Kr0E6X_c1khO7i-C_0f3gM4W3w0LrAcXP9dt0bbA1FxIZghOhOTP8Y=w21" height="auto" alt="
-Biểu tượng cho thấy độ phân giải HD hoặc độ phân giải cao cho hình ảnh được sử dụng trong quảng cáo trên điện thoại di động." title="
-Biểu tượng cho thấy độ phân giải HD hoặc độ phân giải cao cho hình ảnh được sử dụng trong quảng cáo trên điện thoại di động."></li>
-                    <li><strong>480 x 32</strong>: Mobile banner (landscape) <img src="//lh5.ggpht.com/r72rVFHFrC311Whh1Kr0E6X_c1khO7i-C_0f3gM4W3w0LrAcXP9dt0bbA1FxIZghOhOTP8Y=w21" height="auto" alt="
-Biểu tượng cho thấy độ phân giải HD hoặc độ phân giải cao cho hình ảnh được sử dụng trong quảng cáo trên điện thoại di động." title="
-Biểu tượng cho thấy độ phân giải HD hoặc độ phân giải cao cho hình ảnh được sử dụng trong quảng cáo trên điện thoại di động."></li>
-                    <li><strong>320 x 100</strong>: Large mobile banner <img src="//lh5.ggpht.com/r72rVFHFrC311Whh1Kr0E6X_c1khO7i-C_0f3gM4W3w0LrAcXP9dt0bbA1FxIZghOhOTP8Y=w21" height="auto" alt="
-Biểu tượng cho thấy độ phân giải HD hoặc độ phân giải cao cho hình ảnh được sử dụng trong quảng cáo trên điện thoại di động." title="
-Biểu tượng cho thấy độ phân giải HD hoặc độ phân giải cao cho hình ảnh được sử dụng trong quảng cáo trên điện thoại di động."></li>
-                    <li><strong>468 x 60</strong>: Banner <img src="//lh5.ggpht.com/r72rVFHFrC311Whh1Kr0E6X_c1khO7i-C_0f3gM4W3w0LrAcXP9dt0bbA1FxIZghOhOTP8Y=w21" height="auto" alt="
-Biểu tượng cho thấy độ phân giải HD hoặc độ phân giải cao cho hình ảnh được sử dụng trong quảng cáo trên điện thoại di động." title="
-Biểu tượng cho thấy độ phân giải HD hoặc độ phân giải cao cho hình ảnh được sử dụng trong quảng cáo trên điện thoại di động."></li>
-                    <li><strong>728 x 90</strong>: Leaderboard <img src="//lh5.ggpht.com/r72rVFHFrC311Whh1Kr0E6X_c1khO7i-C_0f3gM4W3w0LrAcXP9dt0bbA1FxIZghOhOTP8Y=w21" height="auto" alt="
-Biểu tượng cho thấy độ phân giải HD hoặc độ phân giải cao cho hình ảnh được sử dụng trong quảng cáo trên điện thoại di động." title="
-Biểu tượng cho thấy độ phân giải HD hoặc độ phân giải cao cho hình ảnh được sử dụng trong quảng cáo trên điện thoại di động."></li>
-                    <li><strong>300 x 250</strong>: Inline rectangle <img src="//lh5.ggpht.com/r72rVFHFrC311Whh1Kr0E6X_c1khO7i-C_0f3gM4W3w0LrAcXP9dt0bbA1FxIZghOhOTP8Y=w21" height="auto" alt="
-Biểu tượng cho thấy độ phân giải HD hoặc độ phân giải cao cho hình ảnh được sử dụng trong quảng cáo trên điện thoại di động." title="
-Biểu tượng cho thấy độ phân giải HD hoặc độ phân giải cao cho hình ảnh được sử dụng trong quảng cáo trên điện thoại di động."></li>
-                    <li><strong>320 x 480</strong>: Smartphone interstitial (portrait) <img src="//lh5.ggpht.com/r72rVFHFrC311Whh1Kr0E6X_c1khO7i-C_0f3gM4W3w0LrAcXP9dt0bbA1FxIZghOhOTP8Y=w21" height="auto" alt="
-Biểu tượng cho thấy độ phân giải HD hoặc độ phân giải cao cho hình ảnh được sử dụng trong quảng cáo trên điện thoại di động." title="
-Biểu tượng cho thấy độ phân giải HD hoặc độ phân giải cao cho hình ảnh được sử dụng trong quảng cáo trên điện thoại di động."></li>
-                    <li><strong>480 x 320</strong>: Smartphone interstitial (landscape) <img src="//lh5.ggpht.com/r72rVFHFrC311Whh1Kr0E6X_c1khO7i-C_0f3gM4W3w0LrAcXP9dt0bbA1FxIZghOhOTP8Y=w21" height="auto" alt="
-Biểu tượng cho thấy độ phân giải HD hoặc độ phân giải cao cho hình ảnh được sử dụng trong quảng cáo trên điện thoại di động." title="
-Biểu tượng cho thấy độ phân giải HD hoặc độ phân giải cao cho hình ảnh được sử dụng trong quảng cáo trên điện thoại di động."></li>
-                  </ul>
-                </td>
-              </tr>
             </table>
           </div>
           <div class="modal-footer">
@@ -285,8 +220,6 @@ Biểu tượng cho thấy độ phân giải HD hoặc độ phân giải cao c
       </div>
       <!-- /.modal-dialog -->
     </div>
-    <%@ include file = "advertiserPopup.jsp" %>
-    <%@ include file = "adTypePopup.jsp" %>
   </div>
   <!-- /.content-wrapper -->
   <%@ include file = "footer.jsp" %>
@@ -312,8 +245,6 @@ Biểu tượng cho thấy độ phân giải HD hoặc độ phân giải cao c
 <script src="${contextPath}/resources/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <script src="${contextPath}/resources/bower_components/moment/min/moment-with-locales.min.js"></script>
 <script src="${contextPath}/resources/js/common.js"></script>
-<script src="${contextPath}/resources/js/advertiserPopup.js"></script>
-<script src="${contextPath}/resources/js/adTypePopup.js"></script>
-<script src="${contextPath}/resources/js/creativeImage.js"></script>
+<script src="${contextPath}/resources/js/game.js"></script>
 </body>
 </html>
