@@ -3,6 +3,7 @@ package com.fintechviet.ads.web;
 import com.fintechviet.ads.model.AppAd;
 import com.fintechviet.ads.service.AppAdService;
 import com.fintechviet.ads.validator.AppAdValidator;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
@@ -57,7 +58,20 @@ public class AppAdController {
             int serverPort = request.getServerPort();
             appAdForm.setIcon("http://" + serverName + ":" + serverPort + "/ad/app/" + file.getOriginalFilename());
         }
-        appAdService.save(appAdForm);
+
+        AppAd appAd = null;
+        if (appAdForm.getId() != null) {
+            appAd = appAdService.findById(appAdForm.getId());
+            appAd.setCampaign(appAdForm.getCampaign());
+            appAd.setName(appAdForm.getName());
+            appAd.setShortDescription(appAdForm.getShortDescription());
+            if (StringUtils.isNotEmpty(appAdForm.getIcon()))
+                appAd.setIcon(appAdForm.getIcon());
+            appAd.setInstallLink(appAdForm.getInstallLink());
+            appAdService.save(appAd);
+        } else {
+            appAdService.save(appAdForm);
+        }
  
         return "redirect:/appAd";
     }

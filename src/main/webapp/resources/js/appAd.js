@@ -94,8 +94,10 @@ $(document).ready( function () {
         $('#appAdForm #campaignId').val(data.campaign.id);
         $('#appAdForm #campaignName').val(data.campaign.name);
         $('#appAdForm #name').val(data.name);
-        $('#appAdForm #icon').val(data.icon);
+        var lastIndex = data.icon.lastIndexOf("/");
+        $('#appAdForm #iconName').val(data.icon.substring(lastIndex + 1));
         $('#appAdForm #installLink').val(data.installLink);
+        $('#appAdForm #shortDescription').val(data.shortDescription);
         $('#appAdForm #id').val(data.id);
         $('#appAdForm #status').val(data.status);
     };

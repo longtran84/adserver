@@ -28,6 +28,11 @@ public class NewsCategoryServiceImpl implements NewsCategoryService {
     }
 
     @Override
+    public NewsCategory findById(Long id) {
+        return newsCategoryRepository.findOne(id);
+    }
+
+    @Override
     public void save(NewsCategory newsCategory) {
         newsCategoryRepository.save(newsCategory);
     }

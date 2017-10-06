@@ -139,12 +139,16 @@ $(document).ready( function () {
     var showDetails = function (data) {
         $('#creativeForm #advertiserId').val(data.advertiser.id);
         $('#creativeForm #advertiserName').val(data.advertiser.email);
+        $('#creativeForm #adTypeId').val(data.adType.id);
+        $('#creativeForm #adTypeName').val(data.adType.name);
         $('#creativeForm #title').val(data.title);
         $('#creativeForm #body').val(data.body);
         $('#creativeForm #alt').val(data.alt);
-        $('#creativeForm #imageLink').val(data.imageLink);
+        var lastIndex = data.imageLink.lastIndexOf("/");
+        $('#creativeForm #imageName').val(data.imageLink.substring(lastIndex + 1));
         $('#creativeForm #id').val(data.id);
         $('#creativeForm #status').val(data.status);
+
     };
     
     var resetForm = function () {
@@ -152,6 +156,7 @@ $(document).ready( function () {
         
         $('#creativeForm #id').val(null);
         $('#creativeForm #advertiserId').val(null);
+        $('#creativeForm #adTypeId').val(null);
         
         $('#editBtn').attr('disabled', false);
         $('#activateBtn').attr('disabled', true);

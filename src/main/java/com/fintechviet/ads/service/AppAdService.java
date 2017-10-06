@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 public interface AppAdService {
+    AppAd findById(Long id);
     void save(AppAd ad);
     void delete(AppAd ad);
     List<AppAd> getAppAds(String adverEmail);

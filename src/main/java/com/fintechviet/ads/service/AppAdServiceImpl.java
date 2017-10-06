@@ -20,6 +20,11 @@ public class AppAdServiceImpl implements AppAdService {
     private AppAdRepository appAdRepository;
 
     @Override
+    public AppAd findById(Long id) {
+        return appAdRepository.findOne(id);
+    }
+
+    @Override
     public void save(AppAd ad) {
         appAdRepository.save(ad);
     }
