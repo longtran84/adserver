@@ -8,18 +8,18 @@ import javax.persistence.*;
 @Entity
 @Table(name = "ad_type", schema = "mobileads", catalog = "")
 public class AdType {
-    private int id;
+    private Integer id;
     private String name;
     private int width;
     private int height;
 
     @Id
     @Column(name = "id")
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

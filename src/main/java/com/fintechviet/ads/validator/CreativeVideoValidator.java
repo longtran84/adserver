@@ -36,8 +36,10 @@ public class CreativeVideoValidator implements Validator {
             errors.rejectValue("alt", "creativeForm.alt.size");
         }
 
-        if (StringUtils.isEmpty(creative.getVideoFile().getOriginalFilename())) {
-            errors.rejectValue("videoFile", "creativeForm.videoFile.empty");
+        if (creative.getId() == null) {
+            if (StringUtils.isEmpty(creative.getVideoFile().getOriginalFilename())) {
+                errors.rejectValue("videoFile", "creativeForm.videoFile.empty");
+            }
         }
     }
 }

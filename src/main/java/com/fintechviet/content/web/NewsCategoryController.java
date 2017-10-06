@@ -4,6 +4,7 @@ import com.fintechviet.ads.model.Ad;
 import com.fintechviet.content.model.NewsCategory;
 import com.fintechviet.content.service.NewsCategoryService;
 import com.fintechviet.content.validator.NewsCategoryValidator;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
@@ -63,10 +64,20 @@ public class NewsCategoryController {
             outputStream.close();
             String serverName = request.getServerName();
             int serverPort = request.getServerPort();
-            categoryForm.setImage("http://"+serverName + ":" + serverPort + "/images/" + file.getOriginalFilename());
+            categoryForm.setImage("http://" + serverName + ":" + serverPort + "/images/" + file.getOriginalFilename());
         }
 
-        newsCategoryService.save(categoryForm);
+        NewsCategory newsCategory = null;
+        if (categoryForm.getId() != null) {
+            newsCategory = newsCategoryService.findById(categoryForm.getId());
+            newsCategory.setCode(categoryForm.getCode());
+            newsCategory.setName(categoryForm.getName());
+            if (StringUtils.isNotEmpty(categoryForm.getImage()))
+                newsCategory.setImage(categoryForm.getImage());
+            newsCategoryService.save(newsCategory);
+        } else {
+            newsCategoryService.save(categoryForm);
+        }
 
         return "redirect:/news/category";
     }

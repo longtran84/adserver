@@ -39,8 +39,10 @@ public class AppAdValidator implements Validator {
             errors.rejectValue("shortDescription", "appAdForm.shortDescription.size");
         }
 
-        if (StringUtils.isEmpty(appAd.getIconFile().getOriginalFilename())) {
-            errors.rejectValue("iconFile", "appAdForm.iconFile.empty");
+        if (appAd.getId() == null) {
+            if (StringUtils.isEmpty(appAd.getIconFile().getOriginalFilename())) {
+                errors.rejectValue("iconFile", "appAdForm.iconFile.empty");
+            }
         }
     }
 }

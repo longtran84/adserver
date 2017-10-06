@@ -4,6 +4,7 @@ import com.fintechviet.ads.model.Creative;
 import com.fintechviet.ads.service.CreativeService;
 import com.fintechviet.ads.validator.CreativeImageValidator;
 import com.fintechviet.ads.validator.CreativeVideoValidator;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.HttpRequest;
@@ -72,9 +73,22 @@ public class CreativeController {
             outputStream.close();
             String serverName = request.getServerName();
             int serverPort = request.getServerPort();
-            creativeForm.setVideoLink("http://"+serverName + ":" + serverPort + "/ad/videos/" + file.getOriginalFilename());
+            creativeForm.setVideoLink("http://" + serverName + ":" + serverPort + "/ad/videos/" + file.getOriginalFilename());
         }
-        creativeService.save(creativeForm);
+
+        Creative creative = null;
+        if (creativeForm.getId() != null) {
+            creative = creativeService.findById(creativeForm.getId());
+            creative.setAdvertiser(creativeForm.getAdvertiser());
+            creative.setTitle(creativeForm.getTitle());
+            creative.setBody(creativeForm.getBody());
+            creative.setAlt(creativeForm.getAlt());
+            if (StringUtils.isNotEmpty(creativeForm.getVideoLink()))
+                creative.setVideoLink(creativeForm.getVideoLink());
+            creativeService.save(creative);
+        } else {
+            creativeService.save(creativeForm);
+        }
  
         return "redirect:/creativeVideo";
     }
@@ -86,6 +100,7 @@ public class CreativeController {
         if (bindingResult.hasErrors()) {
             return "creativeImage";
         }
+
         creativeForm.setTemplate("image");
         MultipartFile file = creativeForm.getImageFile();
         if (!file.getOriginalFilename().isEmpty()) {
@@ -98,14 +113,27 @@ public class CreativeController {
             outputStream.close();
             String serverName = request.getServerName();
             int serverPort = request.getServerPort();
-            creativeForm.setImageLink("http://"+serverName + ":" + serverPort + "/ad/images/" + file.getOriginalFilename());
-        }
-        
-        if (creativeForm.getId() == null) {
-        	creativeForm.setStatus("NEW");
+            creativeForm.setImageLink("http://" + serverName + ":" + serverPort + "/ad/images/" + file.getOriginalFilename());
         }
 
-        creativeService.save(creativeForm);
+        if (creativeForm.getId() == null) {
+            creativeForm.setStatus("NEW");
+        }
+
+        Creative creative = null;
+        if (creativeForm.getId() != null) {
+            creative = creativeService.findById(creativeForm.getId());
+            creative.setAdvertiser(creativeForm.getAdvertiser());
+            creative.setTitle(creativeForm.getTitle());
+            creative.setBody(creativeForm.getBody());
+            creative.setAlt(creativeForm.getAlt());
+            creative.setAdType(creativeForm.getAdType());
+            if (StringUtils.isNotEmpty(creativeForm.getImageLink()))
+                creative.setImageLink(creativeForm.getImageLink());
+            creativeService.save(creative);
+        } else {
+            creativeService.save(creativeForm);
+        }
 
         return "redirect:/creativeImage";
     }

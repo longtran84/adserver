@@ -28,6 +28,10 @@ public class CreativeImageValidator implements Validator {
             errors.rejectValue("advertiser.id", "creativeForm.advertiser.empty");
         }
 
+        if (creative.getAdType().getId() == null) {
+            errors.rejectValue("adType.id", "creativeForm.adType.empty");
+        }
+
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "title", "creativeForm.title.empty");
         if (creative.getTitle().length()  > 100) {
             errors.rejectValue("title", "creativeForm.title.size");
@@ -37,8 +41,10 @@ public class CreativeImageValidator implements Validator {
             errors.rejectValue("alt", "creativeForm.alt.size");
         }
 
-        if (StringUtils.isEmpty(creative.getImageFile().getOriginalFilename())) {
-            errors.rejectValue("imageFile", "creativeForm.imageFile.empty");
+        if (creative.getId() == null) {
+            if (StringUtils.isEmpty(creative.getImageFile().getOriginalFilename())) {
+                errors.rejectValue("imageFile", "creativeForm.imageFile.empty");
+            }
         }
     }
 }

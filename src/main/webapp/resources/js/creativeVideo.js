@@ -76,7 +76,8 @@ $(document).ready( function () {
         $('#creativeForm #title').val(data.title);
         $('#creativeForm #body').val(data.body);
         $('#creativeForm #alt').val(data.alt);
-        $('#creativeForm #videoLink').val(data.videoLink);
+        var lastIndex = data.videoLink.lastIndexOf("/");
+        $('#creativeForm #videoName').val(data.videoLink.substring(lastIndex + 1));
         $('#creativeForm #id').val(data.id);
         $('#creativeForm #status').val(data.status);
     }; 

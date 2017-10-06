@@ -13,6 +13,11 @@ public class CreativeServiceImpl implements CreativeService {
     private CreativeRepository creativeRepository;
 
     @Override
+    public Creative findById(Long id) {
+        return creativeRepository.findOne(id);
+    }
+
+    @Override
     public void save(Creative creative) {
         creativeRepository.save(creative);
     }
