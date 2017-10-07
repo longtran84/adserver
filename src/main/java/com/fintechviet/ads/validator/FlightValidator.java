@@ -4,6 +4,7 @@ import com.fintechviet.ads.model.Flight;
 import com.fintechviet.ads.service.FlightService;
 import com.fintechviet.utils.DateUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -61,6 +62,9 @@ public class FlightValidator implements Validator {
 
         if (flight.getDescription().length()  > 255) {
             errors.rejectValue("description", "flightForm.description.size");
+        }
+        if(flight.getPrice().toString()!= null && !NumberUtils.isCreatable(flight.getPrice().toString())){
+        	errors.rejectValue("price", "flightForm.price.size", "price value must be number");
         }
     }
 }
