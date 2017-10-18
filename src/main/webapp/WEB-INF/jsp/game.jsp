@@ -96,7 +96,7 @@
                   <div class="form-group">
                     <label for="imageName">Ảnh *</label>
                     <div class="input-group">
-                      <input type="text" class="form-control" id="imageName" placeholder="Ảnh" autofocus="true" disabled="true">
+                      <form:input type="text" class="form-control" id="imageName" path="imageName" placeholder="Ảnh" autofocus="true" readonly="true"/>
                       <span class="input-group-btn">
                         <button type="button" class="btn btn-info btn-flat" id="imageFileBtn">Chọn ảnh...</button>
                       </span>

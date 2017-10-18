@@ -1,30 +1,33 @@
 $(document).ready( function () {
-    var dateFrom = getCurrentDate();
-    var dateTo = getCurrentDate();
+
+    $('#imageFileBtn').on('click', function(e){
+        e.preventDefault();
+        $('#imageFile').click();
+    });
+
+    $('#imageFile').on('change', function () {
+        var files = this.files;
+        if (!files.length) {
+            return;
+        }
+        var validExtensions = ['jpg','png','gif'];
+        var fileName = files[0].name;
+        var fileNameExt = fileName.substr(fileName.lastIndexOf('.') + 1).toLowerCase();
+        /*if (($.inArray(fileNameExt, validExtensions) == -1) || (this.files[0].size/1024 > 150)) {
+            $('#modal-file-error').modal();
+            return;
+        }*/
+        $('#imageName').val(fileName);
+    });
 
     var formatDate  = function (data) {
         if (data === null || data === '') return "";
         var date = new Date(data);
-        //var month = date.getMonth() + 1;
-        //return (date.getDate() > 9 ? date.getDate() : "0" + date.getDate()) + "/" + (month > 9 ? month : "0" + month) + "/" + date.getFullYear();
         return moment(date).format('DD/MM/YYYY HH:mm:ss');
     }
 
-    function getCurrentDate() {
-        var date = new Date();
-        var month = date.getMonth() + 1;
-        return (date.getDate() > 9 ? date.getDate() : "0" + date.getDate()) + "/" + (month > 9 ? month : "0" + month) + "/" + date.getFullYear();
-    }
-
     var table = $('#newsTable').DataTable({
-        "ajax": {
-            'type': 'POST',
-            'url': '/news/list',
-            'contentType': 'application/json',
-            'data': function() {
-                return JSON.stringify({dateFrom: dateFrom, dateTo: dateTo});
-            },
-        },
+        sAjaxSource: "/content/newsList",
         sAjaxDataProp: "",
         responsive: true,
         order: [[ 0, "asc" ]],
@@ -45,7 +48,7 @@ $(document).ready( function () {
             { data: "title" },
             { data: null,
               "render": function (data) {
-                  return '<a href=' + data.link + ' class="linkOriginal"><i class="fa fa-fw fa-link"></i></a>';
+                  return '<a href=/newsDetail?newsId=' + data.id + ' class="link"><i class="fa fa-fw fa-link"></i></a>';
               }
             },
             { data: "source" },
@@ -55,9 +58,9 @@ $(document).ready( function () {
                     if (data.status === 'NEW') {
                         return 'Mới';
                     } else if (data.status === 'ACTIVE') {
-                        return 'Hiển thị';
+                        return 'Xuất bản';
                     } else {
-                        return 'Không hiển thị';
+                        return 'Không xuất bản';
                     }
                 }
             },
@@ -71,78 +74,153 @@ $(document).ready( function () {
                 data: null,
                 className: "center",
                 "render": function (data) {
-                    if (data.status === 'ACTIVE') {
-                        return '<a href="" class="privateConTent" title="Không hiển thị"><i class="fa fa-fw fa-lock"></i></a>';
+                    if (data.status === 'NEW') {
+                        return '<a href="" class="editor_edit"><i class="fa fa-fw fa-edit"></i></a>   <a href="" class="editor_remove"><i class="fa fa-fw fa-remove"></i></a>';
+                    } else if(data.status === 'ACTIVE') {
+                        return '<a href="" class="editor_edit"><i class="fa fa-fw fa-edit"></i></a>';
                     } else {
-                        return '<a href="" class="publicConTent" title="Hiển thị"><i class="fa fa-fw fa-unlock-alt"></i></a>';
+                        return '';
                     }
                 }
             }
         ]
     });
 
-    $('#newsTable tbody').on( 'click', 'a.linkOriginal', function (e) {
+    var showDetails = function (data) {
+        $('#newsForm #id').val(data.id);
+        $('#newsForm #status').val(data.status);
+        $('#newsForm #categoryId').val(data.newsCategory.id);
+        $('#newsForm #categoryName').val(data.newsCategory.name);
+        $('#newsForm #title').val(data.title);
+        $('#newsForm #shortDescription').val(data.shortDescription);
+        CKEDITOR.instances.contentEditor.setData(data.content);
+        var lastIndex = data.imageLink.lastIndexOf("/");
+        $('#newsForm #imageName').val(data.imageLink.substring(lastIndex + 1));
+        $('#newsForm #source').val(data.source);
+    };
+
+    var resetForm = function () {
+        $('#newsForm')[0].reset();
+        $('#newsForm #id').val(null);
+        $('#newsForm #categoryId').val(null);
+        CKEDITOR.instances.contentEditor.setData("");
+        $('#editBtn').attr('disabled', false);
+        $('#activateBtn').attr('disabled', true);
+    };
+
+    // Edit record
+    $('#newsTable tbody').on( 'click', 'a.editor_edit', function (e) {
         e.preventDefault();
-        var url = $(this).attr('href');
-        window.open(url, 'Trang gốc', 'width=480,height=360,resizable=no,toolbar=no,menubar=no,location=no,status=no');
+        $('#editBtn').attr('disabled', false);
+        /*$('#createBtn').attr('disabled', true);*/
+        var data = table.row( $(this).parents('tr') ).data();
+        showDetails(data);
     });
 
-    //Date range as a button
-    moment.locale('vi');
-    $('#daterange-btn').daterangepicker(
-        {
-            locale: {
-                "applyLabel": "Chọn",
-                "cancelLabel": "Hủy",
-                "customRangeLabel": "Tùy chọn",
-            },
-            ranges   : {
-                'Ngày hôm nay'       : [moment(), moment()],
-                'Ngày hôm qua'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                '7 ngày' : [moment().subtract(6, 'days'), moment()],
-                '30 ngày': [moment().subtract(29, 'days'), moment()],
-                'Tháng này'  : [moment().startOf('month'), moment().endOf('month')],
-                'Tháng trước'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-            },
-            startDate: moment(),
-            endDate  : moment()
-        },
-        function (start, end) {
-            $('#daterange-btn span').html(start.format('D MMMM, YYYY') + ' - ' + end.format('D MMMM, YYYY'))
-            dateFrom = start.format('DD/MM/YYYY');
-            dateTo = end.format('DD/MM/YYYY');
-            $('#newsTable').DataTable().ajax.reload();
-        }
-    )
-
-    // Publish or unpublish news
+    // Delete a record
     $('#newsTable tbody').on( 'click', 'a.editor_remove', function (e) {
         e.preventDefault();
         data = table.row( $(this).parents('tr') ).data();
         $('#modal-delete').modal();
     });
 
-    $('#delete_advertiser').click(function(){
+    $('#newsTable tbody').on( 'click', 'tr', function () {
+        if ( $(this).hasClass('success') ) {
+            $(this).removeClass('success');
+        }
+        else {
+            table.$('tr.success').removeClass('success');
+            $(this).addClass('success');
+        }
+        data = table.row(this).data();
+        if (data.status === 'NEW') {
+            $('#editBtn').attr('disabled', false);
+            /*$('#createBtn').attr('disabled', true);*/
+            /*$('#resetBtn').attr('disabled', false);*/
+            $('#activateBtn').attr('disabled', false);
+            $('#activateBtn').text('Xuất bản');
+        } else if (data.status === 'INACTIVE') {
+            $('#editBtn').attr('disabled', true);
+            /* $('#createBtn').attr('disabled', true);*/
+            /*$('#resetBtn').attr('disabled', false);*/
+            $('#activateBtn').attr('disabled', false);
+        } else {
+            $('#editBtn').attr('disabled', false);
+            /* $('#createBtn').attr('disabled', true);*/
+            /* $('#resetBtn').attr('disabled', false);*/
+            $('#activateBtn').attr('disabled', false);
+            $('#activateBtn').text('Không xuất bản');
+        }
+        showDetails(data);
+    } );
+
+    $('#newsTable tbody').on( 'click', 'a.link', function (e) {
+        e.preventDefault();
+        var url = $(this).attr('href');
+        var leftPosition, topPosition;
+        var width = 800, height = 900
+        //Allow for borders.
+        leftPosition = Number((screen.width / 2) - ((width / 2) + 10));
+        //Allow for title and status bars.
+        topPosition = Number((screen.height / 2) - ((height / 2) + 50));
+        window.open(url, 'SMA', 'width=' + width + ',height=' + height + ',resizable=no,toolbar=no,menubar=no,location=no,status=no,left='
+                    + leftPosition + ',top=' + topPosition);
+    });
+
+    $('#activateBtn').click(function(){
+        var request = {id: data.id, status: data.status};
+        $.ajax({
+            type: "POST",
+            url: '/activateNews',
+            data: JSON.stringify(request),
+            dataType: "json",
+            contentType: "application/json",
+            success: function (result) {
+                if (data.status === 'NEW' || data.status === 'INACTIVE') {
+                    $('#activateBtn').text('Không xuất bản');
+                } else {
+                    $('#activateBtn').text('Xuất bản');
+                }
+
+                resetForm();
+
+                $('#newsTable').DataTable().ajax.reload();
+            },
+            error: function(error) {
+                alert(error);
+            }
+        });
+    });
+
+    $('#delete_news').click(function(){
         var request = {id: data.id};
         $.ajax({
             type: "POST",
-            /*headers: {
-             'Accept': 'application/json',
-             'Content-Type': 'application/json'
-             }*/
-            url: '/deleteAdvertiser',
+            url: '/deleteNews',
             data: JSON.stringify(request),
             dataType: "json",
             contentType: "application/json",
             success: function (result) {
                 $('#modal-delete').modal('hide');
                 $('.alert-info').attr('style','display: block');
-                $('#advertisersTable').DataTable().ajax.reload();
+                $('#newsTable').DataTable().ajax.reload();
             },
             error: function(error) {
                 $('#modal-delete').modal('hide');
                 $('.alert-danger').attr('style','display: block');
             }
         });
+    });
+
+    $('#resetBtn').click(function(){
+        resetForm();
+    });
+
+    $('#close_info').click(function(){
+        $('.alert-info').attr('style','display: none');
+    });
+
+    $('#close_error').click(function(){
+        $('.alert-danger').attr('style','display: none');
     });
 });

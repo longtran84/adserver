@@ -51,6 +51,11 @@ public class DateUtils {
         return dateFormat.format(date);
     }
 
+    public static String convertDateToString(Date date) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(FORMAT_DATE_STR);
+        return dateFormat.format(date);
+    }
+
     public static String compare(String d1, String d2) {
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:SS");

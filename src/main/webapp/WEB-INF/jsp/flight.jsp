@@ -93,7 +93,7 @@
                   <div class="form-group">
                     <label for="campaignName">Chiến dịch quảng cáo *</label>
                     <div class="input-group">
-                      <input type="text" class="form-control" id="campaignName" placeholder="Chiến dịch quảng cáo" autofocus="true" disabled="true">
+                      <form:input type="text" class="form-control" id="campaignName" path="campaignName" placeholder="Chiến dịch quảng cáo" autofocus="true" readonly="true"/>
                       <form:input type="hidden" path="campaign.id" id="campaignId"/>
                       <span class="input-group-btn">
                       <button type="button" class="btn btn-info btn-flat" data-toggle="modal" data-target="#modal-choose-campaign">...</button>
@@ -177,7 +177,124 @@
                     <form:input type="text" class="form-control" path="price" id="price" placeholder="Đơn giá"/>
                     <form:errors path="price" cssClass="has-error"></form:errors>
                   </div>
+
                   <!-- /.form-group -->
+                </div>
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <fieldset class="scheduler-border">
+                      <legend class="scheduler-border">Người dùng mục tiêu</legend>
+                      <div class="form-group">
+                        <label>
+                          Giới tính
+                        </label>
+                        <div style="width: 20%">
+                          <form:select id='userGender' path="userGender" class="form-control">
+                            <option value=""></option>
+                            <option value="MALE">Nam</option>
+                            <option value="FEMALE">Nữ</option>
+                          </form:select>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                         <label>
+                           Độ tuổi
+                         </label>
+                         <div class="form-horizontal">
+                            <div class="col-sm-1">
+                               <form:input type="text" class="form-control" id="userAgeFrom" path="userAgeFrom" placeholder="từ"/><p>-</p>
+                            </div>
+                            <div class="col-sm-1">
+                              <form:input type="text" class="form-control" id="userAgeTo" path="userAgeTo" placeholder="đến"/>
+                            </div>
+                          </div>
+                      </div>
+                      <br>
+                      <br>
+                      <div class="control-group">
+                        <label>
+                          Địa chỉ người dùng
+                        </label>
+                      </div>
+                      <div class="subject-info-box-1">
+                        <select multiple="true" id='lstLocation' path="userLocation" class="form-control">
+                          <option value="AG">An Giang</option>
+                          <option value="BV">Bà Rịa-Vũng Tàu</option>
+                          <option value="BL">Bạc Liêu</option>
+                          <option value="BK">Bắc Kạn</option>
+                          <option value="BG">Bắc Giang</option>
+                          <option value="BN">Bắc Ninh</option>
+                          <option value="BT">Bến Tre</option>
+                          <option value="BD">Bình Dương</option>
+                          <option value="BĐ">Bình Định</option>
+                          <option value="BP">Bình Phước</option>
+                          <option value="BTh">Bình Thuận</option>
+                          <option value="CM">Cà Mau</option>
+                          <option value="CB">Cao Bằng</option>
+                          <option value="CT">Cần Thơ</option>
+                          <option value="ĐNa">Đà Nẵng</option>
+                          <option value="ĐL">Đắk Lắk</option>
+                          <option value="ĐNo">Đắk Nông</option>
+                          <option value="ĐB">Điện Biên</option>
+                          <option value="ĐN">Đồng Nai</option>
+                          <option value="ĐT">Đồng Tháp</option>
+                          <option value="GL">Gia Lai</option>
+                          <option value="HG">Hà Giang</option>
+                          <option value="HNA">Hà Nam</option>
+                          <option value="HAN">Hà Nội</option>
+                          <option value="HT">Hà Tĩnh</option>
+                          <option value="HD">Hải Dương</option>
+                          <option value="HP">Hải Phòng</option>
+                          <option value="HGi">Hậu Giang</option>
+                          <option value="HB">Hòa Bình</option>
+                          <option value="SG">Thành phố Hồ Chí Minh</option>
+                          <option value="HY">Hưng Yên</option>
+                          <option value="KH">Khánh Hoà</option>
+                          <option value="KG">Kiên Giang</option>
+                          <option value="KT">Kon Tum</option>
+                          <option value="LC">Lai Châu</option>
+                          <option value="LS">Lạng Sơn</option>
+                          <option value="LCa">Lào Cai</option>
+                          <option value="LĐ">Lâm Đồng</option>
+                          <option value="LA">Long An</option>
+                          <option value="NĐ">Nam Định</option>
+                          <option value="NA">Nghệ An</option>
+                          <option value="NB">Ninh Bình</option>
+                          <option value="NT">Ninh Thuận</option>
+                          <option value="PT">Phú Thọ</option>
+                          <option value="PY">Phú Yên</option>
+                          <option value="QB">Quảng Bình</option>
+                          <option value="QNa">Quảng Nam</option>
+                          <option value="QNg">Quảng Ngãi</option>
+                          <option value="QN">Quảng Ninh</option>
+                          <option value="QT">Quảng Trị</option>
+                          <option value="ST">Sóc Trăng</option>
+                          <option value="SL">Sơn La</option>
+                          <option value="TN">Tây Ninh</option>
+                          <option value="TB">Thái Bình</option>
+                          <option value="TNg">Thái Nguyên</option>
+                          <option value="TH">Thanh Hoá</option>
+                          <option value="TTH">Thừa Thiên-Huế</option>
+                          <option value="TG">Tiền Giang</option>
+                          <option value="TV">Trà Vinh</option>
+                          <option value="TQ">Tuyên Quang</option>
+                          <option value="VL">Vĩnh Long</option>
+                          <option value="VP">Vĩnh Phúc</option>
+                          <option value="YB">Yên Bái</option>
+                        </select>
+                      </div>
+                      <!--<div class="subject-info-arrows text-center">
+                        <input type="button" id="btnAllRight" value=">>" class="btn btn-default" /><br />
+                        <input type="button" id="btnRight" value=">" class="btn btn-default" /><br />
+                        <input type="button" id="btnLeft" value="<" class="btn btn-default" /><br />
+                        <input type="button" id="btnAllLeft" value="<<" class="btn btn-default" />
+                      </div>
+                      <div class="subject-info-box-2">
+                        <form:select multiple="true" id='lstLocation2' path="userLocation" class="form-control"/>
+                      </div>
+                      <div class="clearfix"></div>-->
+                    </fieldset>
+                  </div>
                 </div>
                 <!-- /.col -->
               </div>

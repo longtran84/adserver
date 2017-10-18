@@ -28,6 +28,11 @@ public class Flight {
     private String freCapTmp;
     private String freCapDurationTmp;
     private Timestamp createdDate;
+    private String campaignName;
+    private String userGender;
+    private String userLocation;
+    private String userAgeFrom;
+    private String userAgeTo;
 
     @Id
     @Column(name = "id")
@@ -213,6 +218,55 @@ public class Flight {
 
     public void setCreatedDate(Timestamp createdDate) {
         this.createdDate = createdDate;
+    }
+
+    @Transient
+    public String getCampaignName() {
+        return campaignName;
+    }
+
+    public void setCampaignName(String campaignName) {
+        this.campaignName = campaignName;
+    }
+
+    @Basic
+    @Column(name = "user_gender")
+    public String getUserGender() {
+        return userGender;
+    }
+
+    public void setUserGender(String userGender) {
+        this.userGender = userGender;
+    }
+
+    @Basic
+    @Column(name = "user_location")
+    public String getUserLocation() {
+        return userLocation;
+    }
+
+    public void setUserLocation(String userLocation) {
+        this.userLocation = userLocation;
+    }
+
+    @Basic
+    @Column(name = "user_age_from")
+    public String getUserAgeFrom() {
+        return userAgeFrom;
+    }
+
+    public void setUserAgeFrom(String userAgeFrom) {
+        this.userAgeFrom = userAgeFrom;
+    }
+
+    @Basic
+    @Column(name = "user_age_to")
+    public String getUserAgeTo() {
+        return userAgeTo;
+    }
+
+    public void setUserAgeTo(String userAgeTo) {
+        this.userAgeTo = userAgeTo;
     }
 
     @Override

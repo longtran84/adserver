@@ -24,6 +24,8 @@ public class Ad {
     private String freCapTmp;
     private String freCapDurationTmp;
     private Timestamp createdDate;
+    private String flightName;
+    private String creativeTitle;
 
     @Id
     @Column(name = "id")
@@ -180,6 +182,24 @@ public class Ad {
 
     public void setCreatedDate(Timestamp createdDate) {
         this.createdDate = createdDate;
+    }
+
+    @Transient
+    public String getFlightName() {
+        return flightName;
+    }
+
+    public void setFlightName(String flightName) {
+        this.flightName = flightName;
+    }
+
+    @Transient
+    public String getCreativeTitle() {
+        return creativeTitle;
+    }
+
+    public void setCreativeTitle(String creativeTitle) {
+        this.creativeTitle = creativeTitle;
     }
 
     @Override

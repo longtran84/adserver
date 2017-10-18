@@ -10,21 +10,22 @@ import java.sql.Timestamp;
  */
 @Entity
 public class Game {
-    private int id;
+    private Integer id;
     private String name;
     private String image;
     private String link;
     private String status = "NEW";
     private Timestamp createdDate;
     private MultipartFile imageFile;
+    private String imageName;
 
     @Id
     @Column(name = "id")
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -56,6 +57,15 @@ public class Game {
 
     public void setLink(String link) {
         this.link = link;
+    }
+
+    @Transient
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
     }
 
     @Basic

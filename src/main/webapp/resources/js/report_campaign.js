@@ -78,13 +78,13 @@ $(document).ready( function () {
             { data: "ctr" },
             { data: "views" }
         ],
-        /*"initComplete": function(settings, json) {
+        "initComplete": function(settings, json) {
             $('#campaignReportsTable tbody tr:eq(0)').click();
-        },*/
-        "drawCallback": function( settings ) {
-            $('#loadingIcon').attr('style', "display:none");
-            $('#campaignReportsTable tbody tr:eq(rowIndex)').click();
-        }
+        },
+        /*"drawCallback": function( settings ) {
+            //$('#loadingIcon').attr('style', "display:none");
+            $('#campaignReportsTable tbody tr:eq(0)').click();
+        }*/
     });
 
     var lineChartConfig = {
@@ -376,12 +376,14 @@ $(document).ready( function () {
         dateTo = end.format('DD/MM/YYYY');
         charts = {};
         $('#loadingIcon').attr('style', "display:block");
-        $('#campaignReportsTable').DataTable().ajax.reload();
+        //$('#campaignReportsTable').DataTable().ajax.reload();
+        table.ajax.reload( function (json) {
+            $('#campaignReportsTable tbody tr:eq(0)').click();
+        });
     }
 
     var start = moment();
     var end = moment();
-
     $('#daterange-btn').daterangepicker(
         {
             locale: {

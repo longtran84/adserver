@@ -23,25 +23,23 @@ public class NewsRestController {
     @Autowired
     private NewsService newsService;
 
-    @RequestMapping(value = "/news/saveNews", method = RequestMethod.POST)
-    public ResponseEntity<?> saveNews(@RequestBody News[] news){
+    @RequestMapping(value = "/content/newsList", method = RequestMethod.GET)
+    public List<News> newsList(){
+        return newsService.getAllNews();
+    }
+
+    @RequestMapping(value = "/deleteNews", method = RequestMethod.POST)
+    public ResponseEntity<?> deleteNews(@RequestBody News news) {
         try {
-            newsService.save(Arrays.asList(news));
-        } catch(Exception ex){
-            return ResponseEntity.badRequest().body(ex.getMessage());
+            newsService.delete(news);
+        } catch (Exception ex) {
+            return ResponseEntity.badRequest().body("Error");
         }
-        return ResponseEntity.ok("ok");
+        return ResponseEntity.ok(news);
     }
 
-    @RequestMapping(value = "/news/list", method = RequestMethod.POST)
-    public List<News> inventoryReports(@RequestBody ContentRequest request){
-        Date from = DateUtils.convertStringToDate(request.getDateFrom()  + " 00:00:00");
-        Date to = DateUtils.convertStringToDate(request.getDateTo() + " 23:59:59");
-        return newsService.getNewsByDate(from, to);
-    }
-
-    @RequestMapping(value = "/news/publish", method = RequestMethod.POST)
-    public ResponseEntity<?> activateCampaign(@RequestBody News news) {
+    @RequestMapping(value = "/activateNews", method = RequestMethod.POST)
+    public ResponseEntity<?> activateCreative(@RequestBody News news) {
         try {
             String status = news.getStatus().equals("ACTIVE") ? "INACTIVE" : "ACTIVE";
             newsService.updateStatus(news.getId(), status);

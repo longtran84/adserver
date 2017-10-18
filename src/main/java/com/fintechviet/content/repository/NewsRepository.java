@@ -24,7 +24,6 @@ public interface NewsRepository extends JpaRepository<News, Long> {
     @Query("UPDATE News SET status = :status WHERE id = :id")
     void updateStatus(@Param("status") String status, @Param("id") Long id);
 
-    News findByOriginalId(long id);
     //Query news by range date and admin
     @Query("SELECT n FROM News n WHERE n.createdDate BETWEEN :from AND :to")
     List<News> getNewsByDate(@Param("from") @Temporal(TemporalType.TIMESTAMP) Date from, @Param("to") @Temporal(TemporalType.TIMESTAMP) Date to);

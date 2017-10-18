@@ -5,6 +5,8 @@ import com.fintechviet.content.model.ContentDetails;
 import com.fintechviet.content.service.ContentDetailsService;
 import com.fintechviet.content.service.ContentService;
 import com.fintechviet.content.validator.ContentDetailValidator;
+import com.fintechviet.system.model.SystemParameter;
+import com.fintechviet.system.service.SystemParameterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
@@ -16,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -26,6 +27,9 @@ import java.io.IOException;
 public class ContentDetailsController {
     @Autowired
     private ContentDetailsService contentDetailsService;
+
+    @Autowired
+    private SystemParameterService systemParameterService;
 
     @Autowired
     private ContentService contentService;
@@ -48,7 +52,7 @@ public class ContentDetailsController {
     }
 
     @RequestMapping(value = "/contentDetail", method = RequestMethod.POST)
-    public String content(@ModelAttribute("contentDetailForm") ContentDetails contentDetailForm, Model model, BindingResult bindingResult, HttpServletRequest request) throws IOException {
+    public String content(@ModelAttribute("contentDetailForm") ContentDetails contentDetailForm, Model model, BindingResult bindingResult) throws IOException {
         contentDetailValidator.validate(contentDetailForm, bindingResult);
 
         Content content = contentService.findById(contentDetailForm.getContId());
@@ -60,16 +64,15 @@ public class ContentDetailsController {
 
         MultipartFile file = contentDetailForm.getImageFile();
         if (!file.getOriginalFilename().isEmpty()) {
-            File folderStore = resourceLoader.getResource("content/images").getFile();
+            SystemParameter systemParameter = systemParameterService.getById(1);
+            File folderStore = resourceLoader.getResource(systemParameter.getContentImageFolder()).getFile();
             BufferedOutputStream outputStream = new BufferedOutputStream(
                     new FileOutputStream(
                             new File(folderStore.getAbsolutePath(), file.getOriginalFilename())));
             outputStream.write(file.getBytes());
             outputStream.flush();
             outputStream.close();
-            String serverName = request.getServerName();
-            int serverPort = request.getServerPort();
-            contentDetailForm.setImageLink("http://" + serverName + ":" + serverPort + "/content/images/" + file.getOriginalFilename());
+            contentDetailForm.setImageLink(systemParameter.getContentImagePath() + file.getOriginalFilename());
         }
 
 

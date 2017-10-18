@@ -24,7 +24,11 @@ public class Creative {
     private String status = "NEW";
     private MultipartFile imageFile;
     private MultipartFile videoFile;
+    private String imageName;
+    private String videoName;
     private Timestamp createdDate;
+    private String advertiserName;
+    private String adTypeName;
 
     @Id
     @Column(name = "id")
@@ -107,6 +111,24 @@ public class Creative {
         this.videoLink = videoLink;
     }
 
+    @Transient
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
+    }
+
+    @Transient
+    public String getVideoName() {
+        return videoName;
+    }
+
+    public void setVideoName(String videoName) {
+        this.videoName = videoName;
+    }
+
     @Basic
     @Column(name = "clickUrl")
     public String getClickUrl() {
@@ -163,6 +185,24 @@ public class Creative {
 
     public void setAdType(AdType adType) {
         this.adType = adType;
+    }
+
+    @Transient
+    public String getAdvertiserName() {
+        return advertiserName;
+    }
+
+    public void setAdvertiserName(String advertiserName) {
+        this.advertiserName = advertiserName;
+    }
+
+    @Transient
+    public String getAdTypeName() {
+        return adTypeName;
+    }
+
+    public void setAdTypeName(String adTypeName) {
+        this.adTypeName = adTypeName;
     }
 
     @Override

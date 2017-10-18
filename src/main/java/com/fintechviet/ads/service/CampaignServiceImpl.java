@@ -48,8 +48,12 @@ public class CampaignServiceImpl implements CampaignService {
 
     @Override
     public List<Campaign> getCampaignByAdvertiser(String adverEmail) {
-        List<Campaign> abc = campaignRepository.findByAdvertiser(adverEmail);
         return campaignRepository.findByAdvertiser(adverEmail);
+    }
+
+    @Override
+    public Campaign getById(Long id) {
+        return campaignRepository.findOne(id);
     }
 
     @Override

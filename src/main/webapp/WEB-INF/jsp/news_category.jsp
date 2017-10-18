@@ -82,7 +82,7 @@
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
               </div>
             </div>
-            <form:form id="categoryForm" action="${contextPath}/news/category" modelAttribute="categoryForm" method="post" enctype="multipart/form-data">
+            <form:form id="categoryForm" action="${contextPath}/content/category" modelAttribute="categoryForm" method="post" enctype="multipart/form-data">
             <!-- /.box-header -->
             <div class="box-body">
               <div class="row">
@@ -100,7 +100,7 @@
                   <div class="form-group">
                     <label for="imageName">Ảnh *</label>
                     <div class="input-group">
-                      <input type="text" class="form-control" id="imageName" placeholder="Ảnh" autofocus="true" disabled="true">
+                      <form:input type="text" class="form-control" id="imageName" path="imageName" placeholder="Ảnh" autofocus="true" readonly="true"/>
                       <span class="input-group-btn">
                         <button type="button" class="btn btn-info btn-flat" id="imageFileBtn">Chọn ảnh...</button>
                       </span>
