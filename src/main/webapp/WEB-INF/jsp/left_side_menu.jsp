@@ -98,8 +98,8 @@
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="/news/category"><i class="fa fa-circle-o"></i> Chuyên mục tin tức</a></li>
-                    <li><a href="/news/page"><i class="fa fa-circle-o"></i> Tin tức</a></li>
+                    <li><a href="/content/category"><i class="fa fa-circle-o"></i> Chuyên mục tin tức</a></li>
+                    <li><a href="/content/news"><i class="fa fa-circle-o"></i> Tin tức</a></li>
                     <li><a href="/content"><i class="fa fa-circle-o"></i> Nội dung</a></li>
                     <li><a href="/game"><i class="fa fa-circle-o"></i> Trò chơi</a></li>
                 </ul>
@@ -148,6 +148,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="/system/admin"><i class="fa fa-circle-o"></i> Quản trị viên</a></li>
+                    <li><a href="/system/systemParameter"><i class="fa fa-circle-o"></i> Tham số hệ thống</a></li>
                 </ul>
             </li>
             </sec:authorize>

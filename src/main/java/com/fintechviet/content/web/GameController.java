@@ -3,6 +3,8 @@ package com.fintechviet.content.web;
 import com.fintechviet.content.model.Game;
 import com.fintechviet.content.service.GameService;
 import com.fintechviet.content.validator.GameValidator;
+import com.fintechviet.system.model.SystemParameter;
+import com.fintechviet.system.service.SystemParameterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
@@ -13,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -27,6 +28,8 @@ public class GameController {
     @Autowired
     private GameService gameService;
     @Autowired
+    private SystemParameterService systemParameterService;
+    @Autowired
     private GameValidator gameValidator;
     @Autowired
     private ResourceLoader resourceLoader;
@@ -39,7 +42,7 @@ public class GameController {
     }
 
     @RequestMapping(value = "/game", method = RequestMethod.POST)
-    public String game(@ModelAttribute("gameForm") Game gameForm, BindingResult bindingResult, HttpServletRequest request) throws IOException {
+    public String game(@ModelAttribute("gameForm") Game gameForm, BindingResult bindingResult) throws IOException {
         gameValidator.validate(gameForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
@@ -55,9 +58,8 @@ public class GameController {
             outputStream.write(file.getBytes());
             outputStream.flush();
             outputStream.close();
-            String serverName = request.getServerName();
-            int serverPort = request.getServerPort();
-            gameForm.setImage("http://" + serverName + ":" + serverPort + "/images/" + file.getOriginalFilename());
+            SystemParameter systemParameter = systemParameterService.getById(1);
+            gameForm.setImage(systemParameter.getGameImagePath() + file.getOriginalFilename());
         }
 
         gameService.save(gameForm);

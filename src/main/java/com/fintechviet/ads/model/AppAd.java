@@ -14,6 +14,7 @@ public class AppAd {
     private Long id;
     private String name;
     private String icon;
+    private String iconName;
     private String installLink;
     private Campaign campaign;
     private String shortDescription;
@@ -107,6 +108,15 @@ public class AppAd {
 
     public void setIconFile(MultipartFile iconFile) {
         this.iconFile = iconFile;
+    }
+
+    @Transient
+    public String getIconName() {
+        return iconName;
+    }
+
+    public void setIconName(String iconName) {
+        this.iconName = iconName;
     }
 
     @Override

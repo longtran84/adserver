@@ -107,6 +107,13 @@ $(document).ready( function () {
         $('#flightForm #freCapType').val(data.freCapType);
         $('#flightForm #price').val(data.price);
         $('#flightForm #status').val(data.status);
+        $('#flightForm #userGender').val(data.userGender);
+        $('#flightForm #userAgeFrom').val(data.userAgeFrom);
+        $('#flightForm #userAgeTo').val(data.userAgeTo);
+        var locations = data.userLocation.split(',');
+        for (var i = 0; i < locations.length; i++) {
+            $('#lstLocation option[value="' + locations[i] + '"]').attr('selected', true);
+        }
     };
     
     var resetForm = function () {
@@ -236,5 +243,54 @@ $(document).ready( function () {
 
     $('#close_error').click(function(){
         $('.alert-danger').attr('style','display: none');
+    });
+
+    // Customer target
+    $('#btnRight').click(function (e) {
+        var selectedOpts = $('#lstLocation1 option:selected');
+        if (selectedOpts.length == 0) {
+            alert("Chưa chọn địa chỉ.");
+            e.preventDefault();
+        }
+
+        $('#lstLocation2').append($(selectedOpts).clone());
+        $(selectedOpts).remove();
+        e.preventDefault();
+    });
+
+    $('#btnAllRight').click(function (e) {
+        var selectedOpts = $('#lstLocation1 option');
+        if (selectedOpts.length == 0) {
+            alert("Chưa chọn địa chỉ.");
+            e.preventDefault();
+        }
+
+        $('#lstLocation2').append($(selectedOpts).clone());
+        $(selectedOpts).remove();
+        e.preventDefault();
+    });
+
+    $('#btnLeft').click(function (e) {
+        var selectedOpts = $('#lstLocation2 option:selected');
+        if (selectedOpts.length == 0) {
+            alert("Chưa chọn địa chỉ.");
+            e.preventDefault();
+        }
+
+        $('#lstLocation1').append($(selectedOpts).clone());
+        $(selectedOpts).remove();
+        e.preventDefault();
+    });
+
+    $('#btnAllLeft').click(function (e) {
+        var selectedOpts = $('#lstLocation2 option');
+        if (selectedOpts.length == 0) {
+            alert("Nothing to move.");
+            e.preventDefault();
+        }
+
+        $('#lstLocation1').append($(selectedOpts).clone());
+        $(selectedOpts).remove();
+        e.preventDefault();
     });
 });

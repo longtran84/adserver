@@ -27,6 +27,7 @@ public class Campaign {
     private String freCapTmp;
     private String freCapDurationTmp;
     private Timestamp createdDate;
+    private String advertiserName;
 
     @Id
     @Column(name = "id")
@@ -192,6 +193,15 @@ public class Campaign {
 
     public void setCreatedDate(Timestamp createdDate) {
         this.createdDate = createdDate;
+    }
+
+    @Transient
+    public String getAdvertiserName() {
+        return advertiserName;
+    }
+
+    public void setAdvertiserName(String advertiserName) {
+        this.advertiserName = advertiserName;
     }
 
     @Override

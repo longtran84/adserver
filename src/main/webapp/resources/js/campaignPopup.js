@@ -57,8 +57,7 @@ var campaignsTable = $('#campaignsTable').DataTable({
 var formatDate  = function (data) {
     if (data === null || data === '') return "";
     var date = new Date(data);
-    var month = date.getMonth() + 1;
-    return (date.getDate().length > 1 ? date.getDate() : "0" + date.getDate()) + "/" + (month > 9 ? month : "0" + month) + "/" + date.getFullYear();
+    return moment(date).format('DD/MM/YYYY');
 }
 
 $('#campaignsTable tbody').on( 'click', 'a.editor_choose', function (e) {
@@ -67,6 +66,8 @@ $('#campaignsTable tbody').on( 'click', 'a.editor_choose', function (e) {
     var data = campaignsTable.row( $(this).parents('tr') ).data();
     $('#campaignId').val(data.id);
     $('#campaignName').val(data.name);
+    $('#startDate').val(formatDate(data.startDate));
+    $('#endDate').val(formatDate(data.endDate));
 });
 
 $('#modal-choose-campaign').on('shown.bs.modal', function() {

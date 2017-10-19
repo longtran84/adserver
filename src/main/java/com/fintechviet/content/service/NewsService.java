@@ -2,13 +2,12 @@ package com.fintechviet.content.service;
 
 
 import com.fintechviet.content.model.News;
-
-import java.util.Date;
 import java.util.List;
 
 public interface NewsService {
-    void save(List<News> news);
-    List<News> getNewsByDate(Date from, Date to);
-    void getNewsFromCrawler();
+    News findById(Long id);
+    void save(News news);
+    void delete(News news);
+    List<News> getAllNews();
     void updateStatus(Long id, String status);
 }

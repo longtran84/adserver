@@ -101,7 +101,8 @@ $(document).ready( function () {
 
     var showDetails = function (data) {
         $('#gameForm #name').val(data.name);
-        $('#gameForm #image').val(data.image);
+        var lastIndex = data.image.lastIndexOf("/");
+        $('#gameForm #imageName').val(data.image.substring(lastIndex + 1));
         $('#gameForm #link').val(data.link);
         $('#gameForm #id').val(data.id);
         $('#gameForm #status').val(data.status);

@@ -92,7 +92,7 @@
                   <div class="form-group">
                     <label for="advertiserName">Nhà quảng cáo *</label>
                     <div class="input-group">
-                      <input type="text" class="form-control" id="advertiserName" placeholder="Nhà quảng cáo" autofocus="true" disabled="true">
+                      <form:input type="text" class="form-control" id="advertiserName" path="advertiserName" placeholder="Nhà quảng cáo" autofocus="true" readonly="true"/>
                       <form:input type="hidden" path="advertiser.id" id="advertiserId"/>
                       <span class="input-group-btn">
                         <button type="button" class="btn btn-info btn-flat" data-toggle="modal" data-target="#modal-choose-advertiser">...</button>
@@ -121,7 +121,7 @@
                   <div class="form-group">
                     <label for="adTypeName">Loại quảng cáo *</label>
                     <div class="input-group">
-                      <input type="text" class="form-control" id="adTypeName" placeholder="Loại quảng cáo" autofocus="true" disabled="true">
+                      <form:input type="text" class="form-control" id="adTypeName" path="adTypeName" placeholder="Loại quảng cáo" autofocus="true" readonly="true"/>
                       <form:input type="hidden" path="adType.id" id="adTypeId"/>
                       <span class="input-group-btn">
                         <button type="button" class="btn btn-info btn-flat" data-toggle="modal" data-target="#modal-choose-adType">...</button>
@@ -132,7 +132,7 @@
                   <div class="form-group">
                     <label for="title">Ảnh *</label>
                     <div class="input-group">
-                      <input type="text" class="form-control" id="imageName" placeholder="Ảnh" autofocus="true" disabled="true">
+                      <form:input type="text" class="form-control" id="imageName" path="imageName" placeholder="Ảnh" autofocus="true" readonly="true"/>
                       <span class="input-group-btn">
                         <button type="button" class="btn btn-info btn-flat" id="imageFileBtn">Chọn ảnh...</button>
                       </span>

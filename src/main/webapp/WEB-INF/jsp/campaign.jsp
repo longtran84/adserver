@@ -94,7 +94,7 @@
                   <div class="form-group">
                     <label for="advertiserName">Nhà quảng cáo *</label>
                     <div class="input-group">
-                      <input type="text" class="form-control" id="advertiserName" placeholder="Nhà quảng cáo" autofocus="true" disabled="true">
+                      <form:input type="text" class="form-control" path="advertiserName" id="advertiserName" placeholder="Nhà quảng cáo" autofocus="true" readonly="true"/>
                       <form:input type="hidden" path="advertiser.id" id="advertiserId"/>
                       <span class="input-group-btn">
                       <button type="button" class="btn btn-info btn-flat" data-toggle="modal" data-target="#modal-choose-advertiser">...</button>

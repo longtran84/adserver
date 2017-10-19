@@ -151,7 +151,7 @@
                   <div class="form-group">
                     <label for="flightName">Nhóm quảng cáo *</label>
                     <div class="input-group">
-                      <input type="text" class="form-control" id="flightName" placeholder="Nhóm quảng cáo" autofocus="true" disabled="true">
+                      <form:input type="text" class="form-control" id="flightName" path="flightName" placeholder="Nhóm quảng cáo" autofocus="true" readonly="true"/>
                       <form:input type="hidden" path="flight.id" id="flightId"/>
                       <span class="input-group-btn">
                         <button type="button" class="btn btn-info btn-flat" data-toggle="modal" data-target="#modal-choose-flight">...</button>
@@ -162,7 +162,7 @@
                   <div class="form-group">
                     <label for="creativeTitle">Định dạng quảng cáo *</label>
                     <div class="input-group">
-                      <input type="text" class="form-control" id="creativeTitle" placeholder="Định dạng quảng cáo" autofocus="true" disabled="true">
+                      <form:input type="text" class="form-control" id="creativeTitle" path="creativeTitle" placeholder="Định dạng quảng cáo" autofocus="true" readonly="true"/>
                       <form:input type="hidden" path="creative.id" id="creativeId"/>
                       <span class="input-group-btn">
                         <button type="button" class="btn btn-info btn-flat" data-toggle="modal" data-target="#modal-choose-creative">...</button>

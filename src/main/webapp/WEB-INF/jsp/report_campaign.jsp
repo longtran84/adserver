@@ -148,9 +148,9 @@
                 </tfoot>
               </table>
             </div>
-            <div id="loadingIcon" class="overlay" style="display:block">
+            <!--<div id="loadingIcon" class="overlay" style="display:block">
               <i class="fa fa-refresh fa-spin"></i>
-            </div>
+            </div>-->
           </div>
         </div>
       </div>

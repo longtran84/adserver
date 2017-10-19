@@ -89,7 +89,7 @@ public class Test {
                 Map.Entry<String, Object> element = i.next();
                 News news = new News();
                 if (ID.equals(element.getKey().toString())) {
-                    news.setOriginalId(Long.valueOf(element.getValue().toString()));
+                    //news.setOriginalId(Long.valueOf(element.getValue().toString()));
                 } else if(CATEGORY_CODE.equals(element.getKey().toString())) {
 
                 } else if(SOURCE_NAME.equals(element.getKey().toString())) {

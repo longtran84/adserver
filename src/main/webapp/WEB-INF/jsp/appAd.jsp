@@ -115,7 +115,7 @@
                   <div class="form-group">
                     <label for="iconName">Icon *</label>
                     <div class="input-group">
-                      <input type="text" class="form-control" id="iconName" placeholder="Icon" autofocus="true" disabled="true">
+                      <form:input type="text" class="form-control" id="iconName" path="iconName" placeholder="Icon" autofocus="true" readonly="true"/>
                       <span class="input-group-btn">
                         <button type="button" class="btn btn-info btn-flat" id="iconFileBtn">Chọn icon...</button>
                       </span>

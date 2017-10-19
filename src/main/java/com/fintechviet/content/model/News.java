@@ -1,5 +1,7 @@
 package com.fintechviet.content.model;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Date;
@@ -10,40 +12,30 @@ import java.util.Date;
 @Entity
 @Table(name = "news")
 public class News {
-    private long id;
-    private long originalId;
+    private Long id;
     private String title;
     private String shortDescription;
+    private String content;
     private String link;
     private String imageLink;
+    private MultipartFile imageFile;
+    private String imageName;
     private NewsCategory newsCategory;
     private Integer noOfLike;
-    private String status = "ACTIVE";
+    private String status = "NEW";
     private String source;
-    private long newsCategoryId;
-    private Date publishDate;
-    private Date crawlerDate;
+    private String categoryName;
     private Timestamp createdDate;
 
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
-    }
-
-    @Basic
-    @Column(name = "originalId")
-    public long getOriginalId() {
-        return originalId;
-    }
-
-    public void setOriginalId(long originalId) {
-        this.originalId = originalId;
     }
 
     @Basic
@@ -66,6 +58,14 @@ public class News {
         this.shortDescription = shortDescription;
     }
 
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
     @Basic
     @Column(name = "link")
     public String getLink() {
@@ -84,6 +84,24 @@ public class News {
 
     public void setImageLink(String imageLink) {
         this.imageLink = imageLink;
+    }
+
+    @Transient
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
+    }
+
+    @Transient
+    public MultipartFile getImageFile() {
+        return imageFile;
+    }
+
+    public void setImageFile(MultipartFile imageFile) {
+        this.imageFile = imageFile;
     }
 
     @ManyToOne
@@ -127,32 +145,12 @@ public class News {
     }
 
     @Transient
-    public long getNewsCategoryId() {
-        return newsCategoryId;
+    public String getCategoryName() {
+        return categoryName;
     }
 
-    public void setNewsCategoryId(long newsCategoryId) {
-        this.newsCategoryId = newsCategoryId;
-    }
-
-    @Basic
-    @Column(name = "publishDate")
-    public Date getPublishDate() {
-        return publishDate;
-    }
-
-    public void setPublishDate(Date publishDate) {
-        this.publishDate = publishDate;
-    }
-
-    @Basic
-    @Column(name = "crawlerDate")
-    public Date getCrawlerDate() {
-        return crawlerDate;
-    }
-
-    public void setCrawlerDate(Date crawlerDate) {
-        this.crawlerDate = crawlerDate;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     @Basic

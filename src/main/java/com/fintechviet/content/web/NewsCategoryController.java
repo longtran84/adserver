@@ -1,9 +1,10 @@
 package com.fintechviet.content.web;
 
-import com.fintechviet.ads.model.Ad;
 import com.fintechviet.content.model.NewsCategory;
 import com.fintechviet.content.service.NewsCategoryService;
 import com.fintechviet.content.validator.NewsCategoryValidator;
+import com.fintechviet.system.model.SystemParameter;
+import com.fintechviet.system.service.SystemParameterService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -29,6 +29,8 @@ public class NewsCategoryController {
     @Autowired
     private NewsCategoryService newsCategoryService;
     @Autowired
+    private SystemParameterService systemParameterService;
+    @Autowired
     private NewsCategoryValidator newsCategoryValidator;
     @Autowired
     private ResourceLoader resourceLoader;
@@ -38,15 +40,15 @@ public class NewsCategoryController {
         return "report_user_interest";
     }
 
-    @RequestMapping(value = "/news/category", method = RequestMethod.GET)
+    @RequestMapping(value = "/content/category", method = RequestMethod.GET)
     public String campaign(Model model) {
         model.addAttribute("categoryForm", new NewsCategory());
 
         return "news_category";
     }
 
-    @RequestMapping(value = "/news/category", method = RequestMethod.POST)
-    public String campaign(@ModelAttribute("categoryForm") NewsCategory categoryForm, BindingResult bindingResult, HttpServletRequest request) throws IOException {
+    @RequestMapping(value = "/content/category", method = RequestMethod.POST)
+    public String campaign(@ModelAttribute("categoryForm") NewsCategory categoryForm, BindingResult bindingResult) throws IOException {
         newsCategoryValidator.validate(categoryForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
@@ -55,16 +57,15 @@ public class NewsCategoryController {
 
         MultipartFile file = categoryForm.getImageFile();
         if (!file.getOriginalFilename().isEmpty()) {
-            File folderStore = resourceLoader.getResource("images").getFile();
+            SystemParameter systemParameter = systemParameterService.getById(1);
+            File folderStore = resourceLoader.getResource(systemParameter.getNewsCategoryFolder()).getFile();
             BufferedOutputStream outputStream = new BufferedOutputStream(
                     new FileOutputStream(
                             new File(folderStore.getAbsolutePath(), file.getOriginalFilename())));
             outputStream.write(file.getBytes());
             outputStream.flush();
             outputStream.close();
-            String serverName = request.getServerName();
-            int serverPort = request.getServerPort();
-            categoryForm.setImage("http://" + serverName + ":" + serverPort + "/images/" + file.getOriginalFilename());
+            categoryForm.setImage(systemParameter.getNewsCategoryPath() + file.getOriginalFilename());
         }
 
         NewsCategory newsCategory = null;
@@ -79,6 +80,6 @@ public class NewsCategoryController {
             newsCategoryService.save(categoryForm);
         }
 
-        return "redirect:/news/category";
+        return "redirect:/content/category";
     }
 }

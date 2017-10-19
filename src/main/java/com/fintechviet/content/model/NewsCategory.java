@@ -21,6 +21,7 @@ public class NewsCategory {
     @JsonIgnoreProperties("newsCategories")
     private Set<UserMobile> userMobiles;
     private MultipartFile imageFile;
+    private String imageName;
 
     @Id
     @Column(name = "id")
@@ -61,6 +62,15 @@ public class NewsCategory {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    @Transient
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
     }
 
     @Basic

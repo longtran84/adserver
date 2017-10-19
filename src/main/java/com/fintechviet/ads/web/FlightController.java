@@ -3,6 +3,8 @@ package com.fintechviet.ads.web;
 import com.fintechviet.ads.model.Flight;
 import com.fintechviet.ads.service.FlightService;
 import com.fintechviet.ads.validator.FlightValidator;
+import com.fintechviet.content.model.NewsCategory;
+import com.fintechviet.content.service.NewsCategoryService;
 import com.fintechviet.utils.DateUtils;
 
 import org.apache.commons.lang3.StringUtils;
@@ -14,6 +16,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @Controller
 public class FlightController {
     @Autowired
@@ -21,6 +27,9 @@ public class FlightController {
 
     @Autowired
     private FlightValidator flightValidator;
+
+    @Autowired
+    private NewsCategoryService newsCategoryService;
 
     @RequestMapping(value = "/flight", method = RequestMethod.GET)
     public String flight(Model model) {
@@ -51,6 +60,16 @@ public class FlightController {
         flightService.save(flightForm);
 
         return "redirect:/flight";
+    }
+
+    @ModelAttribute("newsCategoryList")
+    public Map<String, String> getNewsCategoryList() {
+        Map<String, String> newsCategoryList = new HashMap<String, String>();
+        List<NewsCategory> newsCategories = newsCategoryService.getAllNewCategories();
+        for (NewsCategory newsCategory : newsCategories) {
+            newsCategoryList.put(newsCategory.getCode(), newsCategory.getName());
+        }
+        return newsCategoryList;
     }
 
 }

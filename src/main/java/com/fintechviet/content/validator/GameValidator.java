@@ -31,8 +31,10 @@ public class GameValidator implements Validator {
             errors.rejectValue("link", "gameForm.link.size");
         }
 
-        if (StringUtils.isEmpty(game.getImageFile().getOriginalFilename())) {
-            errors.rejectValue("imageFile", "gameForm.imageFile.empty");
+        if (game.getId() == null) {
+            if (StringUtils.isEmpty(game.getImageFile().getOriginalFilename())) {
+                errors.rejectValue("imageFile", "gameForm.imageFile.empty");
+            }
         }
     }
 }

@@ -1,6 +1,8 @@
 package com.fintechviet.ads.validator;
 
+import com.fintechviet.ads.model.Campaign;
 import com.fintechviet.ads.model.Flight;
+import com.fintechviet.ads.service.CampaignService;
 import com.fintechviet.ads.service.FlightService;
 import com.fintechviet.utils.DateUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -14,7 +16,7 @@ import org.springframework.validation.Validator;
 @Component
 public class FlightValidator implements Validator {
     @Autowired
-    private FlightService flightService;
+    private CampaignService campaignService;
 
     @Override
     public boolean supports(Class<?> aClass) {
@@ -49,12 +51,22 @@ public class FlightValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "startDateTmp", "flightForm.startDate.empty");
         if (DateUtils.compare(flight.getStartDateTmp()  + " 00:00:00", flight.getEndDateTmp() + " 23:59:59") == DateUtils.AFTER) {
             errors.rejectValue("endDateTmp", "flightForm.endDate.before");
-        } 
-//        else {
-//            if (Integer.valueOf(flight.getFreCapTmp()) == 0 || Integer.valueOf(flight.getFreCapDurationTmp()) == 0) {
-//                errors.rejectValue("freCapTmp", "flightForm.freCap.invalid");
-//            }
-//        }
+        }
+
+        if (flight.getCampaign().getId() != null) {
+            Campaign campaign = campaignService.getById(flight.getCampaign().getId());
+            String campaignStartDate = DateUtils.convertDateToString(campaign.getStartDate());
+            if (DateUtils.compare(flight.getStartDateTmp()  + " 00:00:00",  campaignStartDate + " 00:00:00") == DateUtils.BEFORE) {
+                errors.rejectValue("startDateTmp", "flightForm.startDate.before");
+            }
+
+            if (campaign.getEndDate() != null) {
+                String campaignEndDate = DateUtils.convertDateToString(campaign.getEndDate());
+                if (DateUtils.compare(flight.getEndDateTmp()  + " 23:59:59",  campaignEndDate + " 23:59:59") == DateUtils.AFTER) {
+                    errors.rejectValue("endDateTmp", "flightForm.endDate.after");
+                }
+            }
+        }
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "price", "flightForm.price.empty");
         
@@ -63,8 +75,8 @@ public class FlightValidator implements Validator {
         if (flight.getDescription().length()  > 255) {
             errors.rejectValue("description", "flightForm.description.size");
         }
-        if(flight.getPrice().toString()!= null && !NumberUtils.isCreatable(flight.getPrice().toString())){
-        	errors.rejectValue("price", "flightForm.price.size", "price value must be number");
+        if (flight.getPrice() != null && !NumberUtils.isCreatable(flight.getPrice().toString())) {
+        	errors.rejectValue("price", "flightForm.price.invalid");
         }
     }
 }

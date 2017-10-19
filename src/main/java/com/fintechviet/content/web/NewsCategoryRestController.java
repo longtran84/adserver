@@ -27,12 +27,12 @@ public class NewsCategoryRestController {
         return newsCategoryService.getUserInterestReport();
     }
 
-    @RequestMapping(path = "/news/categories", method = RequestMethod.GET)
+    @RequestMapping(path = "/content/categories", method = RequestMethod.GET)
     public List<NewsCategory> getAllNewsCategories(){
         return newsCategoryService.getAllNewCategories();
     }
 
-    @RequestMapping(value = "/news/deleteCategory", method = RequestMethod.POST)
+    @RequestMapping(value = "/content/deleteCategory", method = RequestMethod.POST)
     public ResponseEntity<?> deleteCategory(@RequestBody NewsCategory newsCategory) {
         try {
             newsCategoryService.delete(newsCategory);
