@@ -31,8 +31,8 @@ public class Flight {
     private String campaignName;
     private String userGender;
     private String userLocation;
-    private String userAgeFrom;
-    private String userAgeTo;
+    private Integer userAgeFrom;
+    private Integer userAgeTo;
     private String userInterest;
 
     @Id
@@ -252,21 +252,21 @@ public class Flight {
 
     @Basic
     @Column(name = "user_age_from")
-    public String getUserAgeFrom() {
+    public Integer getUserAgeFrom() {
         return userAgeFrom;
     }
 
-    public void setUserAgeFrom(String userAgeFrom) {
+    public void setUserAgeFrom(Integer userAgeFrom) {
         this.userAgeFrom = userAgeFrom;
     }
 
     @Basic
     @Column(name = "user_age_to")
-    public String getUserAgeTo() {
+    public Integer getUserAgeTo() {
         return userAgeTo;
     }
 
-    public void setUserAgeTo(String userAgeTo) {
+    public void setUserAgeTo(Integer userAgeTo) {
         this.userAgeTo = userAgeTo;
     }
 
