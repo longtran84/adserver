@@ -33,6 +33,7 @@ public class Flight {
     private String userLocation;
     private String userAgeFrom;
     private String userAgeTo;
+    private String userInterest;
 
     @Id
     @Column(name = "id")
@@ -267,6 +268,16 @@ public class Flight {
 
     public void setUserAgeTo(String userAgeTo) {
         this.userAgeTo = userAgeTo;
+    }
+
+    @Basic
+    @Column(name = "user_interest")
+    public String getUserInterest() {
+        return userInterest;
+    }
+
+    public void setUserInterest(String userInterest) {
+        this.userInterest = userInterest;
     }
 
     @Override

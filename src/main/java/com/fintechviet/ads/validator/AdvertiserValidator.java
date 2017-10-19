@@ -2,6 +2,10 @@ package com.fintechviet.ads.validator;
 
 import com.fintechviet.ads.model.Advertiser;
 import com.fintechviet.ads.service.AdvertiserService;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
+import org.glassfish.hk2.utilities.general.ValidatorUtilities;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -18,7 +22,8 @@ public class AdvertiserValidator implements Validator {
         return Advertiser.class.equals(aClass);
     }
 
-    @Override
+    @SuppressWarnings("deprecation")
+	@Override
     public void validate(Object o, Errors errors) {
         Advertiser advertiser = (Advertiser) o;
 
@@ -28,6 +33,14 @@ public class AdvertiserValidator implements Validator {
         }
         if ((advertiserService.findByEmail(advertiser.getEmail()) != null) && (advertiser.getId() == null)) {
             errors.rejectValue("email", "advertiserForm.email.duplicate");
+        }
+        
+        if(advertiser.getPhone().length() > 0 && !StringUtils.isNumericSpace(advertiser.getPhone())){
+        	errors.rejectValue("phone", "advertiserForm.phone.incorrect", "Phone number is incorrect");
+        }
+        
+        if(null == advertiser.getCharge()){
+        	errors.rejectValue("charge", "advertiserForm.charge.incorrect", "Charge value is incorrect");
         }
 
         /*ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "advertiserForm.password.empty");
