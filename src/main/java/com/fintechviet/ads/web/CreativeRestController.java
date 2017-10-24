@@ -25,7 +25,7 @@ public class CreativeRestController {
     public List<Creative> getCreativeVideos(){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         boolean hasAdminRole = auth.getAuthorities().stream()
-                .anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
+                .anyMatch(r -> (r.getAuthority().equals("ROLE_ADMIN") || r.getAuthority().equals("ROLE_SUPER_ADMIN")));
         if (hasAdminRole) {
             return creativeService.getCreativesByTemplate("video");
         } else {
@@ -37,7 +37,7 @@ public class CreativeRestController {
     public List<Creative> getCreativeImages(){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         boolean hasAdminRole = auth.getAuthorities().stream()
-                .anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
+                .anyMatch(r -> (r.getAuthority().equals("ROLE_ADMIN") || r.getAuthority().equals("ROLE_SUPER_ADMIN")));
         if (hasAdminRole) {
             return creativeService.getCreativesByTemplate("image");
         } else {
@@ -49,7 +49,7 @@ public class CreativeRestController {
     public List<Creative> getCreatives() {
     	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         boolean hasAdminRole = auth.getAuthorities().stream()
-                .anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
+                .anyMatch(r -> (r.getAuthority().equals("ROLE_ADMIN") || r.getAuthority().equals("ROLE_SUPER_ADMIN")));
         if (hasAdminRole) {
         	return creativeService.getAllCreatives();
         } else {

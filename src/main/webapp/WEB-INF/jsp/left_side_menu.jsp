@@ -73,10 +73,13 @@
                     <li><a href="/reportCampaign"><i class="fa fa-circle-o"></i> Chiến dịch quảng cáo</a></li>
                     <li><a href="/reportCost"><i class="fa fa-circle-o"></i> Chi phí</a></li>
                     <li><a href="/reportInventory"><i class="fa fa-circle-o"></i> Inventory</a></li>
-                    <li><a href="/reportUserInterest"><i class="fa fa-circle-o"></i> Sở thích người dùng</a></li>
+                    <sec:authorize access="hasRole('ROLE_ADMIN') || hasRole('ROLE_SUPER_ADMIN')">
+                      <li><a href="/reportUserInterest"><i class="fa fa-circle-o"></i> Sở thích người dùng</a></li>
+                    </sec:authorize>
                     <li><a href="/reportApp"><i class="fa fa-circle-o"></i> Ứng dụng quảng cáo</a></li>
                 </ul>
             </li>
+            <sec:authorize access="hasRole('ROLE_ADMIN') || hasRole('ROLE_SUPER_ADMIN')">
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-user"></i> <span>Người dùng</span>
@@ -89,7 +92,6 @@
                     <li><a href="/user/userInvite"><i class="fa fa-info"></i> Thông tin giới thiệu</a></li>
                 </ul>
             </li>
-            <sec:authorize access="hasRole('ROLE_ADMIN')">
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-folder"></i> <span>Nội dung</span>
@@ -109,36 +111,11 @@
                 <a href="#">
                     <i class="fa fa-calendar-check-o"></i> <span>Sự kiện</span>
                     <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
-                    <li class="treeview">
-                        <a href="#"><i class="fa fa-circle-o"></i> Level One
-                            <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li><a href="#"><i class="fa fa-circle-o"></i> Level Two</a></li>
-                            <li class="treeview">
-                                <a href="#"><i class="fa fa-circle-o"></i> Level Two
-                                    <span class="pull-right-container">
                       <i class="fa fa-angle-left pull-right"></i>
                     </span>
-                                </a>
-                                <ul class="treeview-menu">
-                                    <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
-                                    <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
-                </ul>
+                </a>
             </li>
-            <sec:authorize access="hasRole('ROLE_ADMIN')">
+            <sec:authorize access="hasRole('ROLE_ADMIN') || hasRole('ROLE_SUPER_ADMIN')">
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-book"></i> <span>Quản trị hệ thống</span>
@@ -147,7 +124,9 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="/system/admin"><i class="fa fa-circle-o"></i> Quản trị viên</a></li>
+                    <sec:authorize access="hasRole('ROLE_SUPER_ADMIN')">
+                       <li><a href="/system/admin"><i class="fa fa-circle-o"></i> Quản trị viên</a></li>
+                    </sec:authorize>
                     <li><a href="/system/systemParameter"><i class="fa fa-circle-o"></i> Tham số hệ thống</a></li>
                 </ul>
             </li>

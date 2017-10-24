@@ -106,9 +106,9 @@
                     <form:errors path="title" cssClass="has-error"></form:errors>
                   </div>
                   <div class="form-group">
-                    <label for="body">Nội dung</label>
-                    <form:textarea class="form-control" path="body" id="body" rows="5" placeholder="Nội dung"/>
-                    <form:errors path="body" cssClass="has-error"></form:errors>
+                    <label for="clickUrl">Đường dẫn trang đích</label>
+                    <form:textarea class="form-control" path="clickUrl" id="clickUrl" rows="5" placeholder="Đường dẫn trang đích"/>
+                    <form:errors path="clickUrl" cssClass="has-error"></form:errors>
                   </div>
                 </div>
                 <!-- /.col -->

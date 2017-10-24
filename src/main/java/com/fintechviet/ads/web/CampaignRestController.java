@@ -23,11 +23,11 @@ public class CampaignRestController {
     @Autowired
     private CampaignService campaignService;
 
-    @RequestMapping(value = "/campaigns", method = RequestMethod.POST)
-    public List<Campaign> getAllCampaigns(@RequestBody Campaign campaign){
+    @RequestMapping(value = "/campaigns", method = RequestMethod.GET)
+    public List<Campaign> getAllCampaigns(){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         boolean hasAdminRole = auth.getAuthorities().stream()
-                .anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
+                .anyMatch(r -> (r.getAuthority().equals("ROLE_ADMIN") || r.getAuthority().equals("ROLE_SUPER_ADMIN")));
         if (hasAdminRole) {
             return campaignService.getAllCampaigns();
         } else {

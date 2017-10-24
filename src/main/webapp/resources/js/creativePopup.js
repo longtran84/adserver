@@ -19,9 +19,42 @@ var creativesTable = $('#creativesTable').DataTable({
         { data: "title" },
         { data: "advertiser.email" },
         { data: "template" },
-        { data: "imageLink" },
-        { data: "videoLink" },
-        { data: "status" },
+        { data: null,
+            "render": function (data) {
+                if (data.imageLink) {
+                    return '<div><a href="#" data-image=' + data.imageLink + ' class="adImage">' + data.imageLink + '</a></div>';
+                } else {
+                    return '';
+                }
+            }
+        },
+        {   data: null,
+            "render": function (data) {
+                if (data.videoLink) {
+                    return '<video class="videoLink" width="400" height="255" preload="auto" controls>' +
+                        '<source src="' + data.videoLink + '" type="video/mp4"></video>';
+                } else {
+                    return '';
+                }
+            }
+        },
+        { data: "createdDate",
+            "type": "date",
+            "render": function (data) {
+                return formatDate(data);
+            }
+        },
+        { data: null,
+            "render": function (data) {
+                if (data.status === 'NEW') {
+                    return 'Mới';
+                } else if (data.status === 'ACTIVE') {
+                    return 'Đang hoạt động';
+                } else {
+                    return 'Không hoạt động';
+                }
+            }
+        },
         {
             data: null,
             className: "center",
@@ -39,8 +72,7 @@ var creativesTable = $('#creativesTable').DataTable({
 var formatDate  = function (data) {
     if (data === null || data === '') return "";
     var date = new Date(data);
-    var month = date.getMonth() + 1;
-    return (date.getDate().length > 1 ? date.getDate() : "0" + date.getDate()) + "/" + (month > 9 ? month : "0" + month) + "/" + date.getFullYear();
+    return moment(date).format('DD/MM/YYYY HH:mm:ss');
 }
 
 $('#creativesTable tbody').on( 'click', 'a.editor_choose', function (e) {
@@ -53,7 +85,23 @@ $('#creativesTable tbody').on( 'click', 'a.editor_choose', function (e) {
 
 $('#modal-choose-creative').on('shown.bs.modal', function() {
     $('#creativesTable').DataTable().columns.adjust();
-    $(this).find('.modal-dialog').css({width:'60%',
+    $(this).find('.modal-dialog').css({width:'80%',
         height:'auto', 'max-height':'100%'});
 
+});
+
+$('#creativesTable').on('mouseenter', '.adImage', function() {
+    var image_name=$(this).data('image');
+    var imageTag='<div style="position:absolute;">'+'<img id="imagePreviewHover" src="' + image_name + '" alt="image" height="200" />'+'</div>';
+    $(this).parent('div').append(imageTag);
+    img = new Image();
+    img.src = image_name;
+    img.onload = function() {
+        $('#imagePreviewHover').attr('width', this.width + 'px');
+        $('#imagePreviewHover').attr('height', this.height + 'px');
+    }
+});
+
+$('#creativesTable').on('mouseleave', '.adImage', function() {
+    $(this).parent('div').children('div').remove();
 });

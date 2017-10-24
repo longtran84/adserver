@@ -30,7 +30,23 @@ var flightsTable = $('#flightsTable').DataTable({
                 return formatDate(data);
             }
         },
-        { data: "status" },
+        { data: "createdDate",
+            "type": "date",
+            "render": function (data) {
+                return formatFullDate(data);
+            }
+        },
+        { data: null,
+            "render": function (data) {
+                if (data.status === 'NEW') {
+                    return 'Mới';
+                } else if (data.status === 'ACTIVE') {
+                    return 'Đang hoạt động';
+                } else {
+                    return 'Không hoạt động';
+                }
+            }
+        },
         {
             data: null,
             className: "center",
@@ -48,8 +64,13 @@ var flightsTable = $('#flightsTable').DataTable({
 var formatDate  = function (data) {
     if (data === null || data === '') return "";
     var date = new Date(data);
-    var month = date.getMonth() + 1;
-    return (date.getDate().length > 1 ? date.getDate() : "0" + date.getDate()) + "/" + (month > 9 ? month : "0" + month) + "/" + date.getFullYear();
+    return moment(date).format('DD/MM/YYYY');
+}
+
+var formatFullDate  = function (data) {
+    if (data === null || data === '') return "";
+    var date = new Date(data);
+    return moment(date).format('DD/MM/YYYY HH:mm:ss');
 }
 
 $('#flightsTable tbody').on( 'click', 'a.editor_choose', function (e) {

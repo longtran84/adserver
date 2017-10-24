@@ -1,3 +1,9 @@
+var formatDate  = function (data) {
+    if (data === null || data === '') return "";
+    var date = new Date(data);
+    return moment(date).format('DD/MM/YYYY HH:mm:ss');
+}
+
 var advertisersTable = $('#advertisersTable').DataTable({
     sAjaxSource: "/advertisers",
     sAjaxDataProp: "",
@@ -20,6 +26,23 @@ var advertisersTable = $('#advertisersTable').DataTable({
         { data: "fullName" },
         { data: "companyName" },
         { data: "phone" },
+        { data: "createdDate",
+            "type": "date",
+            "render": function (data) {
+                return formatDate(data);
+            }
+        },
+        { data: null,
+            "render": function (data) {
+                if (data.status === 'NEW') {
+                    return 'Mới';
+                } else if (data.status === 'ACTIVE') {
+                    return 'Đang hoạt động';
+                } else {
+                    return 'Không hoạt động';
+                }
+            }
+        },
         {
             data: null,
             className: "center",

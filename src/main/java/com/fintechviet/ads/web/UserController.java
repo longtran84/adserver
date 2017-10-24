@@ -162,4 +162,19 @@ public class UserController {
     public String admin(Model model) {
         return "admin";
     }
+
+    @RequestMapping(value = "/accessDenied", method = RequestMethod.GET)
+    public String accessDenied() {
+        return "accessDenied";
+    }
+
+    @RequestMapping(value = "/pageNotFound", method = RequestMethod.GET)
+    public String pageNotFound() {
+        return "pageNotFound";
+    }
+
+    @RequestMapping(value = "/errorPage", method = RequestMethod.GET)
+    public String errorPage() {
+        return "errorPage";
+    }
 }

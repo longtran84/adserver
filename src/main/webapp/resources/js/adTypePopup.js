@@ -41,7 +41,7 @@ $('#adTypesTable tbody').on( 'click', 'a.editor_choose', function (e) {
 
 $('#modal-choose-adType').on('shown.bs.modal', function() {
     $('#adTypesTable').DataTable().columns.adjust();
-    $(this).find('.modal-dialog').css({width:'60%',
+    $(this).find('.modal-dialog').css({width:'40%',
         height:'auto', 'max-height':'100%'});
 
 });

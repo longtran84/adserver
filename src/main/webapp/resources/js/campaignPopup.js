@@ -1,29 +1,21 @@
-var abc = {id:1,name:'abc'};
+
 var campaignsTable = $('#campaignsTable').DataTable({
-    "ajax": {
-        'type': 'POST',
-        'url': '/campaigns',
-        'data': function() {
-            return JSON.stringify(abc);
-        },
-        'dataType': 'json',
-        'contentType': 'application/json'
-         },
-		sAjaxDataProp: "",
-        responsive: true,
-		order: [[ 0, "asc" ]],
-        language: {
-            "zeroRecords": "Không tìm thấy bản ghi nào",
-            "info": "Hiện thị trang _PAGE_ của _PAGES_",
-            "lengthMenu": "Hiển thị _MENU_ bản ghi",
-            "search": "Tìm kiếm",
-            "paginate": {
-            "first":    	"Đầu tiên",
-            "previous": 	"Trước",
-            "next":     	"Sau",
-            "last":     	"Cuối cùng"
+    sAjaxSource: "/campaigns",
+    sAjaxDataProp: "",
+    responsive: true,
+    order: [[ 0, "asc" ]],
+    language: {
+        "zeroRecords": "Không tìm thấy bản ghi nào",
+        "info": "Hiện thị trang _PAGE_ của _PAGES_",
+        "lengthMenu": "Hiển thị _MENU_ bản ghi",
+        "search": "Tìm kiếm",
+        "paginate": {
+        "first":    	"Đầu tiên",
+        "previous": 	"Trước",
+        "next":     	"Sau",
+        "last":     	"Cuối cùng"
         }
-        },
+    },
     columns: [
         { data: "name" },
         { data: "advertiser.email" },
@@ -39,7 +31,23 @@ var campaignsTable = $('#campaignsTable').DataTable({
                 return formatDate(data);
             }
         },
-        { data: "status" },
+        { data: "createdDate",
+            "type": "date",
+            "render": function (data) {
+                return formatFullDate(data);
+            }
+        },
+        { data: null,
+            "render": function (data) {
+                if (data.status === 'NEW') {
+                    return 'Mới';
+                } else if (data.status === 'ACTIVE') {
+                    return 'Đang hoạt động';
+                } else {
+                    return 'Không hoạt động';
+                }
+            }
+        },
         {
             data: null,
             className: "center",
@@ -58,6 +66,12 @@ var formatDate  = function (data) {
     if (data === null || data === '') return "";
     var date = new Date(data);
     return moment(date).format('DD/MM/YYYY');
+}
+
+var formatFullDate  = function (data) {
+    if (data === null || data === '') return "";
+    var date = new Date(data);
+    return moment(date).format('DD/MM/YYYY HH:mm:ss');
 }
 
 $('#campaignsTable tbody').on( 'click', 'a.editor_choose', function (e) {

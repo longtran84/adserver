@@ -17,6 +17,8 @@
                             <th>Họ tên</th>
                             <th>Tên công ty</th>
                             <th>Điện thoại</th>
+                            <th>Ngày tạo</th>
+                            <th>Trạng thái</th>
                             <th>Lựa chọn</th>
                         </tr>
                         </thead>
@@ -27,6 +29,8 @@
                             <th>Họ tên</th>
                             <th>Tên công ty</th>
                             <th>Điện thoại</th>
+                            <th>Ngày tạo</th>
+                            <th>Trạng thái</th>
                             <th>Lựa chọn</th>
                         </tr>
                         </tfoot>

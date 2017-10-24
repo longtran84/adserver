@@ -31,11 +31,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .authorizeRequests()
         .antMatchers(HttpMethod.POST, "/news/**").permitAll()
         .antMatchers("/resources/**", "/registration").permitAll()
-                .antMatchers("/resources/**", "/advertiserRegistration").permitAll()
-                .antMatchers("/resources/**", "/ad/**").permitAll()
-                .antMatchers("/resources/**", "/images/**").permitAll()
-        //.antMatchers(HttpMethod.GET,"/advertiser").hasAnyRole("ROLE_ADMIN", "ROLE_ADVERTISER")
-        //.antMatchers(HttpMethod.POST,"/advertiser").hasAnyRole("ROLE_ADMIN", "ROLE_ADVERTISER")
+        .antMatchers("/resources/**", "/advertiserRegistration").permitAll()
+        .antMatchers("/resources/**", "/ad/**").permitAll()
+        .antMatchers("/resources/**", "/images/**").permitAll()
+        .antMatchers("/admin_profile").access("hasRole('ROLE_SUPER_ADMIN') or hasRole('ROLE_ADMIN')")
+        .antMatchers("/advertiser_profile").hasAnyRole("ROLE_ROLE_ADVERTISER")
+        .antMatchers("/advertiser_profile_edit").hasAnyRole("ROLE_ROLE_ADVERTISER")
+        .antMatchers("/advertiser_profile_edit").hasAnyRole("ROLE_ROLE_ADVERTISER")
+        .antMatchers("/system/systemParameter").access("hasRole('ROLE_SUPER_ADMIN') or hasRole('ROLE_ADMIN')")
+        .antMatchers("/system/admin").hasAnyRole("ROLE_SUPER_ADMIN")
+        .antMatchers("/advertiser").access("hasRole('ROLE_SUPER_ADMIN') or hasRole('ROLE_ADMIN')")
+        .antMatchers("/user/userInfo").access("hasRole('ROLE_SUPER_ADMIN') or hasRole('ROLE_ADMIN')")
+        .antMatchers("/user/userInvite").access("hasRole('ROLE_SUPER_ADMIN') or hasRole('ROLE_ADMIN')")
+        .antMatchers("/userInterestReports").access("hasRole('ROLE_SUPER_ADMIN') or hasRole('ROLE_ADMIN')")
         .anyRequest().authenticated()
         .and()
         .formLogin().loginPage("/login")
@@ -43,7 +51,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .permitAll()
         .and()
         .logout()
-        .permitAll();
+        .permitAll()
+        .and().exceptionHandling().accessDeniedPage("/accessDenied");
     }
 
     @Autowired

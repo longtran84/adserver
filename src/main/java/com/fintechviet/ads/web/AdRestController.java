@@ -29,7 +29,7 @@ public class AdRestController {
     public List<Ad> getAllAds(){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         boolean hasAdminRole = auth.getAuthorities().stream()
-                .anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
+                .anyMatch(r -> (r.getAuthority().equals("ROLE_ADMIN") || r.getAuthority().equals("ROLE_SUPER_ADMIN")));
         if (hasAdminRole) {
             return adService.getAllAds();
         } else {
