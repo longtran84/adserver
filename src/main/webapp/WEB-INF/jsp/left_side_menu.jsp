@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
@@ -20,18 +21,18 @@
             <li class="header">DANH MỤC</li>
             <sec:authorize access="hasRole('ROLE_ADMIN')">
             <li>
-                <a href="/advertiser">
+                <a href="${contextPath}/advertiser">
                     <i class="fa  fa-adn"></i> <span>Nhà quảng cáo</span>
                 </a>
             </li>
             </sec:authorize>
             <li >
-                <a href="/campaign">
+                <a href="${contextPath}/campaign">
                     <i class="fa fa-bullhorn"></i> <span>Chiến dịch quảng cáo</span>
                 </a>
             </li>
             <li>
-                <a href="/flight">
+                <a href="${contextPath}/flight">
                     <i class="fa fa-object-group"></i>
                     <span>Nhóm quảng cáo</span>
                 </a>
@@ -45,18 +46,18 @@
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="/creativeVideo"><i class="fa fa-file-video-o"></i> Video</a></li>
-                    <li><a href="/creativeImage"><i class="fa fa-file-image-o"></i> Ảnh</a></li>
+                    <li><a href="${contextPath}/creativeVideo"><i class="fa fa-file-video-o"></i> Video</a></li>
+                    <li><a href="${contextPath}/creativeImage"><i class="fa fa-file-image-o"></i> Ảnh</a></li>
                 </ul>
             </li>
             <li>
-                <a href="/ad">
+                <a href="${contextPath}/ad">
                     <i class="fa fa-laptop"></i>
                     <span>Quảng cáo</span>
                 </a>
             </li>
             <li>
-                <a href="/appAd">
+                <a href="${contextPath}/appAd">
                     <i class="fa fa-laptop"></i>
                     <span>Quảng cáo ứng dụng</span>
                 </a>
@@ -70,13 +71,13 @@
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="/reportCampaign"><i class="fa fa-circle-o"></i> Chiến dịch quảng cáo</a></li>
-                    <li><a href="/reportCost"><i class="fa fa-circle-o"></i> Chi phí</a></li>
-                    <li><a href="/reportInventory"><i class="fa fa-circle-o"></i> Inventory</a></li>
+                    <li><a href="${contextPath}/reportCampaign"><i class="fa fa-circle-o"></i> Chiến dịch quảng cáo</a></li>
+                    <li><a href="${contextPath}/reportCost"><i class="fa fa-circle-o"></i> Chi phí</a></li>
+                    <li><a href="${contextPath}/reportInventory"><i class="fa fa-circle-o"></i> Inventory</a></li>
                     <sec:authorize access="hasRole('ROLE_ADMIN') || hasRole('ROLE_SUPER_ADMIN')">
-                      <li><a href="/reportUserInterest"><i class="fa fa-circle-o"></i> Sở thích người dùng</a></li>
+                      <li><a href="${contextPath}/reportUserInterest"><i class="fa fa-circle-o"></i> Sở thích người dùng</a></li>
                     </sec:authorize>
-                    <li><a href="/reportApp"><i class="fa fa-circle-o"></i> Ứng dụng quảng cáo</a></li>
+                    <li><a href="${contextPath}/reportApp"><i class="fa fa-circle-o"></i> Ứng dụng quảng cáo</a></li>
                 </ul>
             </li>
             <sec:authorize access="hasRole('ROLE_ADMIN') || hasRole('ROLE_SUPER_ADMIN')">
@@ -88,8 +89,8 @@
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="/user/userInfo"><i class="fa  fa-info-circle"></i> Thông tin người dùng</a></li>
-                    <li><a href="/user/userInvite"><i class="fa fa-info"></i> Thông tin giới thiệu</a></li>
+                    <li><a href="${contextPath}/user/userInfo"><i class="fa  fa-info-circle"></i> Thông tin người dùng</a></li>
+                    <li><a href="${contextPath}/user/userInvite"><i class="fa fa-info"></i> Thông tin giới thiệu</a></li>
                 </ul>
             </li>
             <li class="treeview">
@@ -100,14 +101,14 @@
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="/content/category"><i class="fa fa-circle-o"></i> Chuyên mục tin tức</a></li>
-                    <li><a href="/content/news"><i class="fa fa-circle-o"></i> Tin tức</a></li>
-                    <li><a href="/content"><i class="fa fa-circle-o"></i> Nội dung</a></li>
-                    <li><a href="/game"><i class="fa fa-circle-o"></i> Trò chơi</a></li>
+                    <li><a href="${contextPath}/content/category"><i class="fa fa-circle-o"></i> Chuyên mục tin tức</a></li>
+                    <li><a href="${contextPath}/content/news"><i class="fa fa-circle-o"></i> Tin tức</a></li>
+                    <li><a href="${contextPath}/content"><i class="fa fa-circle-o"></i> Nội dung</a></li>
+                    <li><a href="${contextPath}/game"><i class="fa fa-circle-o"></i> Trò chơi</a></li>
                 </ul>
             </li>
             <li>
-                <a href="/content/inAppMessage">
+                <a href="${contextPath}/content/inAppMessage">
                     <i class="fa fa-laptop"></i>
                     <span>Tin nhắn</span>
                 </a>
@@ -131,9 +132,9 @@
                 </a>
                 <ul class="treeview-menu">
                     <sec:authorize access="hasRole('ROLE_SUPER_ADMIN')">
-                       <li><a href="/system/admin"><i class="fa fa-circle-o"></i> Quản trị viên</a></li>
+                       <li><a href="${contextPath}/system/admin"><i class="fa fa-circle-o"></i> Quản trị viên</a></li>
                     </sec:authorize>
-                    <li><a href="/system/systemParameter"><i class="fa fa-circle-o"></i> Tham số hệ thống</a></li>
+                    <li><a href="${contextPath}/system/systemParameter"><i class="fa fa-circle-o"></i> Tham số hệ thống</a></li>
                 </ul>
             </li>
             </sec:authorize>

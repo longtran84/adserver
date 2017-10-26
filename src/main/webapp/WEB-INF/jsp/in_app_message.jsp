@@ -315,6 +315,7 @@
 <!-- CK Editor -->
 <script src="${contextPath}/resources/bower_components/ckeditor/ckeditor.js"></script>
 <script>
+    var serverContext = "${pageContext.request.contextPath}";
     $.widget.bridge('uibutton', $.ui.button);
     CKEDITOR.replace('contentEditor')
     CKEDITOR.config.language = 'vi';

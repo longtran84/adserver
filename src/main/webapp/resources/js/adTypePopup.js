@@ -1,5 +1,5 @@
 var adTypesTable = $('#adTypesTable').DataTable({
-    sAjaxSource: "/adTypes",
+    sAjaxSource: serverContext + "/adTypes",
     sAjaxDataProp: "",
     responsive: true,
     order: [[ 0, "asc" ]],

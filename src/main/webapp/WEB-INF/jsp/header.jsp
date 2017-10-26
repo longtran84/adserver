@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <header class="main-header">
     <!-- Logo -->
     <a href="index.html" class="logo">
@@ -38,10 +39,10 @@
                         <li class="user-footer">
                             <div class="pull-left">
                                 <sec:authorize access="hasRole('ROLE_ADMIN')">
-                                   <a href="/admin_profile" class="btn btn-default btn-flat">Thông tin tài khoản</a>
+                                   <a href="${contextPath}/admin_profile" class="btn btn-default btn-flat">Thông tin tài khoản</a>
                                 </sec:authorize>
                                 <sec:authorize access="!hasRole('ROLE_ADMIN')">
-                                    <a href="/advertiser_profile" class="btn btn-default btn-flat">Thông tin tài khoản</a>
+                                    <a href="${contextPath}/advertiser_profile" class="btn btn-default btn-flat">Thông tin tài khoản</a>
                                 </sec:authorize>
                             </div>
                             <div class="pull-right">

@@ -194,6 +194,7 @@
 <!-- jQuery UI 1.11.4 -->
 <script src="${contextPath}/resources/bower_components/jquery-ui/jquery-ui.min.js"></script>
 <script>
+  var serverContext = "${pageContext.request.contextPath}";
   $.widget.bridge('uibutton', $.ui.button);
 </script>
 <!-- Bootstrap 3.3.7 -->

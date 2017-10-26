@@ -35,7 +35,7 @@ $(document).ready( function () {
     var contentId = $('#contentDetailForm #contentId').val();
 
     var table = $('#contentDetailsTable').DataTable({
-			sAjaxSource: "/contentDetails?contentId=" + contentId,
+			sAjaxSource: serverContext + "/contentDetails?contentId=" + contentId,
 			sAjaxDataProp: "",
             responsive: true,
             paging: false,
@@ -100,7 +100,7 @@ $(document).ready( function () {
     function updateImageOrder(contentDetailIds) {
         $.ajax({
             type: "POST",
-            url: '/updateImageOrder?contentDetailIds=' + contentDetailIds,
+            url: serverContext + '/updateImageOrder?contentDetailIds=' + contentDetailIds,
             dataType: "json",
             contentType: "application/json",
             async: false,
@@ -142,7 +142,7 @@ $(document).ready( function () {
         var request = {id: data.id};
         $.ajax({
             type: "POST",
-            url: '/deleteContentDetail',
+            url: serverContext + '/deleteContentDetail',
             data: JSON.stringify(request),
             dataType: "json",
             contentType: "application/json",

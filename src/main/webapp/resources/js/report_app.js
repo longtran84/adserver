@@ -19,7 +19,7 @@ $(document).ready( function () {
     var table = $('#appReportsTable').DataTable({
         "ajax": {
             'type': 'POST',
-            'url': '/appReports',
+            'url': serverContext + '/appReports',
             'contentType': 'application/json',
             'data': function() {
                 return JSON.stringify({dateFrom: dateFrom, dateTo: dateTo});
@@ -140,7 +140,7 @@ $(document).ready( function () {
     function getInstallsChart(appId) {
         $.ajax({
             type: "POST",
-            url: '/installReport',
+            url: serverContext + '/installReport',
             data: JSON.stringify({dateFrom: dateFrom, dateTo: dateTo, appId: appId}),
             dataType: "json",
             contentType: "application/json",

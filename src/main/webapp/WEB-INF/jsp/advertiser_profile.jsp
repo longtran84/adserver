@@ -136,6 +136,7 @@
 <script src="${contextPath}/resources/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="${contextPath}/resources/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <script>
+    var serverContext = "${pageContext.request.contextPath}";
     $(function () {
         $('#editBtn').click(function() {
             window.location = 'advertiser_profile_edit';

@@ -95,7 +95,9 @@
   <!-- /.form-box -->
 </div>
 <!-- /.register-box -->
-
+<script>
+    var serverContext = "${pageContext.request.contextPath}";
+</script>
 <!-- jQuery 3 -->
 <script src="${contextPath}/resources/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->

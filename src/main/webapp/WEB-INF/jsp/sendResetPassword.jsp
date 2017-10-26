@@ -53,6 +53,7 @@
 <!-- iCheck -->
 <script src="${contextPath}/resources/plugins/iCheck/icheck.min.js"></script>
 <script>
+  var serverContext = "${pageContext.request.contextPath}";
   $(function () {
     $('input').iCheck({
       checkboxClass: 'icheckbox_square-blue',

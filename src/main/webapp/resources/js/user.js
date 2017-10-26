@@ -1,6 +1,6 @@
 $(document).ready( function () {
 	 var table = $('#usersTable').DataTable({
-			sAjaxSource: "/users",
+			sAjaxSource: serverContext + "/users",
 			sAjaxDataProp: "",
 			order: [[ 0, "asc" ]],
          columns: [

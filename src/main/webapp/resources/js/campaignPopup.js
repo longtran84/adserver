@@ -1,6 +1,6 @@
 
 var campaignsTable = $('#campaignsTable').DataTable({
-    sAjaxSource: "/campaigns",
+    sAjaxSource: serverContext + "/campaigns",
     sAjaxDataProp: "",
     responsive: true,
     order: [[ 0, "asc" ]],

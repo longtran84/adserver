@@ -5,7 +5,7 @@ var formatDate  = function (data) {
 }
 
 var advertisersTable = $('#advertisersTable').DataTable({
-    sAjaxSource: "/advertisers",
+    sAjaxSource: serverContext + "/advertisers",
     sAjaxDataProp: "",
     responsive: true,
     order: [[ 0, "asc" ]],

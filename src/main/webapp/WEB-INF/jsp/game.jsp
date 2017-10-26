@@ -225,7 +225,9 @@
   <%@ include file = "footer.jsp" %>
 </div>
 <!-- ./wrapper -->
-
+<script>
+    var serverContext = "${pageContext.request.contextPath}";
+</script>
 <!-- jQuery 3 -->
 <script src="${contextPath}/resources/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->

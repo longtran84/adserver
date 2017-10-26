@@ -194,6 +194,7 @@
 <!-- iCheck 1.0.1 -->
 <script src="${contextPath}/resources/plugins/iCheck/icheck.min.js"></script>
 <script>
+  var serverContext = "${pageContext.request.contextPath}";
   $.widget.bridge('uibutton', $.ui.button);
   $(function () {
       //iCheck for checkbox and radio inputs

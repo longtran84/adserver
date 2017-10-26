@@ -32,7 +32,7 @@ $(document).ready( function () {
     });
 
     var table = $('#appAdsTable').DataTable({
-			sAjaxSource: "/appAds",
+			sAjaxSource: serverContext + "/appAds",
 			sAjaxDataProp: "",
             responsive: true,
 			order: [[ 0, "asc" ]],
@@ -132,7 +132,7 @@ $(document).ready( function () {
         var request = {id: data.id};
         $.ajax({
             type: "POST",
-            url: '/deleteAppAd',
+            url: serverContext + '/deleteAppAd',
             data: JSON.stringify(request),
             dataType: "json",
             contentType: "application/json",
@@ -184,7 +184,7 @@ $(document).ready( function () {
         var request = {id: data.id, status: data.status};
         $.ajax({
             type: "POST",
-            url: '/activateAppAd',
+            url: serverContext + '/activateAppAd',
             data: JSON.stringify(request),
             dataType: "json",
             contentType: "application/json",

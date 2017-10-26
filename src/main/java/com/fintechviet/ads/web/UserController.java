@@ -247,7 +247,7 @@ public class UserController {
             outputStream.write(file.getBytes());
             outputStream.flush();
             outputStream.close();
-            avatarLink = "/images/avatar/" + file.getOriginalFilename();
+            avatarLink = "mobileads/images/avatar/" + file.getOriginalFilename();
         }
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findByUsername(auth.getName());

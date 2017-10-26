@@ -11,7 +11,7 @@ $(document).ready( function () {
     var table = $('#userInterestReportsTable').DataTable({
         "ajax": {
             'type': 'POST',
-            'url': '/userInterestReports',
+            'url': serverContext + '/userInterestReports',
             'contentType': 'application/json',
             'data': function() {
                 return JSON.stringify({dateFrom: dateFrom, dateTo: dateTo});

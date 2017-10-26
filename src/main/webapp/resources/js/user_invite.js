@@ -18,7 +18,7 @@ $(document).ready( function () {
     var table = $('#userInvitesTable').DataTable({
         "ajax": {
             'type': 'POST',
-            'url': '/user/userInvites',
+            'url': serverContext + '/user/userInvites',
             'contentType': 'application/json',
             'data': function() {
                 return JSON.stringify({dateFrom: dateFrom, dateTo: dateTo});
@@ -81,7 +81,7 @@ $(document).ready( function () {
         var request = {id: data.id, status: data.status};
         $.ajax({
             type: "POST",
-            url: '/user/activate',
+            url: serverContext + '/user/activate',
             data: JSON.stringify(request),
             dataType: "json",
             contentType: "application/json",

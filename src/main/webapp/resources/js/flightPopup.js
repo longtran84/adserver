@@ -1,5 +1,5 @@
 var flightsTable = $('#flightsTable').DataTable({
-    sAjaxSource: "/flights",
+    sAjaxSource: serverContext + "/flights",
     sAjaxDataProp: "",
     responsive: true,
     order: [[ 0, "asc" ]],

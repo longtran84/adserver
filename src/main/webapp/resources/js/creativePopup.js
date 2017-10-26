@@ -1,5 +1,5 @@
 var creativesTable = $('#creativesTable').DataTable({
-    sAjaxSource: "/creatives",
+    sAjaxSource: serverContext + "/creatives",
     sAjaxDataProp: "",
     responsive: true,
     order: [[ 0, "asc" ]],

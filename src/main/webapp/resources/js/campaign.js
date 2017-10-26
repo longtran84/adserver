@@ -18,7 +18,7 @@ $(document).ready( function () {
     }
 
     var table = $('#campaignsTable').DataTable({
-        sAjaxSource: "/campaigns",
+        sAjaxSource: serverContext + "/campaigns",
         sAjaxDataProp: "",
         responsive: true,
         order: [[ 0, "asc" ]],
@@ -158,7 +158,7 @@ $(document).ready( function () {
         var request = {id: data.id, status: data.status};
         $.ajax({
             type: "POST",
-            url: '/activateCampaign',
+            url: serverContext + '/activateCampaign',
             data: JSON.stringify(request),
             dataType: "json",
             contentType: "application/json",
@@ -182,7 +182,7 @@ $(document).ready( function () {
     $('#delete_campaign').click(function() {
     	 $.ajax({
              type: "DELETE",
-             url: '/deleteCampaign/'+data.id,
+             url: serverContext + '/deleteCampaign/' + data.id,
              success: function (result) {
                  if (data.status === 'NEW') {
                      $('#activateBtn').text('Hủy kích hoạt');
