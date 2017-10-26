@@ -31,7 +31,7 @@ public class AppAdRestController {
     public List<AppAd> getCreativeVideos(){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         boolean hasAdminRole = auth.getAuthorities().stream()
-                .anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
+                .anyMatch(r -> (r.getAuthority().equals("ROLE_ADMIN") || r.getAuthority().equals("ROLE_SUPER_ADMIN")));
         if (hasAdminRole) {
             return appAdService.getAppAds("");
         } else {

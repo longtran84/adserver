@@ -16,8 +16,9 @@
                             <th>Tiêu đề</th>
                             <th>Nhà quảng cáo</th>
                             <th>Loại</th>
-                            <th>Đường dẫn ảnh</th>
-                            <th>Đường dẫn video</th>
+                            <th>Ảnh</th>
+                            <th>Video</th>
+                            <th>Ngày tạo</th>
                             <th>Trạng thái</th>
                             <th>Lựa chọn</th>
                         </tr>
@@ -28,8 +29,9 @@
                             <th>Tiêu đề</th>
                             <th>Nhà quảng cáo</th>
                             <th>Loại</th>
-                            <th>Đường dẫn ảnh</th>
-                            <th>Đường dẫn video</th>
+                            <th>Ảnh</th>
+                            <th>Video</th>
+                            <th>Ngày tạo</th>
                             <th>Trạng thái</th>
                             <th>Lựa chọn</th>
                         </tr>

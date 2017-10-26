@@ -27,7 +27,7 @@ $(document).ready( function () {
     }
 
     var table = $('#newsTable').DataTable({
-        sAjaxSource: "/content/newsList",
+        sAjaxSource: serverContext + "/content/newsList",
         sAjaxDataProp: "",
         responsive: true,
         order: [[ 0, "asc" ]],
@@ -171,7 +171,7 @@ $(document).ready( function () {
         var request = {id: data.id, status: data.status};
         $.ajax({
             type: "POST",
-            url: '/activateNews',
+            url: serverContext + '/activateNews',
             data: JSON.stringify(request),
             dataType: "json",
             contentType: "application/json",
@@ -196,7 +196,7 @@ $(document).ready( function () {
         var request = {id: data.id};
         $.ajax({
             type: "POST",
-            url: '/deleteNews',
+            url: serverContext + '/deleteNews',
             data: JSON.stringify(request),
             dataType: "json",
             contentType: "application/json",

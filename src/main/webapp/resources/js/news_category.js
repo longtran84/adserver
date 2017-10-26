@@ -51,7 +51,7 @@ $(document).ready( function () {
     });
 
     var table = $('#categoriesTable').DataTable({
-			sAjaxSource: "/content/categories",
+			sAjaxSource: serverContext + "/content/categories",
 			sAjaxDataProp: "",
             responsive: true,
 			order: [[ 0, "asc" ]],
@@ -141,7 +141,7 @@ $(document).ready( function () {
         var request = {id: data.id};
         $.ajax({
             type: "POST",
-            url: '/content/deleteCategory',
+            url: serverContext + '/content/deleteCategory',
             data: JSON.stringify(request),
             dataType: "json",
             contentType: "application/json",
@@ -191,7 +191,7 @@ $(document).ready( function () {
         var request = {id: data.id, status: data.status};
         $.ajax({
             type: "POST",
-            url: '/activateCategory',
+            url: serverContext + '/activateCategory',
             data: JSON.stringify(request),
             dataType: "json",
             contentType: "application/json",

@@ -14,7 +14,7 @@ public class User {
     private String username;
     private String password;
     private String passwordConfirm;
-    private String avatarLink = "/images/avatar/avatar.png";
+    private String avatarLink;
     private MultipartFile avatarFile;
     private String status = "ACTIVE";
     private Timestamp createdDate;

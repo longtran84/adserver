@@ -1,5 +1,5 @@
 var categoriesTable = $('#categoriesTable').DataTable({
-    sAjaxSource: "/content/categories",
+    sAjaxSource: serverContext + "/content/categories",
     sAjaxDataProp: "",
     responsive: true,
     order: [[ 0, "asc" ]],

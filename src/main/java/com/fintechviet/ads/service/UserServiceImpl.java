@@ -1,18 +1,21 @@
 package com.fintechviet.ads.service;
 
 import com.fintechviet.ads.dto.UserDTO;
+import com.fintechviet.ads.model.PasswordResetToken;
 import com.fintechviet.ads.model.Role;
 import com.fintechviet.ads.model.User;
+import com.fintechviet.ads.repository.PasswordResetTokenRepository;
 import com.fintechviet.ads.repository.RoleRepository;
 import com.fintechviet.ads.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -22,6 +25,8 @@ public class UserServiceImpl implements UserService {
     private RoleRepository roleRepository;
     @Autowired
     private Md5PasswordEncoder md5PasswordEncoder;
+    @Autowired
+    private PasswordResetTokenRepository passwordTokenRepository;
 
     @Override
     public void save(User user) {
@@ -86,5 +91,34 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findByUsername(username);
         user.setStatus(status);
         userRepository.save(user);
+    }
+
+    @Override
+    public void createPasswordResetTokenForUser(final User user, final String token) {
+        final PasswordResetToken myToken = new PasswordResetToken(token, user);
+        passwordTokenRepository.save(myToken);
+    }
+
+    @Override
+    public boolean isValidatePasswordResetToken(long id, String token) {
+        final PasswordResetToken passToken = passwordTokenRepository.findByToken(token);
+        if ((passToken == null) || (passToken.getUser()
+                .getId() != id)) {
+            return false;
+        }
+
+        final Calendar cal = Calendar.getInstance();
+        if ((passToken.getExpiryDate()
+                .getTime() - cal.getTime()
+                .getTime()) <= 0) {
+            return false;
+        }
+
+        User user = passToken.getUser();
+        Authentication auth = new UsernamePasswordAuthenticationToken(
+                user, null, Arrays.asList(
+                new SimpleGrantedAuthority("CHANGE_PASSWORD_PRIVILEGE")));
+        SecurityContextHolder.getContext().setAuthentication(auth);
+        return true;
     }
 }

@@ -12,7 +12,7 @@ $(document).ready( function () {
     }
 
     var table = $('#creativesTable').DataTable({
-			sAjaxSource: "/creativeVideos",
+			sAjaxSource: serverContext + "/creativeVideos",
 			sAjaxDataProp: "",
             responsive: true,
 			order: [[ 0, "asc" ]],
@@ -112,7 +112,7 @@ $(document).ready( function () {
         var request = {id: data.id};
         $.ajax({
             type: "POST",
-            url: '/deleteCreative',
+            url: serverContext + '/deleteCreative',
             data: JSON.stringify(request),
             dataType: "json",
             contentType: "application/json",
@@ -164,7 +164,7 @@ $(document).ready( function () {
         var request = {id: data.id, status: data.status};
         $.ajax({
             type: "POST",
-            url: '/activateCreative',
+            url: serverContext + '/activateCreative',
             data: JSON.stringify(request),
             dataType: "json",
             contentType: "application/json",

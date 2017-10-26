@@ -25,7 +25,7 @@ public class FlightRestController {
     public List<Flight> getAllFlights(){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         boolean hasAdminRole = auth.getAuthorities().stream()
-                .anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
+                .anyMatch(r -> (r.getAuthority().equals("ROLE_ADMIN") || r.getAuthority().equals("ROLE_SUPER_ADMIN")));
         if (hasAdminRole) {
             return flightService.getAllFlights();
         } else {

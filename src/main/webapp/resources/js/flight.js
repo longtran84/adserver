@@ -28,7 +28,7 @@ $(document).ready( function () {
     }
 
     var table = $('#flightsTable').DataTable({
-			sAjaxSource: "/flights",
+			sAjaxSource: serverContext + "/flights",
 			sAjaxDataProp: "",
             responsive: true,
 			order: [[ 0, "asc" ]],
@@ -110,9 +110,17 @@ $(document).ready( function () {
         $('#flightForm #userGender').val(data.userGender);
         $('#flightForm #userAgeFrom').val(data.userAgeFrom);
         $('#flightForm #userAgeTo').val(data.userAgeTo);
-        var locations = data.userLocation.split(',');
-        for (var i = 0; i < locations.length; i++) {
-            $('#lstLocation option[value="' + locations[i] + '"]').attr('selected', true);
+        if (data.userLocation) {
+            var locations = data.userLocation.split(',');
+            for (var i = 0; i < locations.length; i++) {
+                $('#lstLocation option[value="' + locations[i] + '"]').attr('selected', true);
+            }
+        }
+        if (data.userInterest) {
+            var interests = data.userInterest.split(',');
+            for (var i = 0; i < interests.length; i++) {
+                $('#lstNewsCategory option[value="' + interests[i] + '"]').attr('selected', true);
+            }
         }
     };
     
@@ -149,7 +157,7 @@ $(document).ready( function () {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             }*/
-            url: '/deleteFlight',
+            url: serverContext + '/deleteFlight',
             data: JSON.stringify(request),
             dataType: "json",
             contentType: "application/json",
@@ -201,7 +209,7 @@ $(document).ready( function () {
         var request = {id: data.id, status: data.status};
         $.ajax({
             type: "POST",
-            url: '/activateFlight',
+            url: serverContext + '/activateFlight',
             data: JSON.stringify(request),
             dataType: "json",
             contentType: "application/json",

@@ -11,7 +11,7 @@ $(document).ready( function () {
     }
 
     var table = $('#advertisersTable').DataTable({
-			sAjaxSource: "/advertisers",
+			sAjaxSource: serverContext + "/advertisers",
 			sAjaxDataProp: "",
             responsive: true,
 			order: [[ 0, "asc" ]],
@@ -127,7 +127,7 @@ $(document).ready( function () {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             }*/
-            url: '/deleteAdvertiser',
+            url: serverContext + '/deleteAdvertiser',
             data: JSON.stringify(request),
             dataType: "json",
             contentType: "application/json",
@@ -157,7 +157,7 @@ $(document).ready( function () {
         var request = {id: data.id, status: data.status};
         $.ajax({
             type: "POST",
-            url: '/activateAdvertiser',
+            url: serverContext + '/activateAdvertiser',
             data: JSON.stringify(request),
             dataType: "json",
             contentType: "application/json",

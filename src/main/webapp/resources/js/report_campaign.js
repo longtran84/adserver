@@ -26,7 +26,7 @@ $(document).ready( function () {
     var table = $('#campaignReportsTable').DataTable({
         "ajax": {
             'type': 'POST',
-            'url': '/campaignReports',
+            'url': serverContext + '/campaignReports',
             'contentType': 'application/json',
             'data': function() {
                 return JSON.stringify({dateFrom: dateFrom, dateTo: dateTo});
@@ -189,7 +189,7 @@ $(document).ready( function () {
     function getImpressionsChart() {
         $.ajax({
             type: "POST",
-            url: '/impressionReport',
+            url: serverContext + '/impressionReport',
             data: JSON.stringify({dateFrom: dateFrom, dateTo: dateTo, campaignId: campaignId}),
             dataType: "json",
             contentType: "application/json",
@@ -219,7 +219,7 @@ $(document).ready( function () {
     function getClicksChart() {
         $.ajax({
             type: "POST",
-            url: '/clickReport',
+            url: serverContext + '/clickReport',
             data: JSON.stringify({dateFrom: dateFrom, dateTo: dateTo, campaignId: campaignId}),
             dataType: "json",
             contentType: "application/json",
@@ -249,7 +249,7 @@ $(document).ready( function () {
     function getCTRChart() {
         $.ajax({
             type: "POST",
-            url: '/ctrReport',
+            url: serverContext + '/ctrReport',
             data: JSON.stringify({dateFrom: dateFrom, dateTo: dateTo, campaignId: campaignId}),
             dataType: "json",
             contentType: "application/json",
@@ -281,7 +281,7 @@ $(document).ready( function () {
     function getViewsChart() {
         $.ajax({
             type: "POST",
-            url: '/viewReport',
+            url: serverContext + '/viewReport',
             data: JSON.stringify({dateFrom: dateFrom, dateTo: dateTo, campaignId: campaignId}),
             dataType: "json",
             contentType: "application/json",
@@ -348,24 +348,6 @@ $(document).ready( function () {
             newChart = getImpressionsChart();
         }
         return newChart;
-    }
-
-    function save() {
-        //var request = [{name:'abc', image:'link1'}, {name:'def', image:'link2'}];
-        var request = [{title:'abc', shortDescription:'abcdefgh', link:'link1', newsCategoryId: 1}, {title:'abc1', shortDescription:'abcdefgh', link:'link2', newsCategoryId: 2}];
-        $.ajax({
-            type: "POST",
-            url: '/news/saveNews',
-            data: JSON.stringify(request),
-            dataType: "json",
-            contentType: "application/json",
-            success: function (result) {
-                alert(result);
-            },
-            error: function (error) {
-                alert(error);
-            }
-        });
     }
 
     //Date range as a button

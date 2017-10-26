@@ -28,17 +28,9 @@ public class CampaignController {
     @Autowired
     private CampaignValidator campaignValidator;
 
-    @Autowired
-    private UserService userService;
-
     @RequestMapping(value = {"/", "/campaign"}, method = RequestMethod.GET)
     public String campaign(Model model, HttpServletRequest request) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userService.findByUsername(auth.getName());
-
         model.addAttribute("campaignForm", new Campaign());
-        HttpSession session = request.getSession();
-        session.setAttribute("userAvatar", user.getAvatarLink());
 
         return "campaign";
     }

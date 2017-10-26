@@ -106,9 +106,9 @@
                     <form:errors path="title" cssClass="has-error"></form:errors>
                   </div>
                   <div class="form-group">
-                    <label for="body">Nội dung</label>
-                    <form:textarea class="form-control" path="body" id="body" rows="5" placeholder="Nội dung"/>
-                    <form:errors path="body" cssClass="has-error"></form:errors>
+                    <label for="clickUrl">Đường dẫn trang đích</label>
+                    <form:textarea class="form-control" path="clickUrl" id="clickUrl" rows="5" placeholder="Đường dẫn trang đích"/>
+                    <form:errors path="clickUrl" cssClass="has-error"></form:errors>
                   </div>
                 </div>
                 <!-- /.col -->
@@ -292,7 +292,9 @@ Biểu tượng cho thấy độ phân giải HD hoặc độ phân giải cao c
   <%@ include file = "footer.jsp" %>
 </div>
 <!-- ./wrapper -->
-
+<script>
+    var serverContext = "${pageContext.request.contextPath}";
+</script>
 <!-- jQuery 3 -->
 <script src="${contextPath}/resources/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->

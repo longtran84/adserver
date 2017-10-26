@@ -6,7 +6,7 @@ $(document).ready( function () {
     }
 
     var table = $('#adminsTable').DataTable({
-        sAjaxSource: "/system/admins",
+        sAjaxSource: serverContext + "/system/admins",
         sAjaxDataProp: "",
         responsive: true,
         order: [[ 0, "asc" ]],
@@ -75,7 +75,7 @@ $(document).ready( function () {
         var request = {username: data.username, role:role};
         $.ajax({
             type: "POST",
-            url: '/system/updateUserRole',
+            url: serverContext + '/system/updateUserRole',
             data: JSON.stringify(request),
             dataType: "json",
             contentType: "application/json",
@@ -92,7 +92,7 @@ $(document).ready( function () {
         var request = {username: data.username, status: data.status};
         $.ajax({
             type: "POST",
-            url: '/system/activateUser',
+            url: serverContext + '/system/activateUser',
             data: JSON.stringify(request),
             dataType: "json",
             contentType: "application/json",

@@ -39,7 +39,7 @@ public class UserRestController {
     }
 
     @RequestMapping(value = "/system/updateUserRole", method = RequestMethod.POST)
-    public ResponseEntity<?> deleteAdvertiser(@RequestBody UpdateRoleRequest request) {
+    public ResponseEntity<?> updateUserRole(@RequestBody UpdateRoleRequest request) {
         try {
             userService.updateRole(request.getUsername(), request.getRole());
         } catch (Exception ex) {

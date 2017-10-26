@@ -36,6 +36,7 @@
         <class>com.fintechviet.ads.model.AdType</class>
         <class>com.fintechviet.content.model.Game</class>
         <class>com.fintechviet.system.model.SystemParameter</class>
+        <class>com.fintechviet.content.model.InAppMessage</class>
         <properties>
             <property name="toplink.jdbc.url" value="jdbc:mysql://localhost:3306/mobileads"/>
             <property name="toplink.jdbc.driver" value="com.mysql.jdbc.Driver"/>

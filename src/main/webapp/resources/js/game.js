@@ -32,7 +32,7 @@ $(document).ready( function () {
     });
 
     var table = $('#gamesTable').DataTable({
-			sAjaxSource: "/games",
+			sAjaxSource: serverContext + "/games",
 			sAjaxDataProp: "",
             responsive: true,
 			order: [[ 0, "asc" ]],
@@ -138,7 +138,7 @@ $(document).ready( function () {
         var request = {id: data.id};
         $.ajax({
             type: "POST",
-            url: '/deleteGame',
+            url: serverContext + '/deleteGame',
             data: JSON.stringify(request),
             dataType: "json",
             contentType: "application/json",
@@ -190,7 +190,7 @@ $(document).ready( function () {
         var request = {id: data.id, status: data.status};
         $.ajax({
             type: "POST",
-            url: '/activateGame',
+            url: serverContext + '/activateGame',
             data: JSON.stringify(request),
             dataType: "json",
             contentType: "application/json",

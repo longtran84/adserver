@@ -106,7 +106,10 @@
   <%@ include file = "footer.jsp" %>
 </div>
 <!-- ./wrapper -->
-
+<script>
+    var serverContext = "${pageContext.request.contextPath}";
+    $.widget.bridge('uibutton', $.ui.button);
+</script>
 <!-- jQuery 3 -->
 <script src="${contextPath}/resources/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
@@ -126,8 +129,5 @@
 <script src="${contextPath}/resources/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <script src="${contextPath}/resources/js/common.js"></script>
 <script src="${contextPath}/resources/js/report_user_interest.js"></script>
-<script>
-    $.widget.bridge('uibutton', $.ui.button);
-</script>
 </body>
 </html>

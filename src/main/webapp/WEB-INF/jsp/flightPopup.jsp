@@ -17,6 +17,7 @@
                             <th>Chiến dịch quảng cáo</th>
                             <th>Ngày bắt đầu</th>
                             <th>Ngày kết thúc</th>
+                            <th>Ngày tạo</th>
                             <th>Trạng thái</th>
                             <th>Lựa chọn</th>
                         </tr>
@@ -28,6 +29,7 @@
                             <th>Chiến dịch quảng cáo</th>
                             <th>Ngày bắt đầu</th>
                             <th>Ngày kết thúc</th>
+                            <th>Ngày tạo</th>
                             <th>Trạng thái</th>
                             <th>Lựa chọn</th>
                         </tr>
