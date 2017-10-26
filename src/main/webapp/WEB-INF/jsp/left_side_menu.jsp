@@ -106,6 +106,12 @@
                     <li><a href="/game"><i class="fa fa-circle-o"></i> Trò chơi</a></li>
                 </ul>
             </li>
+            <li>
+                <a href="/content/inAppMessage">
+                    <i class="fa fa-laptop"></i>
+                    <span>Tin nhắn</span>
+                </a>
+            </li>
             </sec:authorize>
             <li class="treeview">
                 <a href="#">

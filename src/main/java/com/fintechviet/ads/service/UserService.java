@@ -22,4 +22,7 @@ public interface UserService {
 
     void updateStatus(String username, String status);
 
+    void createPasswordResetTokenForUser(final User user, final String token);
+
+    boolean isValidatePasswordResetToken(long id, String token);
 }
