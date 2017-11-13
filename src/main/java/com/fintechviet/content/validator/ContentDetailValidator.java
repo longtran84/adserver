@@ -21,7 +21,6 @@ public class ContentDetailValidator implements Validator {
     @Override
     public void validate(Object o, Errors errors) {
         ContentDetails contentDetails = (ContentDetails) o;
-        contentDetails = (ContentDetails) o;
 
         if (StringUtils.isEmpty(contentDetails.getImageFile().getOriginalFilename())) {
             errors.rejectValue("imageFile", "contentDetailForm.imageFile.empty");

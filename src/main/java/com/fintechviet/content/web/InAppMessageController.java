@@ -1,10 +1,8 @@
 package com.fintechviet.content.web;
 
-import com.fintechviet.content.model.Content;
 import com.fintechviet.content.model.InAppMessage;
-import com.fintechviet.content.service.ContentService;
 import com.fintechviet.content.service.InAppMessageService;
-import com.fintechviet.content.validator.ContentValidator;
+import com.fintechviet.content.validator.InAppMessageValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,7 +17,7 @@ public class InAppMessageController {
     private InAppMessageService inAppMessageService;
 
     @Autowired
-    private ContentValidator contentValidator;
+    private InAppMessageValidator inAppMessageValidator;
 
     @RequestMapping(value = "/content/inAppMessage", method = RequestMethod.GET)
     public String content(Model model) {
@@ -30,7 +28,7 @@ public class InAppMessageController {
 
     @RequestMapping(value = "/content/inAppMessage", method = RequestMethod.POST)
     public String content(@ModelAttribute("inAppMessageForm") InAppMessage inAppMessageForm, BindingResult bindingResult) {
-        //contentValidator.validate(contentForm, bindingResult);
+        inAppMessageValidator.validate(inAppMessageForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
             return "in_app_message";

@@ -10,19 +10,23 @@ import java.sql.Timestamp;
  */
 @Entity
 public class Message {
-    private long id;
+    private Long id;
     private UserMobile userMobile;
+    private String subject;
     private String body;
-    private Byte read;
+    private String type;
+    private Byte read = 0;
+    private Byte receive = 0;
     private Timestamp createdDate;
 
     @Id
     @Column(name = "id")
-    public long getId() {
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -37,6 +41,16 @@ public class Message {
     }
 
     @Basic
+    @Column(name = "subject")
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    @Basic
     @Column(name = "body")
     public String getBody() {
         return body;
@@ -47,13 +61,33 @@ public class Message {
     }
 
     @Basic
-    @Column(name = "read")
+    @Column(name = "type")
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    @Basic
+    @Column(name = "[read]")
     public Byte getRead() {
         return read;
     }
 
     public void setRead(Byte read) {
         this.read = read;
+    }
+
+    @Basic
+    @Column(name = "receive")
+    public Byte getReceive() {
+        return receive;
+    }
+
+    public void setReceive(Byte receive) {
+        this.receive = receive;
     }
 
     @Basic

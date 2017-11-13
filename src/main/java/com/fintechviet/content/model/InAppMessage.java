@@ -9,24 +9,26 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "in_app_message", schema = "mobileads", catalog = "")
 public class InAppMessage {
-    private long id;
+    private Long id;
     private String subject;
     private String body;
-    private Integer userAgeFrom;
-    private Integer userAgeTo;
+    private String type = "PRIMARY";
+    private Integer userAgeFrom = 0;
+    private Integer userAgeTo = 0;
     private String userGender;
     private String userLocation;
     private String userInterest;
-    private String status;
+    private String status = "NEW";
     private Timestamp createdDate;
 
     @Id
     @Column(name = "id")
-    public long getId() {
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -48,6 +50,16 @@ public class InAppMessage {
 
     public void setBody(String body) {
         this.body = body;
+    }
+
+    @Basic
+    @Column(name = "type")
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     @Basic

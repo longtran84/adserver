@@ -39,17 +39,17 @@ public class UserMobileServiceImpl implements UserMobileService {
         List<UserInfoDTO> users = new ArrayList<UserInfoDTO>();
         for (Object row[] : result) {
             BigInteger id = (BigInteger)row[0];
-            String username  = (String)row[1];
-            String gender  = (String)row[2];
-            Integer dob = (Integer)row[3];
-            String location = (String)row[4];
-            BigInteger earning = (BigInteger)row[5];
-            String inviteCodeUsed = (String)row[7];
-            String status = (String)row[9];
-            Date createdDate = (Date)row[10];
-            String interests = (String)row[11];
-            BigInteger devices = (BigInteger)row[12];
-            String userInvite  = (String)row[13];
+            String username  = (String)row[2];
+            String gender  = (String)row[3];
+            Integer dob = (Integer)row[4];
+            String location = (String)row[5];
+            BigInteger earning = (BigInteger)row[6];
+            String inviteCodeUsed = (String)row[8];
+            String status = (String)row[10];
+            Date createdDate = (Date)row[11];
+            String interests = (String)row[12];
+            BigInteger devices = (BigInteger)row[13];
+            String userInvite  = (String)row[14];
             UserInfoDTO userInfoDTO = new UserInfoDTO();
             userInfoDTO.setId(id.longValue());
             userInfoDTO.setUsername(username);
@@ -127,5 +127,9 @@ public class UserMobileServiceImpl implements UserMobileService {
         userMobileRepository.updateUserInvited(cal.getTime());
     }
 
+    @Override
+    public List<UserMobile> getUserActives() {
+        return userMobileRepository.getUserActives();
+    }
 }
 

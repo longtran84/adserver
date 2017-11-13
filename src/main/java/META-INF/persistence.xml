@@ -37,6 +37,17 @@
         <class>com.fintechviet.content.model.Game</class>
         <class>com.fintechviet.system.model.SystemParameter</class>
         <class>com.fintechviet.content.model.InAppMessage</class>
+        <class>com.fintechviet.content.model.Message</class>
+        <class>com.fintechviet.loyalty.model.Gamecard</class>
+        <class>com.fintechviet.loyalty.model.Giftcode</class>
+        <class>com.fintechviet.loyalty.model.MarketPriceRow</class>
+        <class>com.fintechviet.loyalty.model.Phonecard</class>
+        <class>com.fintechviet.loyalty.model.PriceRow</class>
+        <class>com.fintechviet.loyalty.model.Voucher</class>
+        <class>com.fintechviet.loyalty.model.VoucherImages</class>
+        <class>com.fintechviet.loyalty.model.Cart</class>
+        <class>com.fintechviet.loyalty.model.Order</class>
+        <class>com.fintechviet.loyalty.model.Voucher</class>
         <properties>
             <property name="toplink.jdbc.url" value="jdbc:mysql://localhost:3306/mobileads"/>
             <property name="toplink.jdbc.driver" value="com.mysql.jdbc.Driver"/>
