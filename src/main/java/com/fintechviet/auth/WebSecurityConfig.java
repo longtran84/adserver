@@ -38,6 +38,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers("/resources/**", "/advertiserRegistration").permitAll()
         .antMatchers("/resources/**", "/ad/**").permitAll()
         .antMatchers("/resources/**", "/images/**").permitAll()
+        .antMatchers("/resources/**", "/loyalty/**").permitAll()
         .antMatchers("/sendResetPassword").permitAll()
         .antMatchers("/resetPassword", "/newPassword", "/newPasswordSuccess").permitAll()
         .antMatchers("/admin_profile").access("hasRole('ROLE_SUPER_ADMIN') or hasRole('ROLE_ADMIN')")
