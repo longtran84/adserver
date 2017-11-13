@@ -62,4 +62,8 @@ public interface UserMobileRepository extends JpaRepository<UserMobile, Long> {
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     @Query("UPDATE UserMobile u SET u.isRewardForUserInvite = 1 WHERE u.createdDate <= :date24h AND u.isRewardForUserInvite = 0 AND u.inviteCodeUsed IS NOT NULL")
     void updateUserInvited(@Param("date24h") @Temporal(TemporalType.TIMESTAMP) Date date24h);
+
+    //Query user mobile invite by range date
+    @Query("SELECT u FROM UserMobile u WHERE u.status = 'ACTIVE'")
+    List<UserMobile> getUserActives();
 }

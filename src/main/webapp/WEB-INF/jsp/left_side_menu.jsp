@@ -19,7 +19,7 @@
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">DANH MỤC</li>
-            <sec:authorize access="hasRole('ROLE_ADMIN')">
+            <sec:authorize access="hasRole('ROLE_ADMIN') || hasRole('ROLE_SUPER_ADMIN')">
             <li>
                 <a href="${contextPath}/advertiser">
                     <i class="fa  fa-adn"></i> <span>Nhà quảng cáo</span>
@@ -123,6 +123,19 @@
                 </a>
             </li>
             <sec:authorize access="hasRole('ROLE_ADMIN') || hasRole('ROLE_SUPER_ADMIN')">
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-book"></i> <span>Đổi thưởng</span>
+                        <span class="pull-right-container">
+                       <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="${contextPath}/loyalty/order"><i class="fa fa-circle-o"></i> Đơn hàng</a></li>
+                    </ul>
+                </li>
+            </sec:authorize>
+            <sec:authorize access="hasRole('ROLE_ADMIN') || hasRole('ROLE_SUPER_ADMIN')">
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-book"></i> <span>Quản trị hệ thống</span>
@@ -132,7 +145,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <sec:authorize access="hasRole('ROLE_SUPER_ADMIN')">
-                       <li><a href="${contextPath}/system/admin"><i class="fa fa-circle-o"></i> Quản trị viên</a></li>
+                       <li><a href="${contextPath}/system/admin/"><i class="fa fa-circle-o"></i> Quản trị viên</a></li>
                     </sec:authorize>
                     <li><a href="${contextPath}/system/systemParameter"><i class="fa fa-circle-o"></i> Tham số hệ thống</a></li>
                 </ul>

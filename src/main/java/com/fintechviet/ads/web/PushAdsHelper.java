@@ -44,7 +44,7 @@ public class PushAdsHelper {
             JSONObject data = new JSONObject();
 
             data.put("message", "Advertising from Fintechviet");
-            data.put("image", "http://media.docbao.vn/files/images/site-1/20170923/web/a-hau-hoang-anh-da-sinh-con-gai-dau-long-cach-day-2-ngay-20-100121.jpg");
+            data.put("image", ad.getCreative().getImageLink());
             data.put("impressionUrl", DOMAIN + "/ad/impression/" + ad.getId());
             data.put("clickUrl", ad.getCreative().getClickUrl());
             data.put("trackingUrl", DOMAIN + "/ad/click?adId=" + ad.getId());

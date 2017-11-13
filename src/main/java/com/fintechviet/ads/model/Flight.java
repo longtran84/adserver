@@ -31,8 +31,8 @@ public class Flight {
     private String campaignName;
     private String userGender;
     private String userLocation;
-    private Integer userAgeFrom;
-    private Integer userAgeTo;
+    private Integer userAgeFrom = 0;
+    private Integer userAgeTo = 0;
     private String userInterest;
 
     @Id

@@ -45,7 +45,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers("/advertiser_profile_edit").hasAnyRole("ROLE_ROLE_ADVERTISER")
         .antMatchers("/advertiser_profile_edit").hasAnyRole("ROLE_ROLE_ADVERTISER")
         .antMatchers("/system/systemParameter").access("hasRole('ROLE_SUPER_ADMIN') or hasRole('ROLE_ADMIN')")
-        .antMatchers("/system/admin").hasAnyRole("ROLE_SUPER_ADMIN")
+        .antMatchers("/system/admin/**").access("hasRole('ROLE_SUPER_ADMIN')")
         .antMatchers("/advertiser").access("hasRole('ROLE_SUPER_ADMIN') or hasRole('ROLE_ADMIN')")
         .antMatchers("/user/userInfo").access("hasRole('ROLE_SUPER_ADMIN') or hasRole('ROLE_ADMIN')")
         .antMatchers("/user/userInvite").access("hasRole('ROLE_SUPER_ADMIN') or hasRole('ROLE_ADMIN')")

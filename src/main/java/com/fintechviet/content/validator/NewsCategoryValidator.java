@@ -18,7 +18,6 @@ public class NewsCategoryValidator implements Validator {
     @Override
     public void validate(Object o, Errors errors) {
         NewsCategory newsCategory = (NewsCategory) o;
-        newsCategory = (NewsCategory) o;
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "code", "categoryForm.code.empty");
         if (newsCategory.getCode().length()  > 50) {

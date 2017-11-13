@@ -17,7 +17,6 @@ public class ContentValidator implements Validator {
     @Override
     public void validate(Object o, Errors errors) {
         Content content = (Content) o;
-        content = (Content) o;
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "title", "contentForm.title.empty");
         if (content.getTitle().length()  > 255) {

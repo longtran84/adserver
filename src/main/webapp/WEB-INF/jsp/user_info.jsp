@@ -112,6 +112,7 @@
                   <th>Chuyên mục yêu thích</th>
                   <th>Số thiết bị sử dụng</th>
                   <th>Người giới thiệu</th>
+                  <th>Mã giới thiệu đã dùng</th>
                   <th>Phê duyệt</th>
                 </tr>
                 </tfoot>

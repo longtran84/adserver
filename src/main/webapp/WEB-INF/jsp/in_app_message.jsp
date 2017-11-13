@@ -57,15 +57,25 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <div class="alert alert-info alert-dismissible">
-        <button type="button" id="close_info" class="close" aria-hidden="true">&times;</button>
+      <div id="send-mesage-info" class="alert alert-info alert-dismissible">
+        <button type="button" id="send_mesage_close_info" class="close" aria-hidden="true">&times;</button>
+        <h4><i class="icon fa fa-info"></i> Thông báo!</h4>
+        Tin nhắn đã được gửi thành công!
+      </div>
+      <div id="send-mesage-error" class="alert alert-danger alert-dismissible">
+        <button type="button" id="send_mesage_close_error" class="close" aria-hidden="true">&times;</button>
+        <h4><i class="icon fa fa-ban"></i> Thông báo!</h4>
+        <span>Có lỗi xảy ra khi gửi tin nhắn!</span>
+      </div>
+      <div id="delete-message-info" class="alert alert-info alert-dismissible">
+        <button type="button" id="delete_message_close_info" class="close" aria-hidden="true">&times;</button>
         <h4><i class="icon fa fa-info"></i> Thông báo!</h4>
         Tin nhắn đã được xóa thành công!
       </div>
-      <div class="alert alert-danger alert-dismissible">
-        <button type="button" id="close_error" class="close" aria-hidden="true">&times;</button>
+      <div id="delete-message-error" class="alert alert-danger alert-dismissible">
+        <button type="button" id="delete_message_close_error" class="close" aria-hidden="true">&times;</button>
         <h4><i class="icon fa fa-ban"></i> Thông báo!</h4>
-        <span>Có lỗi xảy ra khi xóa tin nhắn.</span>
+        <span>Có lỗi xảy ra khi xóa tin nhắn!</span>
       </div>
       <h1>
         Tin nhắn người dùng
@@ -97,10 +107,22 @@
                     <form:errors path="subject" cssClass="has-error"></form:errors>
                   </div>
                 </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>
+                      Loại
+                    </label>
+                    <form:select id='type' path="type" class="form-control" >
+                      <option value="PRIMARY">Thường</option>
+                      <option value="PROMOTION">Khuyến mại</option>
+                    </form:select>
+                  </div>
+                </div>
                 <div class="col-md-12">
                   <div class="form-group">
                     <label for="body">Nội dung *</label>
                     <form:textarea id="contentEditor" path="body" name="contentEditor" rows="" cols="80"/>
+                    <form:errors path="body" cssClass="has-error"></form:errors>
                   </div>
                   <div class="form-group">
                     <fieldset class="scheduler-border">
@@ -247,28 +269,28 @@
             </div>-->
             <!-- /.box-header -->
             <div class="box-body">
-              <table id="flightsTable" class="table table-bordered table-hover dataTable" role="grid">
+              <table id="messagesTable" class="table table-bordered table-hover dataTable" role="grid">
                 <!-- Header Table -->
                 <thead>
                 <tr>
-                  <th>Tên</th>
-                  <th>Chiến dịch quảng cáo</th>
-                  <th>Ngày bắt đầu</th>
-                  <th>Ngày kết thúc</th>
+                  <th>Chủ đề</th>
+                  <th>Loại</th>
+                  <th>Nội dung</th>
                   <th>Ngày tạo</th>
                   <th>Trạng thái</th>
+                  <th>Gửi</th>
                   <th>Sửa / Xóa</th>
                 </tr>
                 </thead>
                 <!-- Footer Table -->
                 <tfoot>
                 <tr>
-                  <th>Tên</th>
-                  <th>Chiến dịch quảng cáo</th>
-                  <th>Ngày bắt đầu</th>
-                  <th>Ngày kết thúc</th>
+                  <th>Chủ đề</th>
+                  <th>Loại</th>
+                  <th>Nội dung</th>
                   <th>Ngày tạo</th>
                   <th>Trạng thái</th>
+                  <th>Gửi</th>
                   <th>Sửa / Xóa</th>
                 </tr>
                 </tfoot>
@@ -285,14 +307,34 @@
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Xóa nhóm quảng cáo</h4>
+            <h4 class="modal-title">Xóa tin nhắn</h4>
           </div>
           <div class="modal-body">
-            <p>Bạn có chắc chắn muốn xóa nhóm quảng cáo này?</p>
+            <p>Bạn có chắc chắn muốn xóa tin nhắn này?</p>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
-            <button type="button" id="delete_flight" class="btn btn-primary">Xóa</button>
+            <button type="button" id="deleteMessageBtn" class="btn btn-primary">Xóa</button>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <div class="modal fade" id="modal-sendMessage">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Gửi tin nhắn</h4>
+          </div>
+          <div class="modal-body">
+            <p>Bạn có chắc chắn muốn gửi tin nhắn này?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+            <button type="button" id="sendMessageBtn" class="btn btn-primary">Gửi</button>
           </div>
         </div>
         <!-- /.modal-content -->
@@ -301,7 +343,6 @@
     </div>
   </div>
   <!-- /.content-wrapper -->
-  <%@ include file = "campaignPopup.jsp" %>
   <%@ include file = "footer.jsp" %>
 </div>
 <!-- ./wrapper -->
