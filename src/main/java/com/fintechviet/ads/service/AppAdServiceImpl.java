@@ -35,10 +35,7 @@ public class AppAdServiceImpl implements AppAdService {
     }
 
     @Override
-    public List<AppAd> getAppAds(String adverEmail) {
-        if (StringUtils.isNotEmpty(adverEmail)) {
-            return appAdRepository.findByAdvertiser(adverEmail);
-        }
+    public List<AppAd> getAppAds() {
         return appAdRepository.findAll();
     }
 
@@ -52,11 +49,7 @@ public class AppAdServiceImpl implements AppAdService {
         List<AppReportDTO> reports = new ArrayList<AppReportDTO>();
         List<Object[]> result;
 
-        if (StringUtils.isNotEmpty(adverEmail)) {
-            result = appAdRepository.appReportByAdvertiser(from, to, adverEmail);
-        } else {
-            result = appAdRepository.appReport(from, to);
-        }
+        result = appAdRepository.appReport(from, to);
 
         for (Object row[] : result) {
             AppAd appAd = (AppAd)row[0];

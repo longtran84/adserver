@@ -27,14 +27,7 @@ public class AdRestController {
 
     @RequestMapping(path = "/ads", method = RequestMethod.GET)
     public List<Ad> getAllAds(){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        boolean hasAdminRole = auth.getAuthorities().stream()
-                .anyMatch(r -> (r.getAuthority().equals("ROLE_ADMIN") || r.getAuthority().equals("ROLE_SUPER_ADMIN")));
-        if (hasAdminRole) {
-            return adService.getAllAds();
-        } else {
-            return adService.getAdByAdvertiser(auth.getName());
-        }
+        return adService.getAllAds();
     }
 
     @RequestMapping(value = "/deleteAd", method = RequestMethod.POST)

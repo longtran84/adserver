@@ -1,9 +1,9 @@
-package com.fintechviet.user_mobile.request;
+package com.fintechviet.loyalty.request;
 
 /**
  * Created by tungn on 9/8/2017.
  */
-public class UserMobileRequest {
+public class OrderRequest {
     private String dateFrom;
     private String dateTo;
 

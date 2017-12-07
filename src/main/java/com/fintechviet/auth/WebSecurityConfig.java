@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
+import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -35,19 +37,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers(HttpMethod.POST, "/news/**").permitAll()
         .antMatchers("/resources/**", "/registration").permitAll()
         .antMatchers("/resources/**", "/forgotPassword").permitAll()
-        .antMatchers("/resources/**", "/advertiserRegistration").permitAll()
         .antMatchers("/resources/**", "/ad/**").permitAll()
         .antMatchers("/resources/**", "/images/**").permitAll()
         .antMatchers("/resources/**", "/loyalty/**").permitAll()
         .antMatchers("/sendResetPassword").permitAll()
+                .antMatchers(HttpMethod.GET,"/loyalty/order/process").permitAll()
         .antMatchers("/resetPassword", "/newPassword", "/newPasswordSuccess").permitAll()
         .antMatchers("/admin_profile").access("hasRole('ROLE_SUPER_ADMIN') or hasRole('ROLE_ADMIN')")
-        .antMatchers("/advertiser_profile").hasAnyRole("ROLE_ROLE_ADVERTISER")
-        .antMatchers("/advertiser_profile_edit").hasAnyRole("ROLE_ROLE_ADVERTISER")
-        .antMatchers("/advertiser_profile_edit").hasAnyRole("ROLE_ROLE_ADVERTISER")
         .antMatchers("/system/systemParameter").access("hasRole('ROLE_SUPER_ADMIN') or hasRole('ROLE_ADMIN')")
         .antMatchers("/system/admin/**").access("hasRole('ROLE_SUPER_ADMIN')")
-        .antMatchers("/advertiser").access("hasRole('ROLE_SUPER_ADMIN') or hasRole('ROLE_ADMIN')")
         .antMatchers("/user/userInfo").access("hasRole('ROLE_SUPER_ADMIN') or hasRole('ROLE_ADMIN')")
         .antMatchers("/user/userInvite").access("hasRole('ROLE_SUPER_ADMIN') or hasRole('ROLE_ADMIN')")
         .antMatchers("/userInterestReports").access("hasRole('ROLE_SUPER_ADMIN') or hasRole('ROLE_ADMIN')")
@@ -76,5 +74,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public AuthenticationSuccessHandler successHandler() {
         return new CustomAuthenticationSuccessHandler("/");
+    }
+
+    @Bean(name = BeanIds.AUTHENTICATION_MANAGER)
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
     }
 }

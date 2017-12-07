@@ -26,6 +26,11 @@ public interface UserMobileRepository extends JpaRepository<UserMobile, Long> {
     @Query("UPDATE UserMobile SET status = :status WHERE id = :id")
     void updateStatus(@Param("status") String status, @Param("id") Long id);
 
+    @Modifying
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+    @Query("UPDATE UserMobile SET earning = earning + :amount WHERE id = :id")
+    void refundEarning(@Param("amount") long amount, @Param("id") Long id);
+
     //Query user mobile by range date
     @Query(value="SELECT *, (SELECT GROUP_CONCAT(nec.name) FROM news_category nec WHERE nec.id IN " +
                  "(SELECT newsCategoryId FROM user_mobile_interest umi WHERE umi.uid = u.id) GROUP BY u.id) AS interests, " +

@@ -99,9 +99,6 @@
   <%@ include file = "footer.jsp" %>
 </div>
 <!-- ./wrapper -->
-<script>
-    var serverContext = "${pageContext.request.contextPath}";
-</script>
 <!-- jQuery 3 -->
 <script src="${contextPath}/resources/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
@@ -119,6 +116,7 @@
 <script src="${contextPath}/resources/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="${contextPath}/resources/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <script>
+    var serverContext = "${pageContext.request.contextPath}";
     $(function () {
         $('#changePasswordBtn').click(function() {
             window.location = 'changePassword';

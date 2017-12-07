@@ -1,12 +1,14 @@
-package com.fintechviet.content.service;
+package com.fintechviet.loyalty.service;
 
-import com.fintechviet.content.model.Game;
+import com.fintechviet.loyalty.model.Phonecard;
 
 import java.util.List;
 
-public interface GameService {
-    void save(Game game);
-    void delete(Game game);
+public interface PhonecardService {
+    Phonecard findById(Integer id);
+    void save(Phonecard game);
+    void delete(Phonecard game);
     void updateStatus(Integer id, String status);
-    List<Game> getGames();
+    List<Phonecard> getPhonecards();
+    String findPhoneCardCodeByPhoneCardId(Integer phoneCardId);
 }

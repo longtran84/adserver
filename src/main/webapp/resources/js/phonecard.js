@@ -31,8 +31,8 @@ $(document).ready( function () {
         $('#imageName').val(fileName);
     });
 
-    var table = $('#gamesTable').DataTable({
-			sAjaxSource: serverContext + "/games",
+    var table = $('#phoneCardsTable').DataTable({
+			sAjaxSource: serverContext + "/loyalty/phoneCards",
 			sAjaxDataProp: "",
             responsive: true,
 			order: [[ 0, "asc" ]],
@@ -55,9 +55,13 @@ $(document).ready( function () {
                      return '<img src="'+ data.image + '" alt="image" width="200" height="200" />';
                  }
              },
-             { data: null,
+             { data: "price",
+                 render: $.fn.dataTable.render.number( '.')
+             },
+             { data: "createdDate",
+                 "type": "date",
                  "render": function (data) {
-                     return '<a href=' + data.link + ' class="gameLink"><i class="fa fa-fw fa-link"></i></a>';
+                     return formatDate(data);
                  }
              },
              {   data: null,
@@ -69,12 +73,6 @@ $(document).ready( function () {
                      } else {
                          return 'Không hoạt động';
                      }
-                 }
-             },
-             { data: "createdDate",
-                 "type": "date",
-                 "render": function (data) {
-                     return formatDate(data);
                  }
              },
              {
@@ -93,33 +91,29 @@ $(document).ready( function () {
          ]
 	 });
 
-    $('#gamesTable tbody').on( 'click', 'a.gameLink', function (e) {
-        e.preventDefault();
-        var url = $(this).attr('href');
-        window.open(url, 'Game link', 'width=600,height=800,resizable=no,toolbar=no,menubar=no,location=no,status=no');
-    });
-
     var showDetails = function (data) {
-        $('#gameForm #name').val(data.name);
+        $('#phoneCardForm #name').val(data.name);
         var lastIndex = data.image.lastIndexOf("/");
-        $('#gameForm #imageName').val(data.image.substring(lastIndex + 1));
-        $('#gameForm #link').val(data.link);
-        $('#gameForm #id').val(data.id);
-        $('#gameForm #status').val(data.status);
+        $('#phoneCardForm #imageName').val(data.image.substring(lastIndex + 1));
+        $('#phoneCardForm #price').val(data.price);
+        $('#phoneCardForm #id').val(data.id);
+        $('#phoneCardForm #status').val(data.status);
+        $('#phoneCardForm #legacyId').val(data.legacyId);
     };
     
     var resetForm = function () {
-        $('#gameForm')[0].reset();
+        $('#phoneCardForm')[0].reset();
         
-        $('#gameForm #id').val(null);
-        $('#gameForm #status').val(null);
+        $('#phoneCardForm #id').val(null);
+        $('#phoneCardForm #status').val(null);
+        $('#phoneCardForm #legacyId').val(null);
         
         $('#editBtn').attr('disabled', false);
         $('#activateBtn').attr('disabled', true);
     };
 
     // Edit record
-    $('#gamesTable tbody').on( 'click', 'a.editor_edit', function (e) {
+    $('#phoneCardsTable tbody').on( 'click', 'a.editor_edit', function (e) {
         e.preventDefault();
         $('#editBtn').attr('disabled', false);
         /*$('#createBtn').attr('disabled', true);*/
@@ -128,24 +122,24 @@ $(document).ready( function () {
     });
 
     // Delete a record
-    $('#gamesTable tbody').on( 'click', 'a.editor_remove', function (e) {
+    $('#phoneCardsTable tbody').on( 'click', 'a.editor_remove', function (e) {
         e.preventDefault();
         data = table.row( $(this).parents('tr') ).data();
         $('#modal-delete').modal();
     });
 
-    $('#delete_game').click(function(){
+    $('#delete_phoneCard').click(function(){
         var request = {id: data.id};
         $.ajax({
             type: "POST",
-            url: serverContext + '/deleteGame',
+            url: serverContext + '/loyalty/phoneCard/deletePhoneCard',
             data: JSON.stringify(request),
             dataType: "json",
             contentType: "application/json",
             success: function (result) {
                 $('#modal-delete').modal('hide');
                 $('.alert-info').attr('style','display: block');
-                $('#gamesTable').DataTable().ajax.reload();
+                $('#phoneCardsTable').DataTable().ajax.reload();
                 
                 resetForm();
             },
@@ -156,7 +150,7 @@ $(document).ready( function () {
         });
     });
 
-    $('#gamesTable tbody').on( 'click', 'tr', function () {
+    $('#phoneCardsTable tbody').on( 'click', 'tr', function () {
         if ( $(this).hasClass('success') ) {
             $(this).removeClass('success');
         }
@@ -190,7 +184,7 @@ $(document).ready( function () {
         var request = {id: data.id, status: data.status};
         $.ajax({
             type: "POST",
-            url: serverContext + '/activateGame',
+            url: serverContext + '/loyalty/phoneCard/activatePhoneCard',
             data: JSON.stringify(request),
             dataType: "json",
             contentType: "application/json",
@@ -202,7 +196,7 @@ $(document).ready( function () {
                 }
                 
                 resetForm();
-                $('#gamesTable').DataTable().ajax.reload();
+                $('#phoneCardsTable').DataTable().ajax.reload();
             },
             error: function(error) {
                 alert(error);

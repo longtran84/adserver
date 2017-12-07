@@ -11,7 +11,7 @@ public interface AppAdService {
     AppAd findById(Long id);
     void save(AppAd ad);
     void delete(AppAd ad);
-    List<AppAd> getAppAds(String adverEmail);
+    List<AppAd> getAppAds();
     void updateStatus(Long id, String status);
     List<AppReportDTO> appReport(Date from, Date to, String adverEmail);
     List<List<InstallReportDTO>> installsReport(Date from, Date to, long appId);

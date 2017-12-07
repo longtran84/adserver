@@ -23,14 +23,7 @@ public class FlightRestController {
 
     @RequestMapping(path = "/flights", method = RequestMethod.GET)
     public List<Flight> getAllFlights(){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        boolean hasAdminRole = auth.getAuthorities().stream()
-                .anyMatch(r -> (r.getAuthority().equals("ROLE_ADMIN") || r.getAuthority().equals("ROLE_SUPER_ADMIN")));
-        if (hasAdminRole) {
-            return flightService.getAllFlights();
-        } else {
-            return flightService.getFlightByAdvertiser(auth.getName());
-        }
+        return flightService.getAllFlights();
     }
 
     @RequestMapping(value = "/deleteFlight", method = RequestMethod.POST)

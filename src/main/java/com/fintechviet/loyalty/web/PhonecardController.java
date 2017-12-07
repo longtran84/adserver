@@ -1,10 +1,11 @@
-package com.fintechviet.content.web;
+package com.fintechviet.loyalty.web;
 
-import com.fintechviet.content.model.Game;
-import com.fintechviet.content.service.GameService;
-import com.fintechviet.content.validator.GameValidator;
+import com.fintechviet.loyalty.model.Phonecard;
+import com.fintechviet.loyalty.service.PhonecardService;
+import com.fintechviet.loyalty.validator.PhonecardValidator;
 import com.fintechviet.system.model.SystemParameter;
 import com.fintechviet.system.service.SystemParameterService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
@@ -24,46 +25,58 @@ import java.io.IOException;
  * Created by tungn on 9/12/2017.
  */
 @Controller
-public class GameController {
+public class PhonecardController {
     @Autowired
-    private GameService gameService;
+    private PhonecardService phonecardService;
     @Autowired
     private SystemParameterService systemParameterService;
     @Autowired
-    private GameValidator gameValidator;
+    private PhonecardValidator phonecardValidator;
     @Autowired
     private ResourceLoader resourceLoader;
 
-    @RequestMapping(value = "/game", method = RequestMethod.GET)
-    public String game(Model model) {
-        model.addAttribute("gameForm", new Game());
+    @RequestMapping(value = "/loyalty/phoneCard", method = RequestMethod.GET)
+    public String phoneCard(Model model) {
+        model.addAttribute("phoneCardForm", new Phonecard());
 
-        return "game";
+        return "phonecard";
     }
 
-    @RequestMapping(value = "/game", method = RequestMethod.POST)
-    public String game(@ModelAttribute("gameForm") Game gameForm, BindingResult bindingResult) throws IOException {
-        gameValidator.validate(gameForm, bindingResult);
+    @RequestMapping(value = "/loyalty/phoneCard", method = RequestMethod.POST)
+    public String game(@ModelAttribute("phoneCardForm") Phonecard phoneCardForm, BindingResult bindingResult) throws IOException {
+        phonecardValidator.validate(phoneCardForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
-            return "game";
+            return "phonecard";
         }
 
-        MultipartFile file = gameForm.getImageFile();
+        MultipartFile file = phoneCardForm.getImageFile();
         if (!file.getOriginalFilename().isEmpty()) {
-            File folderStore = resourceLoader.getResource("images").getFile();
+            SystemParameter systemParameter = systemParameterService.getById(1);
+            File folderStore = resourceLoader.getResource(systemParameter.getLoyaltyPhoneCardImageFolder()).getFile();
             BufferedOutputStream outputStream = new BufferedOutputStream(
                     new FileOutputStream(
                             new File(folderStore.getAbsolutePath(), file.getOriginalFilename())));
             outputStream.write(file.getBytes());
             outputStream.flush();
             outputStream.close();
-            SystemParameter systemParameter = systemParameterService.getById(1);
-            gameForm.setImage(systemParameter.getGameImagePath() + file.getOriginalFilename());
+            phoneCardForm.setImage(systemParameter.getLoyaltyPhoneCardImagePath() + file.getOriginalFilename());
         }
 
-        gameService.save(gameForm);
+        Phonecard phonecard = null;
+        if (phoneCardForm.getId() != null) {
+            phonecard = phonecardService.findById(phoneCardForm.getId());
+            phonecard.setName(phoneCardForm.getName());
+            phonecard.setPrice(phoneCardForm.getPrice());
+            phonecard.setLegacyId(phoneCardForm.getLegacyId());
+            phonecard.setStatus(phoneCardForm.getStatus());
+            if (StringUtils.isNotEmpty(phoneCardForm.getImage()))
+                phonecard.setImage(phoneCardForm.getImage());
+            phonecardService.save(phonecard);
+        } else {
+            phonecardService.save(phoneCardForm);
+        }
 
-        return "redirect:/game";
+        return "redirect:/loyalty/phoneCard";
     }
 }

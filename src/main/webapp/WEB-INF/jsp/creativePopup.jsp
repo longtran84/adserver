@@ -14,7 +14,6 @@
                         <thead>
                         <tr>
                             <th>Tiêu đề</th>
-                            <th>Nhà quảng cáo</th>
                             <th>Loại</th>
                             <th>Ảnh</th>
                             <th>Video</th>
@@ -27,7 +26,6 @@
                         <tfoot>
                         <tr>
                             <th>Tiêu đề</th>
-                            <th>Nhà quảng cáo</th>
                             <th>Loại</th>
                             <th>Ảnh</th>
                             <th>Video</th>

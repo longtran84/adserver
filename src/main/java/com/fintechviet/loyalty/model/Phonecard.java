@@ -1,5 +1,7 @@
 package com.fintechviet.loyalty.model;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -7,23 +9,37 @@ import java.sql.Timestamp;
  * Created by tungn on 11/9/2017.
  */
 @Entity
-@Table(name = "phonecard", schema = "mobileads", catalog = "")
+@Table(name = "phonecard")
 public class Phonecard {
-    private int id;
+    private Integer id;
+    private String legacyId;
     private String name;
     private String image;
     private Integer price;
     private String status = "NEW";
     private Timestamp createdDate;
+    private MultipartFile imageFile;
+    private String imageName;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
+    }
+
+    @Basic
+    @Column(name = "legacyId")
+    public String getLegacyId() {
+        return legacyId;
+    }
+
+    public void setLegacyId(String legacyId) {
+        this.legacyId = legacyId;
     }
 
     @Basic
@@ -74,6 +90,24 @@ public class Phonecard {
 
     public void setCreatedDate(Timestamp createdDate) {
         this.createdDate = createdDate;
+    }
+
+    @Transient
+    public MultipartFile getImageFile() {
+        return imageFile;
+    }
+
+    public void setImageFile(MultipartFile imageFile) {
+        this.imageFile = imageFile;
+    }
+
+    @Transient
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
     }
 
     @Override

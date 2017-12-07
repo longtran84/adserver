@@ -1,6 +1,5 @@
 package com.fintechviet.user_mobile.model;
 
-import com.fintechviet.ads.model.Advertiser;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -9,6 +8,7 @@ import java.sql.Timestamp;
  * Created by tungn on 10/2/2017.
  */
 @Entity
+@Table(name = "message")
 public class Message {
     private Long id;
     private UserMobile userMobile;

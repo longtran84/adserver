@@ -28,11 +28,6 @@ public class AdServiceImpl implements AdService {
     }
 
     @Override
-    public List<Ad> getAdByAdvertiser(String adverEmail) {
-        return adRepository.findByAdvertiser(adverEmail);
-    }
-
-    @Override
     public void updateStatus(Long id, String status) {
         adRepository.updateStatus(status, id);
     }

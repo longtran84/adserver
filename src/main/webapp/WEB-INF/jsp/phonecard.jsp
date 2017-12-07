@@ -58,15 +58,15 @@
       <div class="alert alert-info alert-dismissible">
         <button type="button" id="close_info" class="close" aria-hidden="true">&times;</button>
         <h4><i class="icon fa fa-info"></i> Thông báo!</h4>
-        Trò chơi đã được xóa thành công!
+        Thẻ điện thoại đã được xóa thành công!
       </div>
       <div class="alert alert-danger alert-dismissible">
         <button type="button" id="close_error" class="close" aria-hidden="true">&times;</button>
         <h4><i class="icon fa fa-ban"></i> Thông báo!</h4>
-        <span>Có lỗi xảy ra khi xóa trò chơi!</span>
+        <span>Có lỗi xảy ra khi xóa thẻ điện thoại!</span>
       </div>
       <h1>
-        Trò chơi
+        Thẻ điện thoại
       </h1>
     </section>
 
@@ -83,16 +83,24 @@
                 <!--<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>-->
               </div>
             </div>
-            <form:form id="gameForm" action="${contextPath}/game" modelAttribute="gameForm" method="post" enctype="multipart/form-data">
+            <form:form id="phoneCardForm" action="${contextPath}/loyalty/phoneCard" modelAttribute="phoneCardForm" method="post" enctype="multipart/form-data">
             <!-- /.box-header -->
             <div class="box-body">
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="name">Tên trò chơi *</label>
-                    <form:input type="text" class="form-control" path="name" id="name" placeholder="Tên trò chơi"/>
+                    <label for="name">Tên *</label>
+                    <form:input type="text" class="form-control" path="name" id="name" placeholder="Tên"/>
                     <form:errors path="name" cssClass="has-error"></form:errors>
                   </div>
+                  <div class="form-group">
+                    <label for="price">Đơn giá *</label>
+                    <form:input type="text" class="form-control" path="price" id="price" placeholder="Đơn giá"/>
+                    <form:errors path="price" cssClass="has-error"></form:errors>
+                  </div>
+                </div>
+                <!-- /.col -->
+                <div class="col-md-6">
                   <div class="form-group">
                     <label for="imageName">Ảnh *</label>
                     <div class="input-group">
@@ -106,14 +114,6 @@
                   </div>
                 </div>
                 <!-- /.col -->
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="link">Đường dẫn trò chơi *</label>
-                    <form:input type="text" class="form-control" path="link" id="link" placeholder="Đường dẫn trò chơi"/>
-                    <form:errors path="link" cssClass="has-error"></form:errors>
-                  </div>
-                </div>
-                <!-- /.col -->
               </div>
               <!-- /.row -->
             </div>
@@ -121,7 +121,7 @@
             <div class="box-footer">
               <form:input type="hidden" id="id" path="id"/>
               <form:input type="hidden" id="status" path="status"/>
-              <!-- <button type="submit" id="createBtn" class="btn btn-primary">Thêm</button> -->
+              <form:input type="hidden" id="legacyId" path="legacyId"/>
 			  <button type="button" id="resetBtn" class="btn btn-success">Nhập Mới</button>	
               <button type="submit" id="editBtn" class="btn btn-primary">Lưu</button>
               <button type="button" id="activateBtn" class="btn btn-danger">Kích hoạt</button>
@@ -134,13 +134,13 @@
             </div>-->
             <!-- /.box-header -->
             <div class="box-body">
-              <table id="gamesTable" class="table table-bordered table-hover dataTable" role="grid">
+              <table id="phoneCardsTable" class="table table-bordered table-hover dataTable" role="grid">
                 <!-- Header Table -->
                 <thead>
                 <tr>
-                  <th>Tên trò chơi</th>
+                  <th>Tên</th>
                   <th>Ảnh</th>
-                  <th>Đường dẫn</th>
+                  <th>Đơn giá</th>
                   <th>Ngày tạo</th>
                   <th>Trạng thái</th>
                   <th>Sửa / Xóa</th>
@@ -149,9 +149,9 @@
                 <!-- Footer Table -->
                 <tfoot>
                 <tr>
-                  <th>Tên trò chơi</th>
+                  <th>Tên</th>
                   <th>Ảnh</th>
-                  <th>Đường dẫn</th>
+                  <th>Đơn giá</th>
                   <th>Ngày tạo</th>
                   <th>Trạng thái</th>
                   <th>Sửa / Xóa</th>
@@ -170,14 +170,14 @@
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Xóa trò chơi</h4>
+            <h4 class="modal-title">Xóa thẻ điện thoại</h4>
           </div>
           <div class="modal-body">
-            <p>Bạn có chắc chắn muốn xóa trò chơi này?</p>
+            <p>Bạn có chắc chắn muốn xóa thẻ điện thoại này?</p>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
-            <button type="button" id="delete_game" class="btn btn-primary">Xóa</button>
+            <button type="button" id="delete_phoneCard" class="btn btn-primary">Xóa</button>
           </div>
         </div>
         <!-- /.modal-content -->
@@ -245,6 +245,6 @@
 <script src="${contextPath}/resources/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <script src="${contextPath}/resources/bower_components/moment/min/moment-with-locales.min.js"></script>
 <script src="${contextPath}/resources/js/common.js"></script>
-<script src="${contextPath}/resources/js/game.js"></script>
+<script src="${contextPath}/resources/js/phonecard.js"></script>
 </body>
 </html>

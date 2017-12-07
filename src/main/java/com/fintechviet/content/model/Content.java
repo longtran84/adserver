@@ -10,6 +10,7 @@ import java.util.Set;
  * Created by tungn on 9/27/2017.
  */
 @Entity
+@Table(name = "content")
 public class Content {
     private long id;
     private String title;

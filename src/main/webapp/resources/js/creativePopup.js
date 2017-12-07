@@ -17,7 +17,6 @@ var creativesTable = $('#creativesTable').DataTable({
     },
     columns: [
         { data: "title" },
-        { data: "advertiser.email" },
         { data: "template" },
         { data: null,
             "render": function (data) {

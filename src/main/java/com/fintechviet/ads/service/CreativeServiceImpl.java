@@ -33,11 +33,6 @@ public class CreativeServiceImpl implements CreativeService {
     }
 
     @Override
-    public List<Creative> getCreativeByAdvertiserAndTemplate(String adverEmail, String template) {
-        return creativeRepository.findByAdvertiserAndTemplate(adverEmail, template);
-    }
-
-    @Override
     public List<Creative> getAllCreatives() {
         return creativeRepository.findAll();
     }
@@ -46,10 +41,5 @@ public class CreativeServiceImpl implements CreativeService {
     public void updateStatus(Long id, String status) {
         creativeRepository.updateStatus(status, id);
     }
-
-	@Override
-	public List<Creative> getCreativeByAdvertiser(String adverEmail) {
-		return creativeRepository.findByAdvertiser(adverEmail);
-	}
 
 }

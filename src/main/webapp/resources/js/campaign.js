@@ -36,7 +36,6 @@ $(document).ready( function () {
         },
          columns: [
          { data: "name" },
-         { data: "advertiser.email" },
          { data: "startDate",
              "type": "date",
              "render": function (data) {
@@ -84,8 +83,6 @@ $(document).ready( function () {
 
     var showDetails = function (data) {
     	$('#campaignForm #id').val(data.id);
-        $('#campaignForm #advertiserId').val(data.advertiser.id);
-        $('#campaignForm #advertiserName').val(data.advertiser.email);
         $('#campaignForm #name').val(data.name);
         $('#campaignForm #startDate').val(formatDate(data.startDate));
         $('#campaignForm #endDate').val(formatDate(data.endDate));
@@ -102,7 +99,6 @@ $(document).ready( function () {
     var resetForm = function () {
         $('#campaignForm')[0].reset();
         $('#campaignForm #id').val(null);
-        $('#campaignForm #advertiserId').val(null);
         
         $('#editBtn').attr('disabled', false);
         $('#activateBtn').attr('disabled', true);

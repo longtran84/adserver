@@ -101,40 +101,19 @@
       </div>
     </section>
     <!-- /.content -->
-    <div class="modal fade" id="modal-delete">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Xóa nhà quảng cáo</h4>
-          </div>
-          <div class="modal-body">
-            <p>Bạn có chắc chắn muốn xóa nhà quảng cáo này?</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
-            <button type="button" id="delete_advertiser" class="btn btn-primary">Xóa</button>
-          </div>
-        </div>
-        <!-- /.modal-content -->
-      </div>
-      <!-- /.modal-dialog -->
     </div>
   </div>
   <!-- /.content-wrapper -->
   <%@ include file = "footer.jsp" %>
 </div>
 <!-- ./wrapper -->
-<script>
-    var serverContext = "${pageContext.request.contextPath}";
-</script>
 <!-- jQuery 3 -->
 <script src="${contextPath}/resources/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="${contextPath}/resources/bower_components/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
+  var serverContext = "${pageContext.request.contextPath}";
   $.widget.bridge('uibutton', $.ui.button);
 </script>
 <!-- Bootstrap 3.3.7 -->

@@ -89,19 +89,7 @@
             <!-- /.box-header -->
             <div class="box-body">
               <div class="row">
-
                 <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="advertiserName">Nhà quảng cáo *</label>
-                    <div class="input-group">
-                      <form:input type="text" class="form-control" path="advertiserName" id="advertiserName" placeholder="Nhà quảng cáo" autofocus="true" readonly="true"/>
-                      <form:input type="hidden" path="advertiser.id" id="advertiserId"/>
-                      <span class="input-group-btn">
-                      <button type="button" class="btn btn-info btn-flat" data-toggle="modal" data-target="#modal-choose-advertiser">...</button>
-                    </span>
-                    </div>
-                    <form:errors path="advertiser.id" cssClass="has-error"></form:errors>
-                  </div>
                   <div class="form-group">
                     <label for="name">Tên *</label>
                     <form:input type="text" class="form-control" path="name" id="name" placeholder="Tên"/>
@@ -193,7 +181,6 @@
                 <thead>
                 <tr>
                   <th>Tên</th>
-                  <th>Nhà quảng cáo</th>
                   <th>Ngày bắt đầu</th>
                   <th>Ngày kết thúc</th>
                   <th>Ngày tạo</th>
@@ -205,7 +192,6 @@
                 <tfoot>
                 <tr>
                   <th>Tên</th>
-                  <th>Nhà quảng cáo</th>
                   <th>Ngày bắt đầu</th>
                   <th>Ngày kết thúc</th>
                   <th>Ngày tạo</th>
@@ -242,7 +228,6 @@
     </div>
   </div>
   <!-- /.content-wrapper -->
-  <%@ include file = "advertiserPopup.jsp" %>
   <%@ include file = "footer.jsp" %>
 </div>
 <!-- ./wrapper -->
@@ -276,7 +261,6 @@
 <script src="${contextPath}/resources/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <script src="${contextPath}/resources/bower_components/moment/min/moment-with-locales.min.js"></script>
 <script src="${contextPath}/resources/js/common.js"></script>
-<script src="${contextPath}/resources/js/advertiserPopup.js"></script>
 <script src="${contextPath}/resources/js/campaign.js"></script>
 </body>
 </html>

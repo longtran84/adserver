@@ -1,7 +1,6 @@
 package com.fintechviet.loyalty.validator;
 
-import com.fintechviet.content.model.Game;
-import com.fintechviet.loyalty.model.Phonecard;
+import com.fintechviet.loyalty.model.Voucher;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -9,28 +8,36 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 @Component
-public class PhonecardValidator implements Validator {
+public class VoucherValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> aClass) {
-        return Phonecard.class.equals(aClass);
+        return Voucher.class.equals(aClass);
     }
 
     @Override
     public void validate(Object o, Errors errors) {
-        Phonecard phonecard = (Phonecard) o;
+        Voucher voucher = (Voucher) o;
 
         //For Name
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "gameForm.name.empty");
-        if (phonecard.getName().length()  > 100) {
-            errors.rejectValue("name", "phoneCardForm.name.size");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "voucherForm.name.empty");
+        if (voucher.getName().length()  > 255) {
+            errors.rejectValue("name", "voucherForm.name.size");
         }
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "price", "phoneCardForm.price.empty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "type", "voucherForm.type.empty");
 
-        if (phonecard.getId() == null) {
-            if (StringUtils.isEmpty(phonecard.getImageFile().getOriginalFilename())) {
-                errors.rejectValue("imageFile", "phoneCardForm.imageFile.empty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "description", "voucherForm.description.empty");
+
+        //ValidationUtils.rejectIfEmptyOrWhitespace(errors, "marketPrice", "voucherForm.marketPrice.empty");
+
+        //ValidationUtils.rejectIfEmptyOrWhitespace(errors, "price", "voucherForm.price.empty");
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "quantity", "voucherForm.quantity.empty");
+
+        if (voucher.getId() == null) {
+            if (StringUtils.isEmpty(voucher.getPictureFile().getOriginalFilename())) {
+                errors.rejectValue("pictureFile", "voucherForm.pictureFile.empty");
             }
         }
     }

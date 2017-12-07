@@ -21,20 +21,10 @@ public interface CampaignRepository extends JpaRepository<Campaign, Long> {
             " (SELECT 0 i UNION SELECT 1 UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6 UNION SELECT 7 UNION SELECT 8 UNION SELECT 9) t3," +
             " (SELECT 0 i UNION SELECT 1 UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6 UNION SELECT 7 UNION SELECT 8 UNION SELECT 9) t4) v ";
 
-    @Query("SELECT cpa FROM Campaign cpa WHERE cpa.advertiser.email = :email")
-    List<Campaign> findByAdvertiser(@Param("email") String email);
-
     @Modifying
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     @Query("UPDATE Campaign SET status = :status WHERE id = :id")
     void updateStatus(@Param("status") String status, @Param("id") Long id);
-
-    //Query campaign activities by range date and admin
-    @Query("SELECT cpa, (SELECT COUNT(adi.impression) FROM AdImpressions adi WHERE adi.ad.flight.campaign.id = cpa.id AND adi.date BETWEEN :from AND :to) AS impressions, " +
-           "(SELECT COUNT(adc.id) FROM AdClicks adc WHERE adc.ad.flight.campaign.id = cpa.id AND adc.date BETWEEN :from AND :to) AS clicks, " +
-           "(SELECT COUNT(adv.id) FROM AdViews adv WHERE adv.ad.flight.campaign.id = cpa.id AND adv.date BETWEEN :from AND :to) AS views " +
-           "FROM Campaign cpa WHERE cpa.advertiser.email = :email")
-    List<Object[]> campaignReportByAdvertiser(@Param("from") @Temporal(TemporalType.TIMESTAMP) Date from, @Param("to") @Temporal(TemporalType.TIMESTAMP) Date to, @Param("email") String email);
 
     //Query campaign activities by range date and advertiser
     @Query("SELECT cpa, (SELECT COUNT(adi.impression) FROM AdImpressions adi WHERE adi.ad.flight.campaign.id = cpa.id AND adi.date BETWEEN :from AND :to) AS impressions, " +

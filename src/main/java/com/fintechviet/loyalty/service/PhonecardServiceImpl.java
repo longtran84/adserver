@@ -1,34 +1,44 @@
-package com.fintechviet.content.service;
+package com.fintechviet.loyalty.service;
 
-import com.fintechviet.content.model.Game;
-import com.fintechviet.content.repository.GameRepository;
+import com.fintechviet.loyalty.model.Phonecard;
+import com.fintechviet.loyalty.respository.PhonecardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class GameServiceImpl implements GameService {
+public class PhonecardServiceImpl implements PhonecardService {
     @Autowired
-    private GameRepository gameRepository;
+    private PhonecardRepository phonecardRepository;
 
     @Override
-    public void save(Game game) {
-        gameRepository.save(game);
+    public Phonecard findById(Integer id) {
+        return phonecardRepository.findOne(id);
     }
 
     @Override
-    public void delete(Game game) {
-        gameRepository.delete(game);
+    public void save(Phonecard phonecard) {
+        phonecardRepository.save(phonecard);
     }
 
     @Override
-    public List<Game> getGames() {
-        return gameRepository.findAll();
+    public void delete(Phonecard phonecard) {
+        phonecardRepository.delete(phonecard);
+    }
+
+    @Override
+    public List<Phonecard> getPhonecards() {
+        return phonecardRepository.findAll();
     }
 
     @Override
     public void updateStatus(Integer id, String status) {
-        gameRepository.updateStatus(status, id);
+        phonecardRepository.updateStatus(status, id);
+    }
+
+    @Override
+    public String findPhoneCardCodeByPhoneCardId(Integer phoneCardId) {
+        return phonecardRepository.findPhoneCardCodeByPhoneCardId(phoneCardId);
     }
 }

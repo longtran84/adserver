@@ -9,6 +9,7 @@ import java.sql.Timestamp;
  * Created by tungn on 10/4/2017.
  */
 @Entity
+@Table(name = "game")
 public class Game {
     private Integer id;
     private String name;

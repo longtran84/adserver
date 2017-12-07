@@ -10,11 +10,15 @@ import org.springframework.context.annotation.Import;
 
 @ComponentScan(basePackages = "com.fintechviet")
 @Import({ConfigureQuartz.class})
-@SpringBootApplication
+@SpringBootApplication(exclude = {
+		org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration.class,
+		org.activiti.spring.boot.SecurityAutoConfiguration.class,
+		org.springframework.boot.actuate.autoconfigure.ManagementWebSecurityAutoConfiguration.class })
 public class MobileadsApplication extends SpringBootServletInitializer {
 
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+		setRegisterErrorPageFilter(false);
 		return application.sources(MobileadsApplication.class);
 	}
 	public static void main(String[] args) throws Exception {

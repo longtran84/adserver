@@ -5,7 +5,7 @@ import java.util.Date;
 
 
 @Entity
-@Table(name = "user_mobile_lucky_number", schema = "mobileads", catalog = "")
+@Table(name = "user_mobile_lucky_number")
 public class UserMobileLuckyNumber {
 
     private Long id;

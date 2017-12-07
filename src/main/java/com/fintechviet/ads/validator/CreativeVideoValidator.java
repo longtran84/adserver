@@ -23,10 +23,6 @@ public class CreativeVideoValidator implements Validator {
     public void validate(Object o, Errors errors) {
         Creative creative = (Creative) o;
 
-        if (creative.getAdvertiser().getId() == null) {
-            errors.rejectValue("advertiser.id", "creativeForm.advertiser.empty");
-        }
-
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "title", "creativeForm.title.empty");
         if (creative.getTitle().length()  > 100) {
             errors.rejectValue("title", "creativeForm.title.size");

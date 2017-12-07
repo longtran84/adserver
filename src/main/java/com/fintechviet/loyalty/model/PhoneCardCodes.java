@@ -6,10 +6,10 @@ import javax.persistence.*;
  * Created by tungn on 11/21/2017.
  */
 @Entity
-@Table(name = "phone_card_codes", schema = "mobileads", catalog = "")
+@Table(name = "phone_card_codes")
 public class PhoneCardCodes {
     private int id;
-    private Integer phoneCardId;
+    private Phonecard phonecard;
     private String code;
     private Byte isDeliver;
 
@@ -23,14 +23,14 @@ public class PhoneCardCodes {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "phoneCardId")
-    public Integer getPhoneCardId() {
-        return phoneCardId;
+    @ManyToOne
+    @JoinColumn(name = "phoneCardId")
+    public Phonecard getPhonecard() {
+        return phonecard;
     }
 
-    public void setPhoneCardId(Integer phoneCardId) {
-        this.phoneCardId = phoneCardId;
+    public void setPhonecard(Phonecard phonecard) {
+        this.phonecard = phonecard;
     }
 
     @Basic
@@ -61,7 +61,6 @@ public class PhoneCardCodes {
         PhoneCardCodes that = (PhoneCardCodes) o;
 
         if (id != that.id) return false;
-        if (phoneCardId != null ? !phoneCardId.equals(that.phoneCardId) : that.phoneCardId != null) return false;
         if (code != null ? !code.equals(that.code) : that.code != null) return false;
         if (isDeliver != null ? !isDeliver.equals(that.isDeliver) : that.isDeliver != null) return false;
 
@@ -71,7 +70,6 @@ public class PhoneCardCodes {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + (phoneCardId != null ? phoneCardId.hashCode() : 0);
         result = 31 * result + (code != null ? code.hashCode() : 0);
         result = 31 * result + (isDeliver != null ? isDeliver.hashCode() : 0);
         return result;

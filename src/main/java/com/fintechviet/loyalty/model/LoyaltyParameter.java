@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Created by tungn on 11/21/2017.
  */
 @Entity
-@Table(name = "loyalty_parameter", schema = "mobileads", catalog = "")
+@Table(name = "loyalty_parameter")
 public class LoyaltyParameter {
     private int id;
     private String name;

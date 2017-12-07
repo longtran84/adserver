@@ -1,6 +1,7 @@
 $(document).ready( function () {
     var dateFrom = getCurrentDate();
     var dateTo = getCurrentDate();
+    $.fn.dataTable.moment('DD/MM/YYYY');
 
     var formatDate  = function (data) {
         if (data === null || data === '') return "";

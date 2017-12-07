@@ -1,34 +1,44 @@
 package com.fintechviet.loyalty.service;
 
-import com.fintechviet.loyalty.model.Phonecard;
-import com.fintechviet.loyalty.respository.PhonecardRepository;
+import com.fintechviet.loyalty.model.Voucher;
+import com.fintechviet.loyalty.respository.VoucherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class PhonecardServiceImpl implements PhonecardService {
+public class VoucherServiceImpl implements VoucherService {
     @Autowired
-    private PhonecardRepository phonecardRepository;
+    private VoucherRepository voucherRepository;
 
     @Override
-    public void save(Phonecard phonecard) {
-        phonecardRepository.save(phonecard);
+    public Voucher findById(Integer id) {
+        return voucherRepository.findOne(id);
     }
 
     @Override
-    public void delete(Phonecard phonecard) {
-        phonecardRepository.delete(phonecard);
+    public void save(Voucher voucher) {
+        voucherRepository.save(voucher);
     }
 
     @Override
-    public List<Phonecard> getPhonecards() {
-        return phonecardRepository.findAll();
+    public void delete(Voucher voucher) {
+        voucherRepository.delete(voucher);
+    }
+
+    @Override
+    public List<Voucher> getVouchers() {
+        return voucherRepository.findAll();
     }
 
     @Override
     public void updateStatus(Integer id, String status) {
-        phonecardRepository.updateStatus(status, id);
+        voucherRepository.updateStatus(status, id);
+    }
+
+    @Override
+    public String findVoucherCodeByVoucherId(Integer voucherId) {
+        return voucherRepository.findVoucherCodeByVoucherId(voucherId);
     }
 }

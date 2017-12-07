@@ -11,12 +11,12 @@ $(document).ready( function () {
         return moment(date).format('DD/MM/YYYY HH:mm:ss');
     }
 
-    $('#imageFileBtn').on('click', function(e){
+    $('#pictureFileBtn').on('click', function(e){
         e.preventDefault();
-        $('#imageFile').click();
+        $('#pictureFile').click();
     });
 
-    $('#imageFile').on('change', function () {
+    $('#pictureFile').on('change', function () {
         var files = this.files;
         if (!files.length) {
             return;
@@ -28,11 +28,11 @@ $(document).ready( function () {
            $('#modal-file-error').modal();
            return;
         }
-        $('#imageName').val(fileName);
+        $('#pictureName').val(fileName);
     });
 
-    var table = $('#phoneCardsTable').DataTable({
-			sAjaxSource: serverContext + "/loyalty/phoneCards",
+    var table = $('#vouchersTable').DataTable({
+			sAjaxSource: serverContext + "/loyalty/vouchers",
 			sAjaxDataProp: "",
             responsive: true,
 			order: [[ 0, "asc" ]],
@@ -50,12 +50,27 @@ $(document).ready( function () {
             },
              columns: [
              { data: "name" },
+             {   data: null,
+                     "render": function (data) {
+                         if (data.type === 'PHYSICAL_VOUCHER') {
+                             return 'Voucher giấy';
+                         } else {
+                             return 'E-voucher';
+                         }
+                     }
+             },
              { data: null,
                  "render": function (data) {
-                     return '<img src="'+ data.image + '" alt="image" width="200" height="200" />';
+                     return '<img src="'+ data.picture + '" alt="picture" width="200" height="200" />';
                  }
              },
+             { data: "marketPrice",
+                 render: $.fn.dataTable.render.number( '.')
+             },
              { data: "price",
+                 render: $.fn.dataTable.render.number( '.')
+             },
+             { data: "quantity",
                  render: $.fn.dataTable.render.number( '.')
              },
              { data: "createdDate",
@@ -92,28 +107,32 @@ $(document).ready( function () {
 	 });
 
     var showDetails = function (data) {
-        $('#phoneCardForm #name').val(data.name);
-        var lastIndex = data.image.lastIndexOf("/");
-        $('#phoneCardForm #imageName').val(data.image.substring(lastIndex + 1));
-        $('#phoneCardForm #price').val(data.price);
-        $('#phoneCardForm #id').val(data.id);
-        $('#phoneCardForm #status').val(data.status);
-        $('#phoneCardForm #legacyId').val(data.legacyId);
+        $('#voucherForm #name').val(data.name);
+        var lastIndex = data.picture.lastIndexOf("/");
+        $('#voucherForm #pictureName').val(data.picture.substring(lastIndex + 1));
+        $('#voucherForm #marketPrice').val(data.marketPrice);
+        $('#voucherForm #price').val(data.price);
+        $('#voucherForm #quantity').val(data.quantity);
+        CKEDITOR.instances.contentEditor.setData(data.description);
+        $('#voucherForm #id').val(data.id);
+        $('#voucherForm #status').val(data.status);
+        $('#voucherForm #legacyId').val(data.legacyId);
+        $('#type option[value="' + data.type + '"]').attr('selected', true);
     };
     
     var resetForm = function () {
-        $('#phoneCardForm')[0].reset();
+        $('#voucherForm')[0].reset();
         
-        $('#phoneCardForm #id').val(null);
-        $('#phoneCardForm #status').val(null);
-        $('#phoneCardForm #legacyId').val(null);
+        $('#voucherForm #id').val(null);
+        $('#voucherForm #status').val(null);
+        $('#voucherForm #legacyId').val(null);
         
         $('#editBtn').attr('disabled', false);
         $('#activateBtn').attr('disabled', true);
     };
 
     // Edit record
-    $('#phoneCardsTable tbody').on( 'click', 'a.editor_edit', function (e) {
+    $('#vouchersTable tbody').on( 'click', 'a.editor_edit', function (e) {
         e.preventDefault();
         $('#editBtn').attr('disabled', false);
         /*$('#createBtn').attr('disabled', true);*/
@@ -122,24 +141,24 @@ $(document).ready( function () {
     });
 
     // Delete a record
-    $('#phoneCardsTable tbody').on( 'click', 'a.editor_remove', function (e) {
+    $('#vouchersTable tbody').on( 'click', 'a.editor_remove', function (e) {
         e.preventDefault();
         data = table.row( $(this).parents('tr') ).data();
         $('#modal-delete').modal();
     });
 
-    $('#delete_phoneCard').click(function(){
+    $('#delete_voucher').click(function(){
         var request = {id: data.id};
         $.ajax({
             type: "POST",
-            url: serverContext + '/loyalty/phoneCard/deletePhoneCard',
+            url: serverContext + '/loyalty/phoneCard/deleteVoucher',
             data: JSON.stringify(request),
             dataType: "json",
             contentType: "application/json",
             success: function (result) {
                 $('#modal-delete').modal('hide');
                 $('.alert-info').attr('style','display: block');
-                $('#phoneCardsTable').DataTable().ajax.reload();
+                $('#vouchersTable').DataTable().ajax.reload();
                 
                 resetForm();
             },
@@ -150,7 +169,7 @@ $(document).ready( function () {
         });
     });
 
-    $('#phoneCardsTable tbody').on( 'click', 'tr', function () {
+    $('#vouchersTable tbody').on( 'click', 'tr', function () {
         if ( $(this).hasClass('success') ) {
             $(this).removeClass('success');
         }
@@ -184,7 +203,7 @@ $(document).ready( function () {
         var request = {id: data.id, status: data.status};
         $.ajax({
             type: "POST",
-            url: serverContext + '/loyalty/phoneCard/activatePhoneCard',
+            url: serverContext + '/loyalty/phoneCard/activateVoucher',
             data: JSON.stringify(request),
             dataType: "json",
             contentType: "application/json",
@@ -196,7 +215,7 @@ $(document).ready( function () {
                 }
                 
                 resetForm();
-                $('#phoneCardsTable').DataTable().ajax.reload();
+                $('#vouchersTable').DataTable().ajax.reload();
             },
             error: function(error) {
                 alert(error);

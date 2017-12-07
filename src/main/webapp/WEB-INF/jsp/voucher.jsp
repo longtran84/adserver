@@ -58,15 +58,15 @@
       <div class="alert alert-info alert-dismissible">
         <button type="button" id="close_info" class="close" aria-hidden="true">&times;</button>
         <h4><i class="icon fa fa-info"></i> Thông báo!</h4>
-        Thẻ điện thoại đã được xóa thành công!
+        Voucher đã được xóa thành công!
       </div>
       <div class="alert alert-danger alert-dismissible">
         <button type="button" id="close_error" class="close" aria-hidden="true">&times;</button>
         <h4><i class="icon fa fa-ban"></i> Thông báo!</h4>
-        <span>Có lỗi xảy ra khi xóa thẻ điện thoại!</span>
+        <span>Có lỗi xảy ra khi xóa thẻ voucher!</span>
       </div>
       <h1>
-        Thẻ điện thoại
+        Voucher
       </h1>
     </section>
 
@@ -83,7 +83,7 @@
                 <!--<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>-->
               </div>
             </div>
-            <form:form id="phoneCardForm" action="${contextPath}/loyalty/phoneCard" modelAttribute="phoneCardForm" method="post" enctype="multipart/form-data">
+            <form:form id="voucherForm" action="${contextPath}/loyalty/voucher" modelAttribute="voucherForm" method="post" enctype="multipart/form-data">
             <!-- /.box-header -->
             <div class="box-body">
               <div class="row">
@@ -94,23 +94,48 @@
                     <form:errors path="name" cssClass="has-error"></form:errors>
                   </div>
                   <div class="form-group">
-                    <label for="price">Đơn giá *</label>
-                    <form:input type="text" class="form-control" path="price" id="price" placeholder="Đơn giá"/>
-                    <form:errors path="name" cssClass="has-error"></form:errors>
+                    <label for="type">Loại *</label>
+                    <form:select class="form-control" path="type" id="type">
+                      <option value="E_VOUCHER">E-voucher</option>
+                      <option value="PHYSICAL_VOUCHER">Voucher giấy</option>
+                    </form:select>
+                    <form:errors path="type" cssClass="has-error"></form:errors>
+                  </div>
+                  <div class="form-group">
+                    <label for="pictureName">Ảnh *</label>
+                    <div class="input-group">
+                      <form:input type="text" class="form-control" id="pictureName" path="pictureName" placeholder="Ảnh" autofocus="true" readonly="true"/>
+                      <span class="input-group-btn">
+                        <button type="button" class="btn btn-info btn-flat" id="pictureFileBtn">Chọn ảnh...</button>
+                      </span>
+                      <form:input type="file" id="pictureFile" path="pictureFile"/>
+                    </div>
+                    <form:errors path="pictureFile" cssClass="has-error"></form:errors>
                   </div>
                 </div>
                 <!-- /.col -->
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="imageName">Ảnh *</label>
-                    <div class="input-group">
-                      <form:input type="text" class="form-control" id="imageName" path="imageName" placeholder="Ảnh" autofocus="true" readonly="true"/>
-                      <span class="input-group-btn">
-                        <button type="button" class="btn btn-info btn-flat" id="imageFileBtn">Chọn ảnh...</button>
-                      </span>
-                      <form:input type="file" id="imageFile" path="imageFile"/>
-                    </div>
-                    <form:errors path="imageFile" cssClass="has-error"></form:errors>
+                    <label for="marketPrice">Giá thị trường</label>
+                    <form:input type="text" class="form-control" path="marketPrice" id="marketPrice" placeholder="Giá thị trường"/>
+                    <form:errors path="marketPrice" cssClass="has-error"></form:errors>
+                  </div>
+                  <div class="form-group">
+                    <label for="price">Đơn giá </label>
+                    <form:input type="text" class="form-control" path="price" id="price" placeholder="Đơn giá"/>
+                    <form:errors path="price" cssClass="has-error"></form:errors>
+                  </div>
+                  <div class="form-group">
+                    <label for="quantity">Số lượng *</label>
+                    <form:input type="text" class="form-control" path="quantity" id="quantity" placeholder="Số lượng"/>
+                    <form:errors path="quantity" cssClass="has-error"></form:errors>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="description">Thông tin chi tiết *</label>
+                    <form:textarea id="contentEditor" path="description" name="contentEditor" rows="" cols="80"/>
+                    <form:errors path="description" cssClass="has-error"></form:errors>
                   </div>
                 </div>
                 <!-- /.col -->
@@ -134,13 +159,16 @@
             </div>-->
             <!-- /.box-header -->
             <div class="box-body">
-              <table id="phoneCardsTable" class="table table-bordered table-hover dataTable" role="grid">
+              <table id="vouchersTable" class="table table-bordered table-hover dataTable" role="grid">
                 <!-- Header Table -->
                 <thead>
                 <tr>
                   <th>Tên</th>
+                  <th>Loại</th>
                   <th>Ảnh</th>
-                  <th>Giá tiền</th>
+                  <th>Giá thị trường</th>
+                  <th>Đơn giá</th>
+                  <th>Số lượng</th>
                   <th>Ngày tạo</th>
                   <th>Trạng thái</th>
                   <th>Sửa / Xóa</th>
@@ -150,8 +178,11 @@
                 <tfoot>
                 <tr>
                   <th>Tên</th>
+                  <th>Loại</th>
                   <th>Ảnh</th>
-                  <th>Giá tiền</th>
+                  <th>Giá thị trường</th>
+                  <th>Đơn giá</th>
+                  <th>Số lượng</th>
                   <th>Ngày tạo</th>
                   <th>Trạng thái</th>
                   <th>Sửa / Xóa</th>
@@ -170,10 +201,10 @@
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Xóa thẻ điện thoại</h4>
+            <h4 class="modal-title">Xóa voucher</h4>
           </div>
           <div class="modal-body">
-            <p>Bạn có chắc chắn muốn xóa thẻ điện thoại này?</p>
+            <p>Bạn có chắc chắn muốn xóa voucher này?</p>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
@@ -229,9 +260,12 @@
 <script src="${contextPath}/resources/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="${contextPath}/resources/bower_components/jquery-ui/jquery-ui.min.js"></script>
+<!-- CK Editor -->
+<script src="${contextPath}/resources/bower_components/ckeditor/ckeditor.js"></script>
 <script>
   var serverContext = "${pageContext.request.contextPath}";
   $.widget.bridge('uibutton', $.ui.button);
+  CKEDITOR.replace('contentEditor')
 </script>
 <!-- Bootstrap 3.3.7 -->
 <script src="${contextPath}/resources/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -245,6 +279,6 @@
 <script src="${contextPath}/resources/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <script src="${contextPath}/resources/bower_components/moment/min/moment-with-locales.min.js"></script>
 <script src="${contextPath}/resources/js/common.js"></script>
-<script src="${contextPath}/resources/js/phonecard.js"></script>
+<script src="${contextPath}/resources/js/voucher.js"></script>
 </body>
 </html>

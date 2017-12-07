@@ -18,7 +18,6 @@ var campaignsTable = $('#campaignsTable').DataTable({
     },
     columns: [
         { data: "name" },
-        { data: "advertiser.email" },
         { data: "startDate",
             "type": "date",
             "render": function (data) {

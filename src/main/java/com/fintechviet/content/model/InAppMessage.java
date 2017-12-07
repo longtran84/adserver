@@ -7,7 +7,7 @@ import java.sql.Timestamp;
  * Created by tungn on 10/25/2017.
  */
 @Entity
-@Table(name = "in_app_message", schema = "mobileads", catalog = "")
+@Table(name = "in_app_message")
 public class InAppMessage {
     private Long id;
     private String subject;

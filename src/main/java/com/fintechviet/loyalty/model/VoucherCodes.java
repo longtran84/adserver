@@ -6,10 +6,10 @@ import javax.persistence.*;
  * Created by tungn on 11/21/2017.
  */
 @Entity
-@Table(name = "voucher_codes", schema = "mobileads", catalog = "")
+@Table(name = "voucher_codes")
 public class VoucherCodes {
     private int id;
-    private Integer voucherId;
+    private Voucher voucher;
     private String code;
     private Byte isDeliver;
 
@@ -23,14 +23,14 @@ public class VoucherCodes {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "voucherId")
-    public Integer getVoucherId() {
-        return voucherId;
+    @ManyToOne
+    @JoinColumn(name = "voucherId")
+    public Voucher getVoucher() {
+        return voucher;
     }
 
-    public void setVoucherId(Integer voucherId) {
-        this.voucherId = voucherId;
+    public void setVoucher(Voucher voucher) {
+        this.voucher = voucher;
     }
 
     @Basic
@@ -61,7 +61,6 @@ public class VoucherCodes {
         VoucherCodes that = (VoucherCodes) o;
 
         if (id != that.id) return false;
-        if (voucherId != null ? !voucherId.equals(that.voucherId) : that.voucherId != null) return false;
         if (code != null ? !code.equals(that.code) : that.code != null) return false;
         if (isDeliver != null ? !isDeliver.equals(that.isDeliver) : that.isDeliver != null) return false;
 
@@ -71,7 +70,6 @@ public class VoucherCodes {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + (voucherId != null ? voucherId.hashCode() : 0);
         result = 31 * result + (code != null ? code.hashCode() : 0);
         result = 31 * result + (isDeliver != null ? isDeliver.hashCode() : 0);
         return result;

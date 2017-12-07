@@ -41,9 +41,6 @@
                                 <sec:authorize access="hasRole('ROLE_ADMIN')">
                                    <a href="${contextPath}/admin_profile" class="btn btn-default btn-flat">Thông tin tài khoản</a>
                                 </sec:authorize>
-                                <sec:authorize access="!hasRole('ROLE_ADMIN')">
-                                    <a href="${contextPath}/advertiser_profile" class="btn btn-default btn-flat">Thông tin tài khoản</a>
-                                </sec:authorize>
                             </div>
                             <div class="pull-right">
                                 <c:if test="${pageContext.request.userPrincipal.name != null}">

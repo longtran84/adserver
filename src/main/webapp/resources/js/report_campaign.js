@@ -49,7 +49,6 @@ $(document).ready( function () {
         },
         columns: [
             { data: "campaign.name" },
-            { data: "campaign.advertiser.email" },
             { data: "campaign.startDate",
                 "type": "date",
                 "render": function (data) {

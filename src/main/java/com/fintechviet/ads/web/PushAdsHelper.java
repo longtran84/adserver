@@ -17,7 +17,7 @@ public class PushAdsHelper {
     private final static String AUTH_KEY_FCM = "AIzaSyDJfLSg6HEBQyVnt7_oRcTa3B5pt50ubv8";
     private final static String API_URL_FCM = "https://fcm.googleapis.com/fcm/send";
     private final static String APP_ID = "1:373715018719:android:f1f1b5b6d977e750";
-    private final static String DOMAIN = "http://10.0.2.2:9000";
+    private final static String DOMAIN = "http://222.252.16.132:9000";
 
     public static String sendPushAds(Ad ad)
             throws IOException {
@@ -43,7 +43,7 @@ public class PushAdsHelper {
 
             JSONObject data = new JSONObject();
 
-            data.put("message", "Advertising from Fintechviet");
+            data.put("message", "Advertising from SMA");
             data.put("image", ad.getCreative().getImageLink());
             data.put("impressionUrl", DOMAIN + "/ad/impression/" + ad.getId());
             data.put("clickUrl", ad.getCreative().getClickUrl());

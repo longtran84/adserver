@@ -11,7 +11,7 @@ import java.util.Set;
  * Created by tungn on 9/12/2017.
  */
 @Entity
-@Table(name = "news_category", schema = "mobileads", catalog = "")
+@Table(name = "news_category")
 public class NewsCategory {
     private Long id;
     private String code;

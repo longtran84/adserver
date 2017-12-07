@@ -9,7 +9,8 @@ import java.sql.Timestamp;
  * Created by tungn on 11/9/2017.
  */
 @Entity
-public class Order {
+@Table(name = "order_loyalty")
+public class OrderLoyalty {
     private long id;
     private UserMobile userMobile;
     private Phonecard phoneCard;
@@ -22,8 +23,10 @@ public class Order {
     private String customerName;
     private String address;
     private String phone;
+    private String email;
     private String status;
     private Timestamp createdDate;
+    private String processInstanceId;
 
     @Id
     @Column(name = "id")
@@ -146,6 +149,16 @@ public class Order {
     }
 
     @Basic
+    @Column(name = "email")
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @Basic
     @Column(name = "status")
     public String getStatus() {
         return status;
@@ -165,12 +178,22 @@ public class Order {
         this.createdDate = createdDate;
     }
 
+    @Basic
+    @Column(name = "processInstanceId")
+    public String getProcessInstanceId() {
+        return processInstanceId;
+    }
+
+    public void setProcessInstanceId(String processInstanceId) {
+        this.processInstanceId = processInstanceId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Order order = (Order) o;
+        OrderLoyalty order = (OrderLoyalty) o;
 
         if (id != order.id) return false;
         if (quantity != null ? !quantity.equals(order.quantity) : order.quantity != null) return false;

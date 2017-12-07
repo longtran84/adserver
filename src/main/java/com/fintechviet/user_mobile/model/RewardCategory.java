@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Created by tungn on 10/2/2017.
  */
 @Entity
-@Table(name = "reward_category", schema = "mobileads", catalog = "")
+@Table(name = "reward_category")
 public class RewardCategory {
     private int id;
     private String rewardCode;

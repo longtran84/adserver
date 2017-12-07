@@ -11,9 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 public interface FlightRepository extends JpaRepository<Flight, Long> {
-    @Query("SELECT fli FROM Flight fli WHERE fli.campaign.advertiser.email = :email")
-    List<Flight> findByAdvertiser(@Param("email") String email);
-
     @Modifying
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     @Query("UPDATE Flight SET status = :status WHERE id = :id")
