@@ -2,7 +2,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
@@ -29,6 +28,8 @@
   <link rel="stylesheet" href="${contextPath}/resources/dist/css/skins/_all-skins.min.css">
   <!-- DataTables -->
   <link rel="stylesheet" href="${contextPath}/resources/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+  <!-- bootstrap datepicker -->
+  <link rel="stylesheet" href="${contextPath}/resources/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
   <link href="${contextPath}/resources/css/common.css" rel="stylesheet">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -57,15 +58,15 @@
       <div class="alert alert-info alert-dismissible">
         <button type="button" id="close_info" class="close" aria-hidden="true">&times;</button>
         <h4><i class="icon fa fa-info"></i> Thông báo!</h4>
-        Nhà quảng cáo đã được xóa thành công!
+        Thẻ điện thoại đã được xóa thành công!
       </div>
       <div class="alert alert-danger alert-dismissible">
         <button type="button" id="close_error" class="close" aria-hidden="true">&times;</button>
         <h4><i class="icon fa fa-ban"></i> Thông báo!</h4>
-        <span>Có lỗi xảy ra khi xóa nhà quảng cáo.</span>
+        <span>Có lỗi xảy ra khi xóa thẻ điện thoại!</span>
       </div>
       <h1>
-        Nhà quảng cáo
+        Thẻ điện thoại
       </h1>
     </section>
 
@@ -82,41 +83,35 @@
                 <!--<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>-->
               </div>
             </div>
-            <form:form id="advertiserForm" action="${contextPath}/advertiser" modelAttribute="advertiserForm" method="post">
+            <form:form id="phoneCardForm" action="${contextPath}/loyalty/phoneCard" modelAttribute="phoneCardForm" method="post" enctype="multipart/form-data">
             <!-- /.box-header -->
             <div class="box-body">
               <div class="row">
-
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="email">Email *</label>
-                    <form:input type="email" class="form-control" path="email" id="email" placeholder="Email" autofocus="true"/>
-                    <form:errors path="email" cssClass="has-error"></form:errors>
+                    <label for="name">Tên *</label>
+                    <form:input type="text" class="form-control" path="name" id="name" placeholder="Tên"/>
+                    <form:errors path="name" cssClass="has-error"></form:errors>
                   </div>
                   <div class="form-group">
-                    <label for="fullName">Họ tên *</label>
-                    <form:input type="text" class="form-control" path="fullName" id="fullName" placeholder="Họ tên"/>
-                    <form:errors path="fullName" cssClass="has-error"></form:errors>
-                  </div>
-                  <div class="form-group">
-                    <label for="phone">Điện thoại *</label>
-                    <form:input type="text" class="form-control" path="phone" id="phone" placeholder="Điện thoại"/>
-                    <form:errors path="phone" cssClass="has-error"></form:errors>
+                    <label for="price">Đơn giá *</label>
+                    <form:input type="text" class="form-control" path="price" id="price" placeholder="Đơn giá"/>
+                    <form:errors path="name" cssClass="has-error"></form:errors>
                   </div>
                 </div>
                 <!-- /.col -->
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="companyName">Tên công ty *</label>
-                    <form:input type="text" class="form-control" path="companyName" id="companyName" placeholder="Tên công ty"/>
-                    <form:errors path="companyName" cssClass="has-error"></form:errors>
+                    <label for="imageName">Ảnh *</label>
+                    <div class="input-group">
+                      <form:input type="text" class="form-control" id="imageName" path="imageName" placeholder="Ảnh" autofocus="true" readonly="true"/>
+                      <span class="input-group-btn">
+                        <button type="button" class="btn btn-info btn-flat" id="imageFileBtn">Chọn ảnh...</button>
+                      </span>
+                      <form:input type="file" id="imageFile" path="imageFile"/>
+                    </div>
+                    <form:errors path="imageFile" cssClass="has-error"></form:errors>
                   </div>
-                  <div class="form-group">
-                    <label for="charge">Tổng chi phí</label>
-                    <form:input type="text" class="form-control" path="charge" id="charge" placeholder="Tổng chi phí"/>
-                    <form:errors path="charge" cssClass="has-error"></form:errors>
-                  </div>
-                  <!-- /.form-group -->
                 </div>
                 <!-- /.col -->
               </div>
@@ -126,8 +121,8 @@
             <div class="box-footer">
               <form:input type="hidden" id="id" path="id"/>
               <form:input type="hidden" id="status" path="status"/>
-              <!-- <button type="submit" id="createBtn" class="btn btn-primary">Thêm</button> -->
-              <button type="button" id="resetBtn" class="btn btn-success">Nhập Mới</button>
+              <form:input type="hidden" id="legacyId" path="legacyId"/>
+			  <button type="button" id="resetBtn" class="btn btn-success">Nhập Mới</button>	
               <button type="submit" id="editBtn" class="btn btn-primary">Lưu</button>
               <button type="button" id="activateBtn" class="btn btn-danger">Kích hoạt</button>
             </div>
@@ -139,16 +134,14 @@
             </div>-->
             <!-- /.box-header -->
             <div class="box-body">
-              <table id="advertisersTable" class="table table-bordered table-hover dataTable" role="grid">
+              <table id="phoneCardsTable" class="table table-bordered table-hover dataTable" role="grid">
                 <!-- Header Table -->
                 <thead>
                 <tr>
-                  <th>Email</th>
-                  <th>Họ tên</th>
-                  <th>Tên công ty</th>
-                  <th>Điện thoại</th>
-                  <th>Tổng chi phí</th>
-                  <th>Ngày đăng ký</th>
+                  <th>Tên</th>
+                  <th>Ảnh</th>
+                  <th>Giá tiền</th>
+                  <th>Ngày tạo</th>
                   <th>Trạng thái</th>
                   <th>Sửa / Xóa</th>
                 </tr>
@@ -156,12 +149,10 @@
                 <!-- Footer Table -->
                 <tfoot>
                 <tr>
-                  <th>Email</th>
-                  <th>Họ tên</th>
-                  <th>Tên công ty</th>
-                  <th>Điện thoại</th>
-                  <th>Tổng chi phí</th>
-                  <th>Ngày đăng ký</th>
+                  <th>Tên</th>
+                  <th>Ảnh</th>
+                  <th>Giá tiền</th>
+                  <th>Ngày tạo</th>
                   <th>Trạng thái</th>
                   <th>Sửa / Xóa</th>
                 </tr>
@@ -179,14 +170,50 @@
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Xóa nhà quảng cáo</h4>
+            <h4 class="modal-title">Xóa thẻ điện thoại</h4>
           </div>
           <div class="modal-body">
-            <p>Bạn có chắc chắn muốn xóa nhà quảng cáo này?</p>
+            <p>Bạn có chắc chắn muốn xóa thẻ điện thoại này?</p>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
-            <button type="button" id="delete_advertiser" class="btn btn-primary">Xóa</button>
+            <button type="button" id="delete_phoneCard" class="btn btn-primary">Xóa</button>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <div class="modal modal-danger fade" id="modal-file-error">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Định dạng và kích thước ảnh được hỗ trợ</h4>
+          </div>
+          <div class="modal-body">
+            <table class="table table-bordered">
+              <tr>
+                <td>
+                  Loại ảnh
+                </td>
+                <td>
+                  <ul>
+                    <li>.JPG</li>
+                    <li>.PNG</li>
+                    <li>.GIF</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>Độ lớn ảnh</td>
+                <td>150 KB hoặc nhỏ hơn</td>
+              </tr>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline" data-dismiss="modal">Đóng</button>
           </div>
         </div>
         <!-- /.modal-content -->
@@ -198,27 +225,26 @@
   <%@ include file = "footer.jsp" %>
 </div>
 <!-- ./wrapper -->
-<script>
-    var serverContext = "${pageContext.request.contextPath}";
-</script>
 <!-- jQuery 3 -->
 <script src="${contextPath}/resources/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="${contextPath}/resources/bower_components/jquery-ui/jquery-ui.min.js"></script>
-<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
+  var serverContext = "${pageContext.request.contextPath}";
   $.widget.bridge('uibutton', $.ui.button);
 </script>
 <!-- Bootstrap 3.3.7 -->
 <script src="${contextPath}/resources/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- Slimscroll -->
 <script src="${contextPath}/resources/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<script src="${contextPath}/resources/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<script src="${contextPath}/resources/bower_components/bootstrap-datepicker/dist/locales/bootstrap-datepicker.vi.min.js"></script>
 <script src="${contextPath}/resources/dist/js/adminlte.min.js"></script>
 <!-- DataTables -->
 <script src="${contextPath}/resources/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="${contextPath}/resources/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <script src="${contextPath}/resources/bower_components/moment/min/moment-with-locales.min.js"></script>
 <script src="${contextPath}/resources/js/common.js"></script>
-<script src="${contextPath}/resources/js/advertiser.js"></script>
+<script src="${contextPath}/resources/js/phonecard.js"></script>
 </body>
 </html>

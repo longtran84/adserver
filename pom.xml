@@ -103,6 +103,11 @@
 			<version>4.1</version>
 		</dependency>
 		<dependency>
+			<groupId>com.microsoft.sqlserver</groupId>
+			<artifactId>mssql-jdbc</artifactId>
+			<version>6.1.0.jre8</version>
+		</dependency>
+		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 			<version>3.6</version>
@@ -151,6 +156,21 @@
 			<groupId>io.vavr</groupId>
 			<artifactId>vavr</artifactId>
 			<version>0.9.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.activiti</groupId>
+			<artifactId>activiti-spring-boot-starter-basic</artifactId>
+			<version>5.22.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-autoconfigure</artifactId>
+			<version>1.5.9.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-actuator</artifactId>
+			<version>1.5.9.RELEASE</version>
 		</dependency>
 	</dependencies>
 

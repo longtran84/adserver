@@ -17,7 +17,8 @@ public class Order {
     private Gamecard gameCard;
     private Voucher voucher;
     private Integer quantity;
-    private Double cashout;
+    private Double price;
+    private Double total;
     private String customerName;
     private String address;
     private String phone;
@@ -95,13 +96,23 @@ public class Order {
     }
 
     @Basic
-    @Column(name = "cashout")
-    public Double getCashout() {
-        return cashout;
+    @Column(name = "price")
+    public Double getPrice() {
+        return price;
     }
 
-    public void setCashout(Double cashout) {
-        this.cashout = cashout;
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    @Basic
+    @Column(name = "total")
+    public Double getTotal() {
+        return total;
+    }
+
+    public void setTotal(Double total) {
+        this.total = total;
     }
 
     @Basic
@@ -163,7 +174,8 @@ public class Order {
 
         if (id != order.id) return false;
         if (quantity != null ? !quantity.equals(order.quantity) : order.quantity != null) return false;
-        if (cashout != null ? !cashout.equals(order.cashout) : order.cashout != null) return false;
+        if (price != null ? !price.equals(order.price) : order.price != null) return false;
+        if (total != null ? !total.equals(order.total) : order.total != null) return false;
         if (status != null ? !status.equals(order.status) : order.status != null) return false;
         if (createdDate != null ? !createdDate.equals(order.createdDate) : order.createdDate != null) return false;
 
@@ -174,7 +186,8 @@ public class Order {
     public int hashCode() {
         int result = (int) (id ^ (id >>> 32));
         result = 31 * result + (quantity != null ? quantity.hashCode() : 0);
-        result = 31 * result + (cashout != null ? cashout.hashCode() : 0);
+        result = 31 * result + (price != null ? price.hashCode() : 0);
+        result = 31 * result + (total != null ? total.hashCode() : 0);
         result = 31 * result + (status != null ? status.hashCode() : 0);
         result = 31 * result + (createdDate != null ? createdDate.hashCode() : 0);
         return result;
