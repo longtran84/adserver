@@ -23,38 +23,17 @@ public class CreativeRestController {
 
     @RequestMapping(path = "/creativeVideos", method = RequestMethod.GET)
     public List<Creative> getCreativeVideos(){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        boolean hasAdminRole = auth.getAuthorities().stream()
-                .anyMatch(r -> (r.getAuthority().equals("ROLE_ADMIN") || r.getAuthority().equals("ROLE_SUPER_ADMIN")));
-        if (hasAdminRole) {
-            return creativeService.getCreativesByTemplate("video");
-        } else {
-            return  creativeService.getCreativeByAdvertiserAndTemplate(auth.getName(), "video") ;
-        }
+        return creativeService.getCreativesByTemplate("video");
     }
 
     @RequestMapping(path = "/creativeImages", method = RequestMethod.GET)
     public List<Creative> getCreativeImages(){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        boolean hasAdminRole = auth.getAuthorities().stream()
-                .anyMatch(r -> (r.getAuthority().equals("ROLE_ADMIN") || r.getAuthority().equals("ROLE_SUPER_ADMIN")));
-        if (hasAdminRole) {
-            return creativeService.getCreativesByTemplate("image");
-        } else {
-            return  creativeService.getCreativeByAdvertiserAndTemplate(auth.getName(), "image") ;
-        }
+        return creativeService.getCreativesByTemplate("image");
     }
 
     @RequestMapping(path = "/creatives", method = RequestMethod.GET)
     public List<Creative> getCreatives() {
-    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        boolean hasAdminRole = auth.getAuthorities().stream()
-                .anyMatch(r -> (r.getAuthority().equals("ROLE_ADMIN") || r.getAuthority().equals("ROLE_SUPER_ADMIN")));
-        if (hasAdminRole) {
-        	return creativeService.getAllCreatives();
-        } else {
-        	return creativeService.getCreativeByAdvertiser(auth.getName());
-        }
+        return creativeService.getAllCreatives();
     }
 
     @RequestMapping(value = "/deleteCreative", method = RequestMethod.POST)

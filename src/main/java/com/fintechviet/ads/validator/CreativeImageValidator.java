@@ -24,10 +24,6 @@ public class CreativeImageValidator implements Validator {
     public void validate(Object o, Errors errors) {
         Creative creative = (Creative) o;
 
-        if (creative.getAdvertiser().getId() == null) {
-            errors.rejectValue("advertiser.id", "creativeForm.advertiser.empty");
-        }
-
         if (creative.getAdType().getId() == null) {
             errors.rejectValue("adType.id", "creativeForm.adType.empty");
         }

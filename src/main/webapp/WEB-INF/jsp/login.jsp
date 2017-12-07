@@ -85,7 +85,6 @@
 
 			<a href="${contextPath}/forgotPassword">Quên mật khẩu</a><br>
 			<a href="${contextPath}/registration" class="text-center">Đăng ký người dùng</a><br>
-			<!--<a href="${contextPath}/advertiserRegistration" class="text-center">Đăng ký nhà quảng cáo</a>-->
 		</div>
 		<!-- /.login-box-body -->
 	</div>

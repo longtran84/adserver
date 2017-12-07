@@ -14,7 +14,6 @@
                         <thead>
                         <tr>
                             <th>Tên</th>
-                            <th>Nhà quảng cáo</th>
                             <th>Ngày bắt đầu</th>
                             <th>Ngày kết thúc</th>
                             <th>Ngày tạo</th>
@@ -26,7 +25,6 @@
                         <tfoot>
                         <tr>
                             <th>Tên</th>
-                            <th>Nhà quảng cáo</th>
                             <th>Ngày bắt đầu</th>
                             <th>Ngày kết thúc</th>
                             <th>Ngày tạo</th>

@@ -1,15 +1,13 @@
 package com.fintechviet.ads.model;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
  * Created by tungn on 9/11/2017.
  */
 @Entity
+@Table(name = "cpi")
 public class Cpi {
     private long id;
     private String deviceId;

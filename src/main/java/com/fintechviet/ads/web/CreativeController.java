@@ -81,7 +81,6 @@ public class CreativeController {
         Creative creative = null;
         if (creativeForm.getId() != null) {
             creative = creativeService.findById(creativeForm.getId());
-            creative.setAdvertiser(creativeForm.getAdvertiser());
             creative.setTitle(creativeForm.getTitle());
             creative.setBody(creativeForm.getBody());
             creative.setAlt(creativeForm.getAlt());
@@ -124,7 +123,6 @@ public class CreativeController {
         Creative creative = null;
         if (creativeForm.getId() != null) {
             creative = creativeService.findById(creativeForm.getId());
-            creative.setAdvertiser(creativeForm.getAdvertiser());
             creative.setTitle(creativeForm.getTitle());
             creative.setBody(creativeForm.getBody());
             creative.setAlt(creativeForm.getAlt());

@@ -14,11 +14,12 @@ import java.util.Locale;
  * Created by tungn on 9/1/2017.
  */
 public class DateUtils {
-    private static String FORMAT_DATE = "dd/MM/yyyy HH:mm:SS";
+    private static String FORMAT_DATE = "dd/MM/yyyy HH:mm:ss";
     private static String FORMAT_DATE_UTC = "yyyy-MM-dd'T'HH:mm:ss'Z'";
     private static String FORMAT_DATE1 = "dd/MM/yyyy";
     private static String FORMAT_DATE_STR = "dd/MM/yyyy";
     private static String FORMAT_DATE_DB_STR = "yyyy-MM-dd HH:mm:ss";
+    private static String FORMAT_DATE_DB_STR1 = "yyyy-MM-dd";
     public static String EQUAL = "EQUAL";
     public static String BEFORE = "BEFORE";
     public static String AFTER = "AFTER";
@@ -48,6 +49,11 @@ public class DateUtils {
 
     public static String convertDateToStringDB(Date date) {
         SimpleDateFormat dateFormat = new SimpleDateFormat(FORMAT_DATE_DB_STR);
+        return dateFormat.format(date);
+    }
+
+    public static String convertDateToStringDB1(Date date) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(FORMAT_DATE_DB_STR1);
         return dateFormat.format(date);
     }
 

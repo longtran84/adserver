@@ -24,10 +24,6 @@ public class CampaignValidator implements Validator {
     public void validate(Object o, Errors errors) {
         Campaign campaign = (Campaign) o;
 
-        if (campaign.getAdvertiser().getId() == null) {
-            errors.rejectValue("advertiser.id", "campaignForm.advertiser.empty");
-        }
-
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "campaignForm.name.empty");
         if (campaign.getName().length()  > 100) {
             errors.rejectValue("name", "campaignForm.name.size");

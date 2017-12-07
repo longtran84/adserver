@@ -19,13 +19,6 @@
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">DANH MỤC</li>
-            <sec:authorize access="hasRole('ROLE_ADMIN') || hasRole('ROLE_SUPER_ADMIN')">
-            <li>
-                <a href="${contextPath}/advertiser">
-                    <i class="fa  fa-adn"></i> <span>Nhà quảng cáo</span>
-                </a>
-            </li>
-            </sec:authorize>
             <li >
                 <a href="${contextPath}/campaign">
                     <i class="fa fa-bullhorn"></i> <span>Chiến dịch quảng cáo</span>
@@ -131,6 +124,8 @@
                     </span>
                     </a>
                     <ul class="treeview-menu">
+                        <li><a href="${contextPath}/loyalty/phoneCard"><i class="fa fa-circle-o"></i> Thẻ điện thoại</a></li>
+                        <li><a href="${contextPath}/loyalty/voucher"><i class="fa fa-circle-o"></i> Voucher</a></li>
                         <li><a href="${contextPath}/loyalty/order"><i class="fa fa-circle-o"></i> Đơn hàng</a></li>
                     </ul>
                 </li>

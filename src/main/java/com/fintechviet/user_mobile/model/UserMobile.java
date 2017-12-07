@@ -12,7 +12,7 @@ import java.util.Set;
  * Created by tungn on 9/21/2017.
  */
 @Entity
-@Table(name = "user_mobile", schema = "mobileads", catalog = "")
+@Table(name = "user_mobile")
 public class UserMobile {
     private long id;
     private String username;

@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Created by tungn on 10/3/2017.
  */
 @Entity
-@Table(name = "ad_type", schema = "mobileads", catalog = "")
+@Table(name = "ad_type")
 public class AdType {
     private Integer id;
     private String name;

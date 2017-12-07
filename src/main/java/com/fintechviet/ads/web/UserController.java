@@ -216,14 +216,7 @@ public class UserController {
         User user = userService.findByUsername(auth.getName());
         userService.updatePassword(user, userForm.getPassword());
 
-        String redirectUrl = "redirect:/admin_profile";
-        boolean hasAdminRole = auth.getAuthorities().stream()
-                .anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
-
-        if (hasAdminRole) {
-            return redirectUrl;
-        }
-        return "redirect:/advertiser_profile";
+        return "redirect:/admin_profile";
     }
 
     @RequestMapping(value = "/changeAvatar", method = RequestMethod.GET)
@@ -254,14 +247,7 @@ public class UserController {
         userService.updateAvatar(user, avatarLink);
         HttpSession session = request.getSession();
         session.setAttribute("userAvatar", user.getAvatarLink());
-        String redirectUrl = "redirect:/admin_profile";
-        boolean hasAdminRole = auth.getAuthorities().stream()
-                .anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
-
-        if (hasAdminRole) {
-            return redirectUrl;
-        }
-        return "redirect:/advertiser_profile";
+        return "redirect:/admin_profile";
     }
 
     @RequestMapping(value = "/system/admin", method = RequestMethod.GET)

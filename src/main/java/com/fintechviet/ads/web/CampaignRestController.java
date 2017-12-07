@@ -8,8 +8,6 @@ import com.fintechviet.ads.service.CampaignService;
 import com.fintechviet.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -25,42 +23,21 @@ public class CampaignRestController {
 
     @RequestMapping(value = "/campaigns", method = RequestMethod.GET)
     public List<Campaign> getAllCampaigns(){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        boolean hasAdminRole = auth.getAuthorities().stream()
-                .anyMatch(r -> (r.getAuthority().equals("ROLE_ADMIN") || r.getAuthority().equals("ROLE_SUPER_ADMIN")));
-        if (hasAdminRole) {
-            return campaignService.getAllCampaigns();
-        } else {
-            return campaignService.getCampaignByAdvertiser(auth.getName());
-        }
+        return campaignService.getAllCampaigns();
     }
 
     @RequestMapping(value = "/campaignReports", method = RequestMethod.POST)
     public List<CampaignReportDTO> campaignReports(@RequestBody ReportsRequest request){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Date from = DateUtils.convertStringToDate(request.getDateFrom()  + " 00:00:00");
         Date to = DateUtils.convertStringToDate(request.getDateTo() + " 23:59:59");
-        boolean hasAdminRole = auth.getAuthorities().stream()
-                .anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
-        if (hasAdminRole) {
-            return campaignService.campaignReport(from, to, "");
-        } else {
-            return campaignService.campaignReport(from, to, auth.getName());
-        }
+        return campaignService.campaignReport(from, to);
     }
 
     @RequestMapping(value = "/costReports", method = RequestMethod.POST)
     public List<CostReportDTO> costReports(@RequestBody ReportsRequest request){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Date from = DateUtils.convertStringToDate(request.getDateFrom()  + " 00:00:00");
         Date to = DateUtils.convertStringToDate(request.getDateTo() + " 23:59:59");
-        boolean hasAdminRole = auth.getAuthorities().stream()
-                .anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
-        if (hasAdminRole) {
-            return campaignService.costReport(from, to, "");
-        } else {
-            return campaignService.costReport(from, to, auth.getName());
-        }
+        return campaignService.costReport(from, to);
     }
 
     @RequestMapping(value = "/inventoryReports", method = RequestMethod.POST)

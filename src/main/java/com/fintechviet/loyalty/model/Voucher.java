@@ -1,5 +1,7 @@
 package com.fintechviet.loyalty.model;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -7,27 +9,41 @@ import java.sql.Timestamp;
  * Created by tungn on 11/9/2017.
  */
 @Entity
-@Table(name = "voucher", schema = "mobileads", catalog = "")
+@Table(name = "voucher")
 public class Voucher {
-    private int id;
+    private Integer id;
+    private String legacyId;
     private String name;
     private String type;
     private String picture;
     private String description;
-    private Double marketPrice;
-    private Double price;
+    private Double marketPrice = 0.0;
+    private Double price = 0.0;
     private Integer quantity;
     private String status = "NEW";
     private Timestamp createdDate;
+    private MultipartFile pictureFile;
+    private String pictureName;
 
     @Id
     @Column(name = "id")
-    public int getId() {
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
+    }
+
+    @Basic
+    @Column(name = "legacyId")
+    public String getLegacyId() {
+        return legacyId;
+    }
+
+    public void setLegacyId(String legacyId) {
+        this.legacyId = legacyId;
     }
 
     @Basic
@@ -118,6 +134,24 @@ public class Voucher {
 
     public void setCreatedDate(Timestamp createdDate) {
         this.createdDate = createdDate;
+    }
+
+    @Transient
+    public MultipartFile getPictureFile() {
+        return pictureFile;
+    }
+
+    public void setPictureFile(MultipartFile pictureFile) {
+        this.pictureFile = pictureFile;
+    }
+
+    @Transient
+    public String getPictureName() {
+        return pictureName;
+    }
+
+    public void setPictureName(String pictureName) {
+        this.pictureName = pictureName;
     }
 
     @Override

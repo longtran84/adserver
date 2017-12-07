@@ -58,7 +58,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Sở thích người dùng
+        Đơn hàng
       </h1>
       <br>
       <div class="input-group">
@@ -92,14 +92,26 @@
                   <th>Người nhận</th>
                   <th>Địa chỉ</th>
                   <th>Điện thoại</th>
-                  <th>Điện thoại</th>
+                  <th>Trạng thái</th>
+                  <th>Ngày đổi thưởng</th>
+                  <th>Hành động</th>
                 </tr>
                 </thead>
                 <!-- Footer Table -->
                 <tfoot>
                 <tr>
-                  <th>Danh mục yêu thích</th>
-                  <th>Số lượng người dùng</th>
+                  <th>ID</th>
+                  <th>Người dùng</th>
+                  <th>Sản phẩm</th>
+                  <th>Số lượng</th>
+                  <th>Giá tiền</th>
+                  <th>Tổng tiền</th>
+                  <th>Người nhận</th>
+                  <th>Địa chỉ</th>
+                  <th>Điện thoại</th>
+                  <th>Trạng thái</th>
+                  <th>Ngày đổi thưởng</th>
+                  <th>Hành động</th>
                 </tr>
                 </tfoot>
               </table>
@@ -114,10 +126,6 @@
   <%@ include file = "footer.jsp" %>
 </div>
 <!-- ./wrapper -->
-<script>
-    var serverContext = "${pageContext.request.contextPath}";
-    $.widget.bridge('uibutton', $.ui.button);
-</script>
 <!-- jQuery 3 -->
 <script src="${contextPath}/resources/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
@@ -137,5 +145,9 @@
 <script src="${contextPath}/resources/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <script src="${contextPath}/resources/js/common.js"></script>
 <script src="${contextPath}/resources/js/order.js"></script>
+<script>
+    var serverContext = "${pageContext.request.contextPath}";
+    $.widget.bridge('uibutton', $.ui.button);
+</script>
 </body>
 </html>

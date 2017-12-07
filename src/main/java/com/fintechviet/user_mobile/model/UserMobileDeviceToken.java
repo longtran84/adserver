@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Created by tungn on 9/21/2017.
  */
 @Entity
-@Table(name = "user_mobile_device_token", schema = "mobileads", catalog = "")
+@Table(name = "user_mobile_device_token")
 public class UserMobileDeviceToken {
     private long id;
     private UserMobile userMobile;

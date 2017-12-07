@@ -12,9 +12,6 @@ import java.util.Date;
 import java.util.List;
 
 public interface AdRepository extends JpaRepository<Ad, Long> {
-    @Query("SELECT ad FROM Ad ad WHERE ad.creative.advertiser.email = :email")
-    List<Ad> findByAdvertiser(@Param("email") String email);
-
     @Modifying
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     @Query("UPDATE Ad SET status = :status WHERE id = :id")

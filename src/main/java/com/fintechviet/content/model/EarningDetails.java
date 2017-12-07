@@ -7,7 +7,7 @@ import java.sql.Timestamp;
  * Created by tungn on 9/15/2017.
  */
 @Entity
-@Table(name = "earning_details", schema = "mobileads", catalog = "")
+@Table(name = "earning_details")
 public class EarningDetails {
     private long id;
     private Long uid;

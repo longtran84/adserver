@@ -14,5 +14,6 @@ public interface UserMobileService {
     List<UserInviteDTO> getUserInvite(Date from, Date to);
     void updateStatus(Long id, String status);
     void updateEarningForUser();
+    void refundEarning(Long id, long amount);
     List<UserMobile> getUserActives();
 }

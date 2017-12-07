@@ -9,7 +9,7 @@ import java.sql.Timestamp;
  * Created by tungn on 9/28/2017.
  */
 @Entity
-@Table(name = "app_ad", schema = "mobileads", catalog = "")
+@Table(name = "app_ad")
 public class AppAd {
     private Long id;
     private String name;

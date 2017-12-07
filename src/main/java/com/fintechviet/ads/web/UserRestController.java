@@ -1,7 +1,6 @@
 package com.fintechviet.ads.web;
 
 import com.fintechviet.ads.dto.UserDTO;
-import com.fintechviet.ads.model.Advertiser;
 import com.fintechviet.ads.model.User;
 import com.fintechviet.ads.request.UpdateRoleRequest;
 import com.fintechviet.ads.service.UserService;

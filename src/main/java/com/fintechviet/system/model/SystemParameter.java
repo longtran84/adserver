@@ -16,6 +16,8 @@ public class SystemParameter {
     private String newsCategoryPath;
     private String appIconPath;
     private String gameImagePath;
+    private String loyaltyPhoneCardImagePath;
+    private String loyaltyVoucherImagePath;
     private String advImageFolder;
     private String advVideoFolder;
     private String newsImageFolder;
@@ -23,6 +25,8 @@ public class SystemParameter {
     private String newsCategoryFolder;
     private String appIconFolder;
     private String gameImageFolder;
+    private String loyaltyPhoneCardImageFolder;
+    private String loyaltyVoucherImageFolder;
 
     @Id
     @Column(name = "id")
@@ -105,6 +109,26 @@ public class SystemParameter {
     }
 
     @Basic
+    @Column(name = "loyalty_phone_card_image_path")
+    public String getLoyaltyPhoneCardImagePath() {
+        return loyaltyPhoneCardImagePath;
+    }
+
+    public void setLoyaltyPhoneCardImagePath(String loyaltyPhoneCardImagePath) {
+        this.loyaltyPhoneCardImagePath = loyaltyPhoneCardImagePath;
+    }
+
+    @Basic
+    @Column(name = "loyalty_voucher_image_path")
+    public String getLoyaltyVoucherImagePath() {
+        return loyaltyVoucherImagePath;
+    }
+
+    public void setLoyaltyVoucherImagePath(String loyaltyVoucherImagePath) {
+        this.loyaltyVoucherImagePath = loyaltyVoucherImagePath;
+    }
+
+    @Basic
     @Column(name = "adv_image_folder")
     public String getAdvImageFolder() {
         return advImageFolder;
@@ -172,6 +196,26 @@ public class SystemParameter {
 
     public void setGameImageFolder(String gameImageFolder) {
         this.gameImageFolder = gameImageFolder;
+    }
+
+    @Basic
+    @Column(name = "loyalty_phone_card_image_folder")
+    public String getLoyaltyPhoneCardImageFolder() {
+        return loyaltyPhoneCardImageFolder;
+    }
+
+    public void setLoyaltyPhoneCardImageFolder(String loyaltyPhoneCardImageFolder) {
+        this.loyaltyPhoneCardImageFolder = loyaltyPhoneCardImageFolder;
+    }
+
+    @Basic
+    @Column(name = "loyalty_voucher_image_folder")
+    public String getLoyaltyVoucherImageFolder() {
+        return loyaltyVoucherImageFolder;
+    }
+
+    public void setLoyaltyVoucherImageFolder(String loyaltyVoucherImageFolder) {
+        this.loyaltyVoucherImageFolder = loyaltyVoucherImageFolder;
     }
 
     @Override

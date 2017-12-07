@@ -30,7 +30,6 @@ $(document).ready( function () {
             },
              columns: [
              { data: "title" },
-             { data: "advertiser.email" },
              {   data: null,
                  "render": function (data) {
                      return '<video class="videoLink" width="400" height="255" preload="auto" controls>' +
@@ -71,8 +70,6 @@ $(document).ready( function () {
 	 });
 
     var showDetails = function (data) {
-        $('#creativeForm #advertiserId').val(data.advertiser.id);
-        $('#creativeForm #advertiserName').val(data.advertiser.email);
         $('#creativeForm #title').val(data.title);
         $('#creativeForm #body').val(data.body);
         $('#creativeForm #alt').val(data.alt);
@@ -86,7 +83,6 @@ $(document).ready( function () {
         $('#creativeForm')[0].reset();
         
         $('#creativeForm #id').val(null);
-        $('#creativeForm #advertiserId').val(null);
         
         $('#editBtn').attr('disabled', false);
         $('#activateBtn').attr('disabled', true);

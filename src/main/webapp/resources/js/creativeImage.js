@@ -97,7 +97,6 @@ $(document).ready( function () {
             },
              columns: [
              { data: "title" },
-             { data: "advertiser.email" },
              { data: null,
                  "render": function (data) {
                      return '<div><a href="#" data-image=' + data.imageLink + ' class="adImage">' + data.imageLink + '</a></div>';
@@ -137,8 +136,6 @@ $(document).ready( function () {
 	 });
 
     var showDetails = function (data) {
-        $('#creativeForm #advertiserId').val(data.advertiser.id);
-        $('#creativeForm #advertiserName').val(data.advertiser.email);
         $('#creativeForm #adTypeId').val(data.adType.id);
         $('#creativeForm #adTypeName').val(data.adType.name);
         $('#creativeForm #title').val(data.title);
@@ -155,7 +152,6 @@ $(document).ready( function () {
         $('#creativeForm')[0].reset();
         
         $('#creativeForm #id').val(null);
-        $('#creativeForm #advertiserId').val(null);
         $('#creativeForm #adTypeId').val(null);
         
         $('#editBtn').attr('disabled', false);

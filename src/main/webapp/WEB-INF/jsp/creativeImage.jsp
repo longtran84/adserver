@@ -87,19 +87,7 @@
             <!-- /.box-header -->
             <div class="box-body">
               <div class="row">
-
                 <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="advertiserName">Nhà quảng cáo *</label>
-                    <div class="input-group">
-                      <form:input type="text" class="form-control" id="advertiserName" path="advertiserName" placeholder="Nhà quảng cáo" autofocus="true" readonly="true"/>
-                      <form:input type="hidden" path="advertiser.id" id="advertiserId"/>
-                      <span class="input-group-btn">
-                        <button type="button" class="btn btn-info btn-flat" data-toggle="modal" data-target="#modal-choose-advertiser">...</button>
-                      </span>
-                    </div>
-                    <form:errors path="advertiser.id" cssClass="has-error"></form:errors>
-                  </div>
                   <div class="form-group">
                     <label for="title">Tiêu đề *</label>
                     <form:input type="text" class="form-control" path="title" id="title" placeholder="Tiêu đề"/>
@@ -173,7 +161,6 @@
                 <thead>
                 <tr>
                   <th>Tiêu đề</th>
-                  <th>Nhà quảng cáo</th>
                   <th>Ảnh</th>
                   <th>Ngày tạo</th>
                   <th>Trạng thái</th>
@@ -184,7 +171,6 @@
                 <tfoot>
                 <tr>
                   <th>Tiêu đề</th>
-                  <th>Nhà quảng cáo</th>
                   <th>Ảnh</th>
                   <th>Ngày tạo</th>
                   <th>Trạng thái</th>
@@ -285,21 +271,18 @@ Biểu tượng cho thấy độ phân giải HD hoặc độ phân giải cao c
       </div>
       <!-- /.modal-dialog -->
     </div>
-    <%@ include file = "advertiserPopup.jsp" %>
     <%@ include file = "adTypePopup.jsp" %>
   </div>
   <!-- /.content-wrapper -->
   <%@ include file = "footer.jsp" %>
 </div>
 <!-- ./wrapper -->
-<script>
-    var serverContext = "${pageContext.request.contextPath}";
-</script>
 <!-- jQuery 3 -->
 <script src="${contextPath}/resources/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="${contextPath}/resources/bower_components/jquery-ui/jquery-ui.min.js"></script>
 <script>
+    var serverContext = "${pageContext.request.contextPath}";
   $.widget.bridge('uibutton', $.ui.button);
 </script>
 <!-- Bootstrap 3.3.7 -->
@@ -314,7 +297,6 @@ Biểu tượng cho thấy độ phân giải HD hoặc độ phân giải cao c
 <script src="${contextPath}/resources/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <script src="${contextPath}/resources/bower_components/moment/min/moment-with-locales.min.js"></script>
 <script src="${contextPath}/resources/js/common.js"></script>
-<script src="${contextPath}/resources/js/advertiserPopup.js"></script>
 <script src="${contextPath}/resources/js/adTypePopup.js"></script>
 <script src="${contextPath}/resources/js/creativeImage.js"></script>
 </body>

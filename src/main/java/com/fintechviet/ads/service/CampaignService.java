@@ -12,13 +12,12 @@ public interface CampaignService {
     void delete(Long id);
     Campaign getById(Long id);
     List<Campaign> getAllCampaigns();
-    List<Campaign> getCampaignByAdvertiser(String adverEmail);
     void updateStatus(Long id, String status);
-    List<CampaignReportDTO> campaignReport(Date from, Date to, String adverEmail);
+    List<CampaignReportDTO> campaignReport(Date from, Date to);
     List<ImpressionReportDTO> impressionsReport(Date from, Date to, long campaignId);
     List<ClickReportDTO> clicksReport(Date from, Date to, long campaignId);
     List<CTRReportDTO> ctrReport(Date from, Date to, long campaignId);
     List<ViewReportDTO> viewReport(Date from, Date to, long campaignId);
-    List<CostReportDTO> costReport(Date from, Date to, String adverEmail);
+    List<CostReportDTO> costReport(Date from, Date to);
     List<InventoryReportDTO> inventoryReport(Date from, Date to);
 }

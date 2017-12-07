@@ -113,14 +113,9 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-  <%@ include file = "advertiserPopup.jsp" %>
   <%@ include file = "footer.jsp" %>
 </div>
 <!-- ./wrapper -->
-<script>
-    var serverContext = "${pageContext.request.contextPath}";
-    $.widget.bridge('uibutton', $.ui.button);
-</script>
 <!-- jQuery 3 -->
 <script src="${contextPath}/resources/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
@@ -138,6 +133,11 @@
 <!-- DataTables -->
 <script src="${contextPath}/resources/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="${contextPath}/resources/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="${contextPath}/resources/bower_components/datatables.net/js/datetime-moment.js"></script>
+<script>
+    var serverContext = "${pageContext.request.contextPath}";
+    $.widget.bridge('uibutton', $.ui.button);
+</script>
 <script src="${contextPath}/resources/js/common.js"></script>
 <script src="${contextPath}/resources/js/report_cost.js"></script>
 </body>

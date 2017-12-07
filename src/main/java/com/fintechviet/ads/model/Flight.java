@@ -8,6 +8,7 @@ import java.util.Date;
  * Created by tungn on 8/31/2017.
  */
 @Entity
+@Table(name = "flight")
 public class Flight {
     private Long id;
     private String name;

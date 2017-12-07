@@ -61,7 +61,9 @@ public class UserMobileServiceImpl implements UserMobileService {
             userInfoDTO.setStatus(status);
             userInfoDTO.setCreatedDate(createdDate);
             userInfoDTO.setInterests(StringUtils.isNotEmpty(interests) ? interests.replaceAll(",", ", ") : "");
-            userInfoDTO.setDevices(devices.intValue());
+            if (devices != null) {
+                userInfoDTO.setDevices(devices.intValue());
+            }
             userInfoDTO.setUserInvite(userInvite);
             users.add(userInfoDTO);
         }
@@ -130,6 +132,11 @@ public class UserMobileServiceImpl implements UserMobileService {
     @Override
     public List<UserMobile> getUserActives() {
         return userMobileRepository.getUserActives();
+    }
+
+    @Override
+    public void refundEarning(Long id, long amount) {
+        userMobileRepository.refundEarning(amount, id);
     }
 }
 

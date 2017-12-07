@@ -46,10 +46,6 @@ public class CampaignServiceImpl implements CampaignService {
         return campaignRepository.findAll();
     }
 
-    @Override
-    public List<Campaign> getCampaignByAdvertiser(String adverEmail) {
-        return campaignRepository.findByAdvertiser(adverEmail);
-    }
 
     @Override
     public Campaign getById(Long id) {
@@ -62,15 +58,11 @@ public class CampaignServiceImpl implements CampaignService {
     }
 
     @Override
-    public List<CampaignReportDTO> campaignReport(Date from, Date to, String adverEmail) {
+    public List<CampaignReportDTO> campaignReport(Date from, Date to) {
         List<CampaignReportDTO> reports = new ArrayList<CampaignReportDTO>();
         List<Object[]> result;
 
-        if (StringUtils.isNotEmpty(adverEmail)) {
-            result = campaignRepository.campaignReportByAdvertiser(from, to, adverEmail);
-        } else {
-            result = campaignRepository.campaignReport(from, to);
-        }
+        result = campaignRepository.campaignReport(from, to);
 
         for (Object row[] : result) {
             Campaign campaign = (Campaign)row[0];
@@ -93,15 +85,9 @@ public class CampaignServiceImpl implements CampaignService {
     }
 
     @Override
-    public List<CostReportDTO> costReport(Date from, Date to, String adverEmail) {
+    public List<CostReportDTO> costReport(Date from, Date to) {
         List<CostReportDTO> reports = new ArrayList<CostReportDTO>();
         List<Object[]> result;
-
-        /*if (StringUtils.isNotEmpty(adverEmail)) {
-            result = campaignRepository.campaignReportByAdvertiser(from, to, adverEmail);
-        } else {
-            result = campaignRepository.campaignReport(from, to);
-        }*/
 
         result = campaignRepository.costReport(DateUtils.convertDateToStringDB(from), DateUtils.convertDateToStringDB(to));
 
