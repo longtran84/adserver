@@ -1,8 +1,11 @@
 package com.fintechviet.ads.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.Set;
 
 /**
  * Created by tungn on 8/31/2017.
@@ -35,6 +38,7 @@ public class Flight {
     private Integer userAgeFrom = 0;
     private Integer userAgeTo = 0;
     private String userInterest;
+    private Set<Ad> ads;
 
     @Id
     @Column(name = "id")
@@ -279,6 +283,16 @@ public class Flight {
 
     public void setUserInterest(String userInterest) {
         this.userInterest = userInterest;
+    }
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "flight", cascade = CascadeType.ALL)
+    public Set<Ad> getAds() {
+        return ads;
+    }
+
+    public void setAds(Set<Ad> ads) {
+        this.ads = ads;
     }
 
     @Override

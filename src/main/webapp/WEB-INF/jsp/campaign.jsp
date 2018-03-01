@@ -226,6 +226,26 @@
       </div>
       <!-- /.modal-dialog -->
     </div>
+    <div class="modal fade" id="modal-active-deactive">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Kích hoạt/Hủy kích hoạt</h4>
+          </div>
+          <div class="modal-body">
+            <p>Bạn có chắc chắn muốn Kích hoạt/Hủy kích hoạt chiến dịch quảng cáo này?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+            <button type="button" id="active_deactive_campaign" class="btn btn-primary">Đồng ý</button>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
   </div>
   <!-- /.content-wrapper -->
   <%@ include file = "footer.jsp" %>
