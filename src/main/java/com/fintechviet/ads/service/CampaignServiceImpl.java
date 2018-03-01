@@ -1,8 +1,12 @@
 package com.fintechviet.ads.service;
 
 import com.fintechviet.ads.dto.*;
+import com.fintechviet.ads.model.Ad;
 import com.fintechviet.ads.model.Campaign;
+import com.fintechviet.ads.model.Flight;
+import com.fintechviet.ads.repository.AdRepository;
 import com.fintechviet.ads.repository.CampaignRepository;
+import com.fintechviet.ads.repository.FlightRepository;
 import com.fintechviet.utils.DateUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class CampaignServiceImpl implements CampaignService {
@@ -30,6 +31,10 @@ public class CampaignServiceImpl implements CampaignService {
 
     @Autowired
     private CampaignRepository campaignRepository;
+    @Autowired
+    private FlightRepository flightRepository;
+    @Autowired
+    private AdRepository adRepository;
 
     @Override
     public void save(Campaign campaign) {
@@ -55,6 +60,17 @@ public class CampaignServiceImpl implements CampaignService {
     @Override
     public void updateStatus(Long id, String status) {
         campaignRepository.updateStatus(status, id);
+        if ("INACTIVE".equals(status)) {
+            Campaign campaign = campaignRepository.findOne(id);
+            Set<Flight> flights = campaign.getFlights();
+            flights.stream().forEach(flight -> {
+                flight.setStatus("INACTIVE");
+                Set<Ad> ads = flight.getAds();
+                ads.stream().forEach(ad -> ad.setStatus("INACTIVE"));
+                adRepository.save(ads);
+            });
+            flightRepository.save(flights);
+        }
     }
 
     @Override

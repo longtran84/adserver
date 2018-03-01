@@ -1,9 +1,11 @@
 package com.fintechviet.ads.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Set;
 
 /**
  * Created by tungn on 8/29/2017.
@@ -27,6 +29,7 @@ public class Creative {
     private String videoName;
     private Timestamp createdDate;
     private String adTypeName;
+    private Set<Ad> ads;
 
     @Id
     @Column(name = "id")
@@ -182,6 +185,16 @@ public class Creative {
 
     public void setAdTypeName(String adTypeName) {
         this.adTypeName = adTypeName;
+    }
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "creative", cascade = CascadeType.ALL)
+    public Set<Ad> getAds() {
+        return ads;
+    }
+
+    public void setAds(Set<Ad> ads) {
+        this.ads = ads;
     }
 
     @Override

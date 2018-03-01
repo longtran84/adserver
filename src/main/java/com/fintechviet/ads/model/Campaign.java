@@ -1,8 +1,11 @@
 package com.fintechviet.ads.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.Set;
 
 /**
  * Created by tungn on 8/26/2017.
@@ -26,6 +29,7 @@ public class Campaign {
     private String freCapTmp;
     private String freCapDurationTmp;
     private Timestamp createdDate;
+    private Set<Flight> flights;
 
     @Id
     @Column(name = "id")
@@ -181,6 +185,16 @@ public class Campaign {
 
     public void setCreatedDate(Timestamp createdDate) {
         this.createdDate = createdDate;
+    }
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "campaign", cascade = CascadeType.ALL)
+    public Set<Flight> getFlights() {
+        return flights;
+    }
+
+    public void setFlights(Set<Flight> flights) {
+        this.flights = flights;
     }
 
     @Override

@@ -25,6 +25,7 @@ public class UserMobile {
     private String status = "ACTIVE";
     private Timestamp createdDate;
     private int isRewardForUserInvite;
+    private int noInvited;
     @JsonIgnoreProperties("userMobiles")
     private Set<NewsCategory> newsCategories;
     private Set<UserMobileDeviceToken> userMobileDeviceTokens;
@@ -149,12 +150,24 @@ public class UserMobile {
         this.userMobileDeviceTokens = userMobileDeviceTokens;
     }
 
+    @Basic
+    @Column(name = "isRewardForUserInvite")
     public int getIsRewardForUserInvite() {
         return isRewardForUserInvite;
     }
 
     public void setIsRewardForUserInvite(int isRewardForUserInvite) {
         this.isRewardForUserInvite = isRewardForUserInvite;
+    }
+
+    @Basic
+    @Column(name = "noInvited")
+    public int getNoInvited() {
+        return noInvited;
+    }
+
+    public void setNoInvited(int noInvited) {
+        this.noInvited = noInvited;
     }
 
     @Override
