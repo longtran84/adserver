@@ -1,12 +1,11 @@
 package com.fintechviet.loyalty.service;
 
 import com.fintechviet.loyalty.model.OrderLoyalty;
-import com.fintechviet.loyalty.respository.OrderRespository;
+import com.fintechviet.loyalty.repository.OrderRespository;
 import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.ProcessEngines;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
-import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;

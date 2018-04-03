@@ -51,6 +51,7 @@
         <class>com.fintechviet.loyalty.model.LoyaltyParameter</class>
         <class>com.fintechviet.loyalty.model.PhoneCardCodes</class>
         <class>com.fintechviet.loyalty.model.VoucherCodes</class>
+        <class>com.fintechviet.ads.model.AdLocation</class>
         <properties>
             <property name="toplink.jdbc.url" value="jdbc:mysql://localhost:3306/mobileads"/>
             <property name="toplink.jdbc.driver" value="com.mysql.jdbc.Driver"/>

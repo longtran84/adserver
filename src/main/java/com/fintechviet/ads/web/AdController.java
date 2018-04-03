@@ -20,14 +20,14 @@ public class AdController {
     private AdValidator adValidator;
 
     @RequestMapping(value = "/ad", method = RequestMethod.GET)
-    public String campaign(Model model) {
+    public String ad(Model model) {
         model.addAttribute("adForm", new Ad());
 
         return "ad";
     }
 
     @RequestMapping(value = "/ad", method = RequestMethod.POST)
-    public String campaign(@ModelAttribute("adForm") Ad adForm, BindingResult bindingResult) {
+    public String ad(@ModelAttribute("adForm") Ad adForm, BindingResult bindingResult) {
         adValidator.validate(adForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
