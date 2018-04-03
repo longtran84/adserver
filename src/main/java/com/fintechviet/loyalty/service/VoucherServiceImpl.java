@@ -1,7 +1,7 @@
 package com.fintechviet.loyalty.service;
 
 import com.fintechviet.loyalty.model.Voucher;
-import com.fintechviet.loyalty.respository.VoucherRepository;
+import com.fintechviet.loyalty.repository.VoucherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

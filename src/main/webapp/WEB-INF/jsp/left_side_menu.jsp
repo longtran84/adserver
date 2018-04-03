@@ -50,9 +50,9 @@
                 </a>
             </li>
             <li>
-                <a href="${contextPath}/appAd">
+                <a href="${contextPath}/adLocation">
                     <i class="fa fa-laptop"></i>
-                    <span>Quảng cáo ứng dụng</span>
+                    <span>Địa điểm quảng cáo</span>
                 </a>
             </li>
             <li class="treeview">

@@ -1,7 +1,7 @@
 package com.fintechviet.loyalty.service;
 
 import com.fintechviet.loyalty.model.Phonecard;
-import com.fintechviet.loyalty.respository.PhonecardRepository;
+import com.fintechviet.loyalty.repository.PhonecardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

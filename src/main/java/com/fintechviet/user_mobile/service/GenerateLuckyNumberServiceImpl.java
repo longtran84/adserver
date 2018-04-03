@@ -1,5 +1,7 @@
 package com.fintechviet.user_mobile.service;
 
+import com.fintechviet.user_mobile.repository.MessageRepository;
+import com.fintechviet.user_mobile.model.Message;
 import com.fintechviet.user_mobile.model.UserMobile;
 import com.fintechviet.user_mobile.model.UserMobileLuckyNumber;
 import com.fintechviet.user_mobile.repository.UserMobileLuckyNumberRepository;
@@ -7,6 +9,7 @@ import com.fintechviet.user_mobile.repository.UserMobileRepository;
 import com.fintechviet.utils.DateUtils;
 import io.vavr.Tuple2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -23,6 +26,12 @@ public class GenerateLuckyNumberServiceImpl implements GenerateLuckyNumberServic
 
     @Autowired
     private UserMobileLuckyNumberRepository userMobileLuckyNumberRepository;
+
+    @Autowired
+    private MessageRepository messageRepository;
+
+    @Autowired
+    private MessageSource messageSource;
 
     @Override
     public void generateLuckCodeForUsers() {
@@ -65,19 +74,33 @@ public class GenerateLuckyNumberServiceImpl implements GenerateLuckyNumberServic
         @Override
         public void run() {
             List<UserMobileLuckyNumber> listToSave = new ArrayList<>();
+            List<Message> listMessageToSave = new ArrayList<>();
             Tuple2<Date, Date> weekInterval = DateUtils.getCurrentWeekInterval();
-            userMobiles.stream().forEach(e -> {
+            int count = 0;
+            for (UserMobile user : userMobiles) {
                 UserMobileLuckyNumber userMobileLuckyNumber = new UserMobileLuckyNumber();
-                userMobileLuckyNumber.setUserMobileId(e.getId());
+                userMobileLuckyNumber.setUserMobileId(user.getId());
                 userMobileLuckyNumber.setLuckyNumber(generateLuckyNumber());
                 userMobileLuckyNumber.setStartDateWeek(weekInterval._1);
                 userMobileLuckyNumber.setEndDateWeek(weekInterval._2);
-                userMobileLuckyNumber.setStatus("INVALID");
+                userMobileLuckyNumber.setStatus("VALID");
                 userMobileLuckyNumber.setCreateDate(Calendar.getInstance().getTime());
-
                 listToSave.add(userMobileLuckyNumber);
-            });
-            userMobileLuckyNumberRepository.save(listToSave);
+                Message message = new Message();
+                message.setSubject("Mã dự thưởng");
+                message.setBody("Mã dự thưởng của bạn: " + userMobileLuckyNumber.getLuckyNumber());
+                message.setUser(user);
+                message.setType("PROMOTION");
+                listMessageToSave.add(message);
+                count++;
+                if (count == 50 || userMobiles.size() < 50) {
+                    messageRepository.save(listMessageToSave);
+                    userMobileLuckyNumberRepository.save(listToSave);
+                    listMessageToSave.clear();
+                    listToSave.clear();
+                    count = 0;
+                }
+            }
         }
 
         private int generateLuckyNumber() {

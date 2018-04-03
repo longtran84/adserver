@@ -95,6 +95,7 @@ public class InAppMessageServiceImpl implements InAppMessageService {
                 if (count == 50 || userMobiles.size() < 50) {
                     messageRepository.save(messages);
                     messages.clear();
+                    count = 0;
                 }
             }
         } else {
