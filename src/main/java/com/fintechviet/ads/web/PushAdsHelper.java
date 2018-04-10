@@ -51,8 +51,8 @@ public class PushAdsHelper {
             UUID uuid = UUID.randomUUID();
 
             data.put("id", uuid);
-            data.put("type", ad.getDescription());
-            data.put("message", "Ad from SMA");
+            data.put("type", "AD_NOTIFICATION");
+            data.put("message", ad.getDescription());
             data.put("image", ad.getCreative().getImageLink());
             data.put("impressionUrl", DOMAIN + "/ad/impression/" + ad.getId());
             data.put("clickUrl", ad.getCreative().getClickUrl());
