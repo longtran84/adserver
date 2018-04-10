@@ -11,6 +11,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.util.UUID;
 
 /**
@@ -64,7 +65,7 @@ public class PushAdsHelper {
             
             OutputStreamWriter wr = new OutputStreamWriter(
                     conn.getOutputStream());
-            wr.write(json.toString());
+            wr.write(URLDecoder.decode(json.toString(), "UTF-8"));
             wr.flush();
 
             BufferedReader br = new BufferedReader(new InputStreamReader(
