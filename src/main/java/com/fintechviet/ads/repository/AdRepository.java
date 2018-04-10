@@ -16,4 +16,9 @@ public interface AdRepository extends JpaRepository<Ad, Long> {
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     @Query("UPDATE Ad SET status = :status WHERE id = :id")
     void updateStatus(@Param("status") String status, @Param("id") Long id);
+
+    @Query("SELECT ad FROM Ad ad WHERE ad.flight.id IN " +
+           "(SELECT fl.id FROM Flight fl WHERE fl.startDate <= CURRENT_DATE AND (fl.endDate >= CURRENT_DATE OR fl.endDate IS NULL)) AND " +
+           "ad.impressions > (SELECT COUNT(adi.id) FROM AdImpressions adi WHERE adi.ad.id = ad.id) AND ad.creative.template = 'image' AND ad.status = 'ACTIVE'")
+    List<Ad> findActiveAdvs();
 }

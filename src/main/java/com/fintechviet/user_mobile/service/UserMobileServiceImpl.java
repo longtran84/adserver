@@ -121,7 +121,7 @@ public class UserMobileServiceImpl implements UserMobileService {
                 UserMobile userMobile = userMobileRepository.findByInviteCode(key);
                 EarningDetails ed = new EarningDetails();
                 ed.setUid(userMobile.getId());
-                ed.setEvent("INVITE");
+                ed.setRewardCode("INVITE");
                 ed.setAmount(inviteEarning * hashInviteCode.get(key));
                 earningDetailsRepository.save(ed);
             }

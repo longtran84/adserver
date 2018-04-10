@@ -10,4 +10,5 @@ public interface AdService {
     List<Ad> getAllAds();
     void updateStatus(Long id, String status);
     Ad getAdById(long id);
+    List<Ad> findActiveAdvs();
 }

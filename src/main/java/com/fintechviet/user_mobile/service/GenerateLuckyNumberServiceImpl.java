@@ -90,7 +90,6 @@ public class GenerateLuckyNumberServiceImpl implements GenerateLuckyNumberServic
                 message.setSubject("Mã dự thưởng");
                 message.setBody("Mã dự thưởng của bạn: " + userMobileLuckyNumber.getLuckyNumber());
                 message.setUser(user);
-                message.setType("PROMOTION");
                 listMessageToSave.add(message);
                 count++;
                 if (count == 50 || userMobiles.size() < 50) {
