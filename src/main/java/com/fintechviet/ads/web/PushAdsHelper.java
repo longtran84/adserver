@@ -11,6 +11,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.UUID;
 
 /**
  * Created by tungn on 8/5/2017.
@@ -47,8 +48,11 @@ public class PushAdsHelper {
 
             JSONObject data = new JSONObject();
 
-            data.put("type", "AD_NOTIFICATION");
-            data.put("message", "Advertising from SMA");
+            UUID uuid = UUID.randomUUID();
+
+            data.put("id", uuid);
+            data.put("type", ad.getDescription());
+            data.put("message", "Ad from SMA");
             data.put("image", ad.getCreative().getImageLink());
             data.put("impressionUrl", DOMAIN + "/ad/impression/" + ad.getId());
             data.put("clickUrl", ad.getCreative().getClickUrl());
