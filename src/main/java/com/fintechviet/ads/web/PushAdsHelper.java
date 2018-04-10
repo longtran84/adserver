@@ -2,6 +2,8 @@ package com.fintechviet.ads.web;
 
 import com.fintechviet.ads.model.Ad;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,6 +20,8 @@ public class PushAdsHelper {
     private final static String API_URL_FCM = "https://fcm.googleapis.com/fcm/send";
     private final static String APP_ID = "1:373715018719:android:f1f1b5b6d977e750";
     private final static String DOMAIN = "http://222.252.16.132:9000";
+
+    private static final Logger LOG = LoggerFactory.getLogger(PushAdsHelper.class);
 
     public static String sendPushAds(Ad ad)
             throws IOException {
@@ -43,6 +47,7 @@ public class PushAdsHelper {
 
             JSONObject data = new JSONObject();
 
+            data.put("type", "AD_NOTIFICATION");
             data.put("message", "Advertising from SMA");
             data.put("image", ad.getCreative().getImageLink());
             data.put("impressionUrl", DOMAIN + "/ad/impression/" + ad.getId());
@@ -71,7 +76,7 @@ public class PushAdsHelper {
             e.printStackTrace();
             result = "FAILURE";
         }
-        System.out.println("GCM Notification is sent successfully");
+        LOG.info("FCM Notification is sent successfully");
 
         return result;
 

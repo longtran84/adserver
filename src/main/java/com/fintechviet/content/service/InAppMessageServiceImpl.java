@@ -85,10 +85,6 @@ public class InAppMessageServiceImpl implements InAppMessageService {
                     message.setSubject(inAppMessage.getSubject());
                     message.setBody(inAppMessage.getBody());
                     message.setUser(user);
-                    message.setType(inAppMessage.getType());
-                    if ("PRIMARY".equals(inAppMessage.getType())) {
-                        message.setReceive(Byte.valueOf("1"));
-                    }
                     messages.add(message);
                     count++;
                 }
@@ -104,10 +100,6 @@ public class InAppMessageServiceImpl implements InAppMessageService {
                 message.setSubject(inAppMessage.getSubject());
                 message.setBody(inAppMessage.getBody());
                 message.setUser(user);
-                message.setType(inAppMessage.getType());
-                if ("PRIMARY".equals(inAppMessage.getType())) {
-                    message.setReceive(Byte.valueOf("1"));
-                }
                 messages.add(message);
                 count++;
                 if (count == 50 || userMobiles.size() < 50) {

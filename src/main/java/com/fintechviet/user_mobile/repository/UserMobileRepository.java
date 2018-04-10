@@ -48,7 +48,7 @@ public interface UserMobileRepository extends JpaRepository<UserMobile, Long> {
     @Query("SELECT inviteCodeUsed FROM UserMobile WHERE createdDate <= :date24h AND isRewardForUserInvite = 0 AND inviteCodeUsed IS NOT NULL")
     List<String> getInviteCodesUsed(@Param("date24h") @Temporal(TemporalType.TIMESTAMP) Date date24h);
 
-    @Query("SELECT e FROM EarningDetails e WHERE e.event = 'INVITE' AND e.uid = (SELECT id FROM UserMobile WHERE inviteCode = :inviteCode)")
+    @Query("SELECT e FROM EarningDetails e WHERE e.rewardCode = 'INVITE' AND e.uid = (SELECT id FROM UserMobile WHERE inviteCode = :inviteCode)")
     EarningDetails getInviteEarningDetail(@Param("inviteCode") String inviteCode);
 
     UserMobile findByInviteCode(String inviteCode);
@@ -60,7 +60,7 @@ public interface UserMobileRepository extends JpaRepository<UserMobile, Long> {
 
     @Modifying
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
-    @Query("UPDATE EarningDetails SET amount = amount + :inviteEarning WHERE uid = (SELECT id FROM UserMobile WHERE inviteCode = :inviteCode) AND event = 'INVITE'")
+    @Query("UPDATE EarningDetails SET amount = amount + :inviteEarning WHERE uid = (SELECT id FROM UserMobile WHERE inviteCode = :inviteCode) AND rewardCode = 'INVITE'")
     void updateEarningDetailForUser(@Param("inviteEarning") long inviteEarning, @Param("inviteCode") String inviteCode);
 
     @Modifying

@@ -37,4 +37,9 @@ public class AdServiceImpl implements AdService {
         return adRepository.findOne(id);
     }
 
+    @Override
+    public List<Ad> findActiveAdvs() {
+        return adRepository.findActiveAdvs();
+    }
+
 }

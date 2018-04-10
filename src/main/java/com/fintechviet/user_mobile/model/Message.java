@@ -14,7 +14,6 @@ public class Message {
     private UserMobile userMobile;
     private String subject;
     private String body;
-    private String type;
     private Byte read = 0;
     private Byte receive = 0;
     private Timestamp createdDate;
@@ -58,16 +57,6 @@ public class Message {
 
     public void setBody(String body) {
         this.body = body;
-    }
-
-    @Basic
-    @Column(name = "type")
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     @Basic
