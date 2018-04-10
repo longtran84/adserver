@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by tungn on 4/9/2018.
@@ -47,14 +48,16 @@ public class ScheduledTasks {
     public void pushAdvNotification() {
         LOG.info("Push adv notification task :: Execution Time - "+  dateTimeFormatter.format(LocalDateTime.now()));
         List<Ad> ads = adService.findActiveAdvs();
-        try {
-            for (Ad ad : ads) {
+        if (ads.size() > 0) {
+            Random rd = new Random();
+            int index = rd.nextInt(ads.size() - 1);
+            Ad ad = ads.get(index);
+            try {
                 PushAdsHelper.sendPushAds(ad);
+            } catch (IOException ex) {
+                LOG.error("Push adv notification error: " + ex);
             }
-        } catch (IOException ex) {
-            LOG.error("Push adv notification error: " + ex);
         }
 
-        userMobileService.updateEarningForUser();
     }
 }
