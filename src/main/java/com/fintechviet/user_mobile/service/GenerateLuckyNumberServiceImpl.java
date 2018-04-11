@@ -92,12 +92,11 @@ public class GenerateLuckyNumberServiceImpl implements GenerateLuckyNumberServic
                 message.setUser(user);
                 listMessageToSave.add(message);
                 count++;
-                if (count == 50 || userMobiles.size() < 50) {
+                if (count % 50 == 0 || count == userMobiles.size()) {
                     messageRepository.save(listMessageToSave);
                     userMobileLuckyNumberRepository.save(listToSave);
                     listMessageToSave.clear();
                     listToSave.clear();
-                    count = 0;
                 }
             }
         }

@@ -32,8 +32,7 @@ public class ScheduledTasks {
     private static final Logger LOG = LoggerFactory.getLogger(ScheduledTasks.class);
     private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 
-    //@Scheduled(cron = "0 0 1 ? * MON")
-    @Scheduled(cron = "0 0/3 * * * ?")
+    @Scheduled(cron = "0 0 1 ? * MON")
     public void generateLuckyNumber() {
         LOG.info("Generate Lucky number task :: Execution Time - "+  dateTimeFormatter.format(LocalDateTime.now()));
         generateLuckyNumberService.generateLuckCodeForUsers();
@@ -45,7 +44,7 @@ public class ScheduledTasks {
         userMobileService.updateEarningForUser();
     }
 
-    @Scheduled(cron = "0 0/3 * * * ?")
+    @Scheduled(cron = "0 0/5 * * * ?")
     public void pushAdvNotification() {
         LOG.info("Push adv notification task :: Execution Time - "+  dateTimeFormatter.format(LocalDateTime.now()));
         List<Ad> ads = adService.findActiveAdvs();
