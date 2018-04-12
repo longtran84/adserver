@@ -12,7 +12,6 @@ import java.sql.Timestamp;
 @Table(name = "phonecard")
 public class Phonecard {
     private Integer id;
-    private String legacyId;
     private String name;
     private String image;
     private Integer price;
@@ -30,16 +29,6 @@ public class Phonecard {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    @Basic
-    @Column(name = "legacyId")
-    public String getLegacyId() {
-        return legacyId;
-    }
-
-    public void setLegacyId(String legacyId) {
-        this.legacyId = legacyId;
     }
 
     @Basic

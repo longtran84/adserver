@@ -12,7 +12,6 @@ import java.sql.Timestamp;
 @Table(name = "voucher")
 public class Voucher {
     private Integer id;
-    private String legacyId;
     private String name;
     private String type;
     private String picture;
@@ -34,16 +33,6 @@ public class Voucher {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    @Basic
-    @Column(name = "legacyId")
-    public String getLegacyId() {
-        return legacyId;
-    }
-
-    public void setLegacyId(String legacyId) {
-        this.legacyId = legacyId;
     }
 
     @Basic
