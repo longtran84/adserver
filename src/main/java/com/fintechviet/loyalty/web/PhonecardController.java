@@ -68,7 +68,6 @@ public class PhonecardController {
             phonecard = phonecardService.findById(phoneCardForm.getId());
             phonecard.setName(phoneCardForm.getName());
             phonecard.setPrice(phoneCardForm.getPrice());
-            phonecard.setLegacyId(phoneCardForm.getLegacyId());
             phonecard.setStatus(phoneCardForm.getStatus());
             if (StringUtils.isNotEmpty(phoneCardForm.getImage()))
                 phonecard.setImage(phoneCardForm.getImage());

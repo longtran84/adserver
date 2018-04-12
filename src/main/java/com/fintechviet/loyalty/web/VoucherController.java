@@ -68,7 +68,6 @@ public class VoucherController {
             voucher = voucherService.findById(voucherForm.getId());
             voucher.setName(voucherForm.getName());
             voucher.setPrice(voucherForm.getPrice());
-            voucher.setLegacyId(voucherForm.getLegacyId());
             voucher.setType(voucherForm.getType());
             voucher.setDescription(voucherForm.getDescription());
             voucher.setMarketPrice(voucherForm.getMarketPrice());
